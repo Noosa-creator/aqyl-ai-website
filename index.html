@@ -3,11 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aqyl.ai — AI автоматизация для бизнеса в Алматы</title>
+<title>AqylAI — AI автоматизация для бизнеса в Алматы</title>
 <meta name="description" content="WhatsApp и Telegram боты для бизнеса в Алматы. Настройка за 48 часов. Первая консультация бесплатно.">
-<meta property="og:title" content="Aqyl.ai — AI автоматизация для бизнеса в Алматы">
+<meta property="og:title" content="AqylAI — AI автоматизация для бизнеса в Алматы">
 <meta property="og:description" content="WhatsApp и Telegram боты для бизнеса в Алматы. Настройка за 48 часов.">
 <meta property="og:url" content="https://aqyl-ai.kz">
+
+<!-- FAVICON: inline SVG moon crescent — shows in browser tab -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Cdefs%3E%3CclipPath id='c'%3E%3Ccircle cx='40' cy='40' r='32'/%3E%3C/clipPath%3E%3C/defs%3E%3Crect width='80' height='80' rx='16' fill='%23060c14'/%3E%3Ccircle cx='40' cy='40' r='32' fill='%2322d3ee'/%3E%3Ccircle cx='57' cy='34' r='27' fill='%23060c14' clip-path='url(%23c)'/%3E%3Ccircle cx='21' cy='23' r='4.5' fill='%23ffffff'/%3E%3C/svg%3E">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -55,23 +59,19 @@
     bottom: 5%; left: -150px;
     animation: drift2 25s ease-in-out infinite alternate;
   }
-  @keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(-80px, 100px) scale(1.12); } }
+  @keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(-80px,100px) scale(1.12); } }
   @keyframes drift2 { from { transform: translate(0,0); } to { transform: translate(50px,-70px); } }
 
   /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    padding: 16px 40px;
+    padding: 14px 40px;
     display: flex; align-items: center; justify-content: space-between;
     backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
     background: rgba(6,12,20,0.75);
     border-bottom: 1px solid var(--border);
   }
-  .nav-logo {
-    font-family: var(--mono); font-size: 16px;
-    color: var(--cyan); letter-spacing: 0.04em; text-decoration: none;
-  }
-  .nav-logo span { color: rgba(34,211,238,0.45); }
+  .nav-logo { display: flex; align-items: center; text-decoration: none; }
   .nav-cta {
     background: var(--cyan-dim); border: 1px solid var(--border);
     color: var(--cyan); padding: 9px 22px; border-radius: 7px;
@@ -83,11 +83,7 @@
   /* LAYOUT */
   .wrap { max-width: 1000px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
   section { padding: 100px 0; }
-  .section-tag {
-    font-family: var(--mono); font-size: 11px; color: var(--cyan);
-    letter-spacing: 0.14em; text-transform: uppercase;
-    margin-bottom: 14px; display: block;
-  }
+  .section-tag { font-family: var(--mono); font-size: 11px; color: var(--cyan); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 14px; display: block; }
   h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 14px; }
   .section-sub { font-size: 17px; color: var(--muted); max-width: 520px; line-height: 1.7; margin-bottom: 52px; }
 
@@ -100,60 +96,21 @@
     padding: 5px 14px; border-radius: 100px; margin-bottom: 28px;
     animation: fadeUp 0.8s ease both;
   }
-  .hero-tag::before {
-    content: ''; width: 6px; height: 6px; border-radius: 50%;
-    background: var(--cyan); box-shadow: 0 0 8px var(--cyan);
-    animation: blink 2s ease infinite;
-  }
+  .hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); animation: blink 2s ease infinite; }
   @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
 
-  h1 {
-    font-size: clamp(38px, 6.5vw, 72px); font-weight: 800;
-    line-height: 1.07; letter-spacing: -0.035em; margin-bottom: 22px;
-    animation: fadeUp 0.9s ease 0.1s both;
-  }
-  h1 em {
-    font-style: normal;
-    background: linear-gradient(130deg, var(--cyan) 0%, #a5f3fc 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  }
-  .hero-sub {
-    font-size: 18px; color: var(--muted); max-width: 560px;
-    margin-bottom: 38px; font-weight: 300; line-height: 1.75;
-    animation: fadeUp 1s ease 0.2s both;
-  }
+  h1 { font-size: clamp(38px, 6.5vw, 72px); font-weight: 800; line-height: 1.07; letter-spacing: -0.035em; margin-bottom: 22px; animation: fadeUp 0.9s ease 0.1s both; }
+  h1 em { font-style: normal; background: linear-gradient(130deg, var(--cyan) 0%, #a5f3fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-sub { font-size: 18px; color: var(--muted); max-width: 560px; margin-bottom: 38px; font-weight: 300; line-height: 1.75; animation: fadeUp 1s ease 0.2s both; }
   .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; animation: fadeUp 1s ease 0.3s both; }
 
-  .btn-primary {
-    display: inline-flex; align-items: center; gap: 10px;
-    background: linear-gradient(135deg, var(--cyan2), var(--cyan));
-    color: var(--bg); font-weight: 700; font-size: 15px;
-    padding: 14px 28px; border-radius: 8px;
-    text-decoration: none; border: none; cursor: pointer; transition: all 0.25s;
-    box-shadow: 0 0 28px rgba(34,211,238,0.28);
-    font-family: var(--font);
-  }
+  .btn-primary { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, var(--cyan2), var(--cyan)); color: var(--bg); font-weight: 700; font-size: 15px; padding: 14px 28px; border-radius: 8px; text-decoration: none; border: none; cursor: pointer; transition: all 0.25s; box-shadow: 0 0 28px rgba(34,211,238,0.28); font-family: var(--font); }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 44px rgba(34,211,238,0.42); }
-
-  .btn-secondary {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: transparent; color: var(--text); font-size: 15px; font-weight: 600;
-    padding: 14px 28px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.11);
-    cursor: pointer; text-decoration: none; transition: all 0.25s; font-family: var(--font);
-  }
+  .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--text); font-size: 15px; font-weight: 600; padding: 14px 28px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.11); cursor: pointer; text-decoration: none; transition: all 0.25s; font-family: var(--font); }
   .btn-secondary:hover { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); }
 
-  .hero-trust {
-    margin-top: 22px; font-size: 13px; color: var(--muted);
-    display: flex; align-items: center; gap: 8px;
-    animation: fadeUp 1s ease 0.4s both;
-  }
-
-  .hero-stats {
-    display: flex; gap: 44px; margin-top: 60px; flex-wrap: wrap;
-    animation: fadeUp 1s ease 0.5s both;
-    border-top: 1px solid var(--border); padding-top: 40px;
-  }
+  .hero-trust { margin-top: 22px; font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 8px; animation: fadeUp 1s ease 0.4s both; }
+  .hero-stats { display: flex; gap: 44px; margin-top: 60px; flex-wrap: wrap; animation: fadeUp 1s ease 0.5s both; border-top: 1px solid var(--border); padding-top: 40px; }
   .stat-num { font-family: var(--mono); font-size: 30px; font-weight: 700; color: var(--cyan); letter-spacing: -0.02em; }
   .stat-label { font-size: 13px; color: var(--muted); margin-top: 3px; }
 
@@ -162,108 +119,51 @@
   /* PAIN */
   #pain { background: var(--bg2); }
   .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
-  .pain-card {
-    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-    padding: 28px; transition: all 0.3s; backdrop-filter: blur(10px);
-  }
+  .pain-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px; transition: all 0.3s; backdrop-filter: blur(10px); }
   .pain-card:hover { border-color: rgba(34,211,238,0.32); transform: translateY(-4px); box-shadow: 0 14px 44px rgba(34,211,238,0.07); }
   .pain-icon { font-size: 28px; margin-bottom: 14px; display: block; }
   .pain-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
   .pain-text { font-size: 14px; color: var(--muted); line-height: 1.65; }
 
   /* DEMO */
-  #demo { }
-  .demo-wrapper {
-    max-width: 480px; margin: 0 auto;
-    background: var(--bg3); border: 1px solid var(--border); border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 28px 90px rgba(34,211,238,0.09), 0 0 0 1px rgba(34,211,238,0.04);
-  }
-  .demo-header {
-    background: linear-gradient(90deg, #091626, #0c1e33);
-    padding: 16px 20px; display: flex; align-items: center; gap: 12px;
-    border-bottom: 1px solid var(--border);
-  }
-  .demo-avatar {
-    width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
-    background: linear-gradient(135deg, var(--cyan2), #0891b2);
-    display: flex; align-items: center; justify-content: center; font-size: 20px;
-  }
+  .demo-wrapper { max-width: 480px; margin: 0 auto; background: var(--bg3); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 28px 90px rgba(34,211,238,0.09); }
+  .demo-header { background: linear-gradient(90deg, #091626, #0c1e33); padding: 16px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); }
+  .demo-avatar { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; background: linear-gradient(135deg, var(--cyan2), #0891b2); display: flex; align-items: center; justify-content: center; font-size: 20px; }
   .demo-name { font-weight: 700; font-size: 14px; }
   .demo-status { font-size: 12px; color: #4ade80; display: flex; align-items: center; gap: 5px; margin-top: 1px; }
   .demo-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 6px #4ade80; animation: blink 2s ease infinite; }
-
-  .demo-messages {
-    padding: 20px; height: 340px; overflow-y: auto;
-    display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth;
-  }
+  .demo-messages { padding: 20px; height: 340px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
   .demo-messages::-webkit-scrollbar { width: 3px; }
   .demo-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-
-  .msg {
-    max-width: 82%; padding: 10px 14px; border-radius: 12px;
-    font-size: 14px; line-height: 1.55; animation: msgIn 0.3s ease;
-  }
+  .msg { max-width: 82%; padding: 10px 14px; border-radius: 12px; font-size: 14px; line-height: 1.55; animation: msgIn 0.3s ease; }
   @keyframes msgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   .msg.bot { background: var(--bg2); border: 1px solid var(--border); align-self: flex-start; border-bottom-left-radius: 3px; }
   .msg.user { background: linear-gradient(135deg, #0b4a6e, #0e5980); align-self: flex-end; border-bottom-right-radius: 3px; border: 1px solid rgba(34,211,238,0.18); }
   .msg-time { font-size: 10px; color: var(--muted); margin-top: 5px; }
-
   .typing { display: flex; gap: 4px; align-items: center; padding: 12px 14px; }
   .typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); animation: bounce 1.2s ease infinite; }
   .typing span:nth-child(2) { animation-delay: 0.2s; }
   .typing span:nth-child(3) { animation-delay: 0.4s; }
   @keyframes bounce { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-7px); } }
-
   .demo-chips { padding: 8px 16px 10px; display: flex; gap: 7px; flex-wrap: wrap; }
-  .chip {
-    background: var(--cyan-dim); border: 1px solid var(--border);
-    color: var(--cyan); font-size: 12px; padding: 5px 12px;
-    border-radius: 100px; cursor: pointer; transition: all 0.2s; font-family: var(--font);
-  }
+  .chip { background: var(--cyan-dim); border: 1px solid var(--border); color: var(--cyan); font-size: 12px; padding: 5px 12px; border-radius: 100px; cursor: pointer; transition: all 0.2s; font-family: var(--font); }
   .chip:hover { background: var(--cyan-glow); border-color: var(--cyan); }
-
-  .demo-input-row {
-    padding: 10px 16px 16px; display: flex; gap: 8px; align-items: center;
-    border-top: 1px solid var(--border);
-  }
-  .demo-input {
-    flex: 1; background: var(--bg2); border: 1px solid var(--border);
-    border-radius: 8px; padding: 10px 14px; font-size: 14px;
-    color: var(--text); font-family: var(--font); outline: none; transition: border-color 0.2s;
-  }
+  .demo-input-row { padding: 10px 16px 16px; display: flex; gap: 8px; align-items: center; border-top: 1px solid var(--border); }
+  .demo-input { flex: 1; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 14px; color: var(--text); font-family: var(--font); outline: none; transition: border-color 0.2s; }
   .demo-input:focus { border-color: var(--cyan2); }
   .demo-input::placeholder { color: var(--muted); }
-
-  .demo-send {
-    width: 40px; height: 40px; border-radius: 8px; flex-shrink: 0;
-    background: linear-gradient(135deg, var(--cyan2), var(--cyan));
-    border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    color: var(--bg); font-size: 16px; transition: all 0.2s;
-  }
+  .demo-send { width: 40px; height: 40px; border-radius: 8px; flex-shrink: 0; background: linear-gradient(135deg, var(--cyan2), var(--cyan)); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--bg); font-size: 16px; transition: all 0.2s; }
   .demo-send:hover { transform: scale(1.06); box-shadow: 0 0 18px rgba(34,211,238,0.38); }
   .demo-send:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 
   /* SERVICES */
   #services { background: var(--bg2); }
   .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
-  .service-card {
-    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-    padding: 28px 24px; transition: all 0.3s; position: relative; overflow: hidden;
-    backdrop-filter: blur(10px);
-  }
-  .service-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, transparent, var(--cyan2), transparent);
-    opacity: 0; transition: opacity 0.3s;
-  }
+  .service-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px 24px; transition: all 0.3s; position: relative; overflow: hidden; backdrop-filter: blur(10px); }
+  .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--cyan2), transparent); opacity: 0; transition: opacity 0.3s; }
   .service-card:hover { border-color: rgba(34,211,238,0.32); transform: translateY(-4px); }
   .service-card:hover::before { opacity: 1; }
-  .service-badge {
-    display: inline-block; font-size: 11px; font-weight: 700;
-    background: var(--cyan-dim); color: var(--cyan); border: 1px solid var(--border);
-    padding: 3px 10px; border-radius: 100px; margin-bottom: 16px;
-  }
+  .service-badge { display: inline-block; font-size: 11px; font-weight: 700; background: var(--cyan-dim); color: var(--cyan); border: 1px solid var(--border); padding: 3px 10px; border-radius: 100px; margin-bottom: 16px; }
   .service-icon { font-size: 28px; margin-bottom: 12px; display: block; }
   .service-name { font-size: 15px; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
   .service-desc { font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.55; }
@@ -274,59 +174,31 @@
   .steps { max-width: 640px; }
   .step { display: flex; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--border); }
   .step:last-child { border-bottom: none; }
-  .step-num {
-    width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
-    background: var(--cyan-dim); border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--mono); font-size: 13px; color: var(--cyan); font-weight: 700;
-  }
+  .step-num { width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0; background: var(--cyan-dim); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 13px; color: var(--cyan); font-weight: 700; }
   .step-body h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
   .step-body p { font-size: 14px; color: var(--muted); line-height: 1.65; }
-  .guarantee-box {
-    margin-top: 40px; background: var(--cyan-dim);
-    border: 1px solid var(--border); border-radius: 10px; padding: 18px 24px;
-    display: flex; align-items: center; gap: 14px; font-size: 14px; font-weight: 600;
-  }
+  .guarantee-box { margin-top: 40px; background: var(--cyan-dim); border: 1px solid var(--border); border-radius: 10px; padding: 18px 24px; display: flex; align-items: center; gap: 14px; font-size: 14px; font-weight: 600; }
 
   /* FAQ */
   #faq { background: var(--bg2); }
   .faq-list { max-width: 700px; display: flex; flex-direction: column; gap: 10px; }
   .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; transition: border-color 0.2s; }
   .faq-item.open { border-color: rgba(34,211,238,0.28); }
-  .faq-q {
-    width: 100%; background: none; border: none; color: var(--text);
-    font-size: 15px; font-weight: 600; font-family: var(--font);
-    padding: 18px 22px; text-align: left; cursor: pointer;
-    display: flex; justify-content: space-between; align-items: center; gap: 12px;
-    transition: color 0.2s;
-  }
+  .faq-q { width: 100%; background: none; border: none; color: var(--text); font-size: 15px; font-weight: 600; font-family: var(--font); padding: 18px 22px; text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; transition: color 0.2s; }
   .faq-q:hover { color: var(--cyan); }
   .faq-icon { font-size: 20px; flex-shrink: 0; transition: transform 0.3s; color: var(--cyan); }
   .faq-item.open .faq-icon { transform: rotate(45deg); }
-  .faq-a {
-    max-height: 0; overflow: hidden;
-    transition: max-height 0.35s ease, padding 0.35s ease;
-    font-size: 14px; color: var(--muted); line-height: 1.7; padding: 0 22px;
-  }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; font-size: 14px; color: var(--muted); line-height: 1.7; padding: 0 22px; }
   .faq-item.open .faq-a { max-height: 200px; padding: 0 22px 18px; }
 
   /* CTA */
-  #cta {
-    text-align: center;
-    background: radial-gradient(ellipse at 50% 0%, rgba(34,211,238,0.065) 0%, transparent 55%), var(--bg);
-  }
+  #cta { text-align: center; background: radial-gradient(ellipse at 50% 0%, rgba(34,211,238,0.065) 0%, transparent 55%), var(--bg); }
   #cta h2 { margin-bottom: 14px; }
   #cta .section-sub { margin: 0 auto 40px; text-align: center; }
   .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
   /* FOOTER */
-  footer {
-    padding: 30px 40px; text-align: center;
-    border-top: 1px solid var(--border);
-    font-size: 13px; color: var(--muted);
-    position: relative; z-index: 1;
-    line-height: 1.8;
-  }
+  footer { padding: 30px 40px; text-align: center; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted); position: relative; z-index: 1; line-height: 1.8; }
   footer a { color: var(--cyan); text-decoration: none; }
   footer a:hover { text-decoration: underline; }
 
@@ -351,9 +223,22 @@
 
 <div class="mesh"></div>
 
-<!-- NAV -->
+<!-- NAV with moon logo SVG -->
 <nav>
-  <a class="nav-logo" href="#">AQYL<span>.AI</span></a>
+  <a class="nav-logo" href="#">
+    <svg width="140" height="38" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="nav-crescent">
+          <circle cx="40" cy="40" r="32"/>
+        </clipPath>
+      </defs>
+      <circle cx="40" cy="40" r="32" fill="#22d3ee"/>
+      <circle cx="57" cy="34" r="27" fill="#060c14" clip-path="url(#nav-crescent)"/>
+      <circle cx="21" cy="23" r="4.5" fill="#ffffff"/>
+      <text x="96" y="52" font-family="'Sora','Helvetica Neue',Arial,sans-serif" font-size="40" font-weight="800" letter-spacing="-1.5" fill="#f0f9ff">AQYL</text>
+      <text x="221" y="52" font-family="'Sora','Helvetica Neue',Arial,sans-serif" font-size="40" font-weight="800" letter-spacing="-1.5" fill="#22d3ee">AI</text>
+    </svg>
+  </a>
   <a class="nav-cta" href="https://wa.me/77074043006?text=Здравствуйте!+Хочу+узнать+про+AI-автоматизацию" target="_blank">
     Написать в WhatsApp →
   </a>
@@ -364,29 +249,16 @@
   <div class="wrap">
     <div class="hero-tag">AI автоматизация · Алматы</div>
     <h1>Ваш бизнес<br>теряет клиентов<br><em>прямо сейчас</em></h1>
-    <p class="hero-sub">Пока вы заняты — клиенты пишут и уходят к конкурентам. AI-бот Aqyl отвечает за вас круглосуточно, записывает и напоминает.</p>
+    <p class="hero-sub">Пока вы заняты — клиенты пишут и уходят к конкурентам. AI-бот AqylAI отвечает за вас круглосуточно, записывает и напоминает.</p>
     <div class="hero-btns">
-      <a class="btn-primary" href="https://wa.me/77074043006?text=Здравствуйте!+Хочу+узнать+про+AI-автоматизацию" target="_blank">
-        💬 Написать в WhatsApp
-      </a>
-      <button class="btn-secondary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">
-        Смотреть демо ↓
-      </button>
+      <a class="btn-primary" href="https://wa.me/77074043006?text=Здравствуйте!+Хочу+узнать+про+AI-автоматизацию" target="_blank">💬 Написать в WhatsApp</a>
+      <button class="btn-secondary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Смотреть демо ↓</button>
     </div>
     <p class="hero-trust">🔒 Без подписок. Только результат. Первая консультация бесплатно.</p>
     <div class="hero-stats">
-      <div>
-        <div class="stat-num">1 150+</div>
-        <div class="stat-label">лидов в базе</div>
-      </div>
-      <div>
-        <div class="stat-num">48 ч</div>
-        <div class="stat-label">до запуска бота</div>
-      </div>
-      <div>
-        <div class="stat-num">~₸4K</div>
-        <div class="stat-label">стоимость API / мес</div>
-      </div>
+      <div><div class="stat-num">1 150+</div><div class="stat-label">лидов в базе</div></div>
+      <div><div class="stat-num">48 ч</div><div class="stat-label">до запуска бота</div></div>
+      <div><div class="stat-num">~₸4K</div><div class="stat-label">стоимость API / мес</div></div>
     </div>
   </div>
 </section>
@@ -398,21 +270,9 @@
     <h2 class="reveal">Узнаёте себя?</h2>
     <p class="section-sub reveal">Каждый потерянный клиент — это деньги конкурентам.</p>
     <div class="pain-grid">
-      <div class="pain-card reveal">
-        <span class="pain-icon">😤</span>
-        <div class="pain-title">Администратор не успевает</div>
-        <p class="pain-text">Клиенты пишут в нерабочее время — и уходят, не дождавшись ответа. Вы об этом даже не узнаёте.</p>
-      </div>
-      <div class="pain-card reveal">
-        <span class="pain-icon">📉</span>
-        <div class="pain-title">Пропущенные записи = потерянные деньги</div>
-        <p class="pain-text">Забытые напоминания и ручная запись стоят 20–40% выручки каждый месяц. Реальные цифры.</p>
-      </div>
-      <div class="pain-card reveal">
-        <span class="pain-icon">🔁</span>
-        <div class="pain-title">Одни и те же вопросы каждый день</div>
-        <p class="pain-text">«Сколько стоит?», «Вы работаете в воскресенье?» — бот отвечает мгновенно, без усталости.</p>
-      </div>
+      <div class="pain-card reveal"><span class="pain-icon">😤</span><div class="pain-title">Администратор не успевает</div><p class="pain-text">Клиенты пишут в нерабочее время — и уходят, не дождавшись ответа. Вы об этом даже не узнаёте.</p></div>
+      <div class="pain-card reveal"><span class="pain-icon">📉</span><div class="pain-title">Пропущенные записи = потерянные деньги</div><p class="pain-text">Забытые напоминания и ручная запись стоят 20–40% выручки каждый месяц. Реальные цифры.</p></div>
+      <div class="pain-card reveal"><span class="pain-icon">🔁</span><div class="pain-title">Одни и те же вопросы каждый день</div><p class="pain-text">«Сколько стоит?», «Вы работаете в воскресенье?» — бот отвечает мгновенно, без усталости.</p></div>
     </div>
   </div>
 </section>
@@ -426,16 +286,10 @@
     <div class="demo-wrapper reveal">
       <div class="demo-header">
         <div class="demo-avatar">🦷</div>
-        <div>
-          <div class="demo-name">Стоматология «Жемчуг»</div>
-          <div class="demo-status">онлайн 24/7</div>
-        </div>
+        <div><div class="demo-name">Стоматология «Жемчуг»</div><div class="demo-status">онлайн 24/7</div></div>
       </div>
       <div class="demo-messages" id="chat-messages">
-        <div class="msg bot">
-          Здравствуйте! 👋 Я помощник стоматологии «Жемчуг». Чем могу помочь? Запишу на приём, расскажу о ценах или отвечу на вопросы.
-          <div class="msg-time">сейчас</div>
-        </div>
+        <div class="msg bot">Здравствуйте! 👋 Я помощник стоматологии «Жемчуг». Чем могу помочь? Запишу на приём, расскажу о ценах или отвечу на вопросы.<div class="msg-time">сейчас</div></div>
       </div>
       <div class="demo-chips">
         <button class="chip" onclick="sendChip('💰 Цены на услуги')">💰 Цены</button>
@@ -458,73 +312,26 @@
     <h2 class="reveal">Что мы делаем</h2>
     <p class="section-sub reveal">Выберите то, что нужно вашему бизнесу прямо сейчас.</p>
     <div class="services-grid">
-      <div class="service-card reveal">
-        <span class="service-badge">🔥 Самый популярный</span>
-        <span class="service-icon">💬</span>
-        <div class="service-name">WhatsApp / Telegram бот</div>
-        <p class="service-desc">Отвечает, записывает, напоминает 24/7. Освобождает администратора для реальной работы.</p>
-        <div class="service-setup">от ₸120 000</div>
-        <div class="service-monthly">+ от ₸40 000 / мес</div>
-      </div>
-      <div class="service-card reveal">
-        <span class="service-icon">🌐</span>
-        <div class="service-name">Чат-бот для сайта</div>
-        <p class="service-desc">Виджет на сайт. Захватывает лидов мгновенно, пока вы спите.</p>
-        <div class="service-setup">от ₸200 000</div>
-        <div class="service-monthly">+ от ₸40 000 / мес</div>
-      </div>
-      <div class="service-card reveal">
-        <span class="service-badge">Новинка</span>
-        <span class="service-icon">📞</span>
-        <div class="service-name">Автодозвон по лидам</div>
-        <p class="service-desc">AI сам обзванивает базу клиентов и квалифицирует заявки без вашего участия.</p>
-        <div class="service-setup">от ₸300 000</div>
-        <div class="service-monthly">+ от ₸80 000 / мес</div>
-      </div>
-      <div class="service-card reveal">
-        <span class="service-icon">🚀</span>
-        <div class="service-name">Полный пакет</div>
-        <p class="service-desc">Бот + запись + напоминания + голосовой ресепшн. Максимум автоматизации.</p>
-        <div class="service-setup">от ₸400 000</div>
-        <div class="service-monthly">+ от ₸150 000 / мес</div>
-      </div>
+      <div class="service-card reveal"><span class="service-badge">🔥 Самый популярный</span><span class="service-icon">💬</span><div class="service-name">WhatsApp / Telegram бот</div><p class="service-desc">Отвечает, записывает, напоминает 24/7. Освобождает администратора для реальной работы.</p><div class="service-setup">от ₸120 000</div><div class="service-monthly">+ от ₸40 000 / мес</div></div>
+      <div class="service-card reveal"><span class="service-icon">🌐</span><div class="service-name">Чат-бот для сайта</div><p class="service-desc">Виджет на сайт. Захватывает лидов мгновенно, пока вы спите.</p><div class="service-setup">от ₸200 000</div><div class="service-monthly">+ от ₸40 000 / мес</div></div>
+      <div class="service-card reveal"><span class="service-badge">Новинка</span><span class="service-icon">📞</span><div class="service-name">Автодозвон по лидам</div><p class="service-desc">AI сам обзванивает базу клиентов и квалифицирует заявки без вашего участия.</p><div class="service-setup">от ₸300 000</div><div class="service-monthly">+ от ₸80 000 / мес</div></div>
+      <div class="service-card reveal"><span class="service-icon">🚀</span><div class="service-name">Полный пакет</div><p class="service-desc">Бот + запись + напоминания + голосовой ресепшн. Максимум автоматизации.</p><div class="service-setup">от ₸400 000</div><div class="service-monthly">+ от ₸150 000 / мес</div></div>
     </div>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
+<!-- HOW -->
 <section id="how">
   <div class="wrap">
     <span class="section-tag reveal">Процесс</span>
     <h2 class="reveal">Бот живёт через 48 часов</h2>
     <p class="section-sub reveal">Никакого долгого согласования. Быстро и понятно.</p>
     <div class="steps">
-      <div class="step reveal">
-        <div class="step-num">01</div>
-        <div class="step-body">
-          <h3>Разбор задачи — День 1</h3>
-          <p>Вы рассказываете про бизнес. Мы изучаем сайт, соцсети и частые вопросы клиентов — строим архитектуру бота под ваши задачи.</p>
-        </div>
-      </div>
-      <div class="step reveal">
-        <div class="step-num">02</div>
-        <div class="step-body">
-          <h3>Настройка и тест — День 1–2</h3>
-          <p>Настраиваем AI, пишем систему ответов, тестируем на реальных сценариях вашего бизнеса. Вы всё видите и одобряете.</p>
-        </div>
-      </div>
-      <div class="step reveal">
-        <div class="step-num">03</div>
-        <div class="step-body">
-          <h3>Запуск и поддержка — День 2</h3>
-          <p>Бот идёт в работу в вашем WhatsApp или Telegram. Вы получаете доступ и инструкцию. Мы всегда на связи.</p>
-        </div>
-      </div>
+      <div class="step reveal"><div class="step-num">01</div><div class="step-body"><h3>Разбор задачи — День 1</h3><p>Вы рассказываете про бизнес. Мы изучаем сайт, соцсети и частые вопросы клиентов — строим архитектуру бота под ваши задачи.</p></div></div>
+      <div class="step reveal"><div class="step-num">02</div><div class="step-body"><h3>Настройка и тест — День 1–2</h3><p>Настраиваем AI, пишем систему ответов, тестируем на реальных сценариях вашего бизнеса. Вы всё видите и одобряете.</p></div></div>
+      <div class="step reveal"><div class="step-num">03</div><div class="step-body"><h3>Запуск и поддержка — День 2</h3><p>Бот идёт в работу в вашем WhatsApp или Telegram. Вы получаете доступ и инструкцию. Мы всегда на связи.</p></div></div>
     </div>
-    <div class="guarantee-box reveal">
-      <span>✅</span>
-      <span>Бот работает через 48 часов — или возвращаем деньги за настройку.</span>
-    </div>
+    <div class="guarantee-box reveal"><span>✅</span><span>Бот работает через 48 часов — или возвращаем деньги за настройку.</span></div>
   </div>
 </section>
 
@@ -534,30 +341,12 @@
     <span class="section-tag reveal">FAQ</span>
     <h2 class="reveal">Частые вопросы</h2>
     <div class="faq-list">
-      <div class="faq-item reveal">
-        <button class="faq-q" onclick="toggleFaq(this)">Это сложно для моего бизнеса?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Нет. Мы берём на себя всё — от настройки до запуска. Вам нужно только ответить на наши вопросы про бизнес. Никаких технических знаний не требуется.</div>
-      </div>
-      <div class="faq-item reveal">
-        <button class="faq-q" onclick="toggleFaq(this)">Бот отвечает на русском и казахском?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Да. Бот определяет язык по первому сообщению клиента и отвечает на нём же — на русском или казахском.</div>
-      </div>
-      <div class="faq-item reveal">
-        <button class="faq-q" onclick="toggleFaq(this)">Что если бот не знает ответа?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Он скажет клиенту, что уточнит информацию, и пришлёт вам уведомление в Telegram с вопросом и номером клиента. Ни один лид не потеряется.</div>
-      </div>
-      <div class="faq-item reveal">
-        <button class="faq-q" onclick="toggleFaq(this)">Мне нужен сайт или Instagram?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Нет. Бот работает через WhatsApp или Telegram — там, где уже есть ваши клиенты. Сайт не обязателен.</div>
-      </div>
-      <div class="faq-item reveal">
-        <button class="faq-q" onclick="toggleFaq(this)">Сколько реально стоит в месяц?<span class="faq-icon">+</span></button>
-        <div class="faq-a">От ₸40 000/мес + ~₸2 000–₸4 000 API-расходов для спокойной клиники. Никаких скрытых платежей — всё прозрачно с первого дня.</div>
-      </div>
-      <div class="faq-item reveal">
-        <button class="faq-q" onclick="toggleFaq(this)">Можно сначала посмотреть демо?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Конечно — оно прямо на этой странице выше. Также напишите нам в WhatsApp и мы покажем живую демонстрацию под ваш тип бизнеса.</div>
-      </div>
+      <div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)">Это сложно для моего бизнеса?<span class="faq-icon">+</span></button><div class="faq-a">Нет. Мы берём на себя всё — от настройки до запуска. Вам нужно только ответить на наши вопросы про бизнес. Никаких технических знаний не требуется.</div></div>
+      <div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)">Бот отвечает на русском и казахском?<span class="faq-icon">+</span></button><div class="faq-a">Да. Бот определяет язык по первому сообщению клиента и отвечает на нём же — на русском или казахском.</div></div>
+      <div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)">Что если бот не знает ответа?<span class="faq-icon">+</span></button><div class="faq-a">Он скажет клиенту, что уточнит информацию, и пришлёт вам уведомление в Telegram с вопросом и номером клиента. Ни один лид не потеряется.</div></div>
+      <div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)">Мне нужен сайт или Instagram?<span class="faq-icon">+</span></button><div class="faq-a">Нет. Бот работает через WhatsApp или Telegram — там, где уже есть ваши клиенты. Сайт не обязателен.</div></div>
+      <div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)">Сколько реально стоит в месяц?<span class="faq-icon">+</span></button><div class="faq-a">От ₸40 000/мес + ~₸2 000–₸4 000 API-расходов для спокойной клиники. Никаких скрытых платежей — всё прозрачно с первого дня.</div></div>
+      <div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)">Можно сначала посмотреть демо?<span class="faq-icon">+</span></button><div class="faq-a">Конечно — оно прямо на этой странице выше. Также напишите нам в WhatsApp и мы покажем живую демонстрацию под ваш тип бизнеса.</div></div>
     </div>
   </div>
 </section>
@@ -569,31 +358,24 @@
     <h2 class="reveal">Готовы перестать<br>терять клиентов?</h2>
     <p class="section-sub reveal">Первая консультация бесплатно. Покажем демо, разберём ваш бизнес и скажем точную стоимость.</p>
     <div class="cta-btns reveal">
-      <a class="btn-primary" href="https://wa.me/77074043006?text=Здравствуйте!+Хочу+узнать+про+AI-автоматизацию" target="_blank">
-        💬 Написать в WhatsApp
-      </a>
-      <a class="btn-secondary" href="https://t.me/AnasTolebay" target="_blank">
-        ✈️ Написать в Telegram
-      </a>
+      <a class="btn-primary" href="https://wa.me/77074043006?text=Здравствуйте!+Хочу+узнать+про+AI-автоматизацию" target="_blank">💬 Написать в WhatsApp</a>
+      <a class="btn-secondary" href="https://t.me/AnasTolebay" target="_blank">✈️ Написать в Telegram</a>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   📍 Алматы, Казахстан &nbsp;·&nbsp;
   <a href="mailto:anastolebay7@gmail.com">anastolebay7@gmail.com</a> &nbsp;·&nbsp;
   <a href="https://t.me/AnasTolebay" target="_blank">Telegram</a> &nbsp;·&nbsp;
   <a href="https://instagram.com/anas.tolebay" target="_blank">Instagram</a>
-  <br>© 2026 Анас Толебай · Aqyl.ai
+  <br>© 2026 Анас Толебай · AqylAI
 </footer>
 
 <script>
 // SCROLL REVEAL
 const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) e.target.classList.add('visible');
-  });
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach((el, i) => {
   el.style.transitionDelay = (i % 4) * 75 + 'ms';
@@ -628,13 +410,11 @@ const SYSTEM = `Ты — дружелюбный AI-ассистент стома
 - Брекеты: от 200 000 тг
 
 Запись: уточни имя, дату, услугу → «Заявка принята, перезвоним за 30 минут»
-Если спросят кто создал бота: «Команда Aqyl.ai — wa.me/77074043006 😊»`;
+Если спросят кто создал бота: «Команда AqylAI — wa.me/77074043006 😊»`;
 
 let history = [];
 
-function getTime() {
-  return new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
-}
+function getTime() { return new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }); }
 
 function addMsg(text, role) {
   const box = document.getElementById('chat-messages');
@@ -668,11 +448,7 @@ async function sendMessage() {
     const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + GROQ_KEY },
-      body: JSON.stringify({
-        model: 'llama-3.1-8b-instant',
-        messages: [{ role: 'system', content: SYSTEM }, ...history],
-        max_tokens: 300, temperature: 0.7
-      })
+      body: JSON.stringify({ model: 'llama-3.1-8b-instant', messages: [{ role: 'system', content: SYSTEM }, ...history], max_tokens: 300, temperature: 0.7 })
     });
     const data = await res.json();
     const reply = data.choices?.[0]?.message?.content || 'Извините, произошла ошибка. Попробуйте ещё раз.';
