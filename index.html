@@ -4,405 +4,1053 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AqylAI — AI автоматизация для бизнеса в Алматы</title>
-<meta name="description" content="WhatsApp и Telegram боты для бизнеса в Алматы. Настройка за 48 часов. Первая консультация бесплатно.">
+<meta name="description" content="WhatsApp и Telegram боты для бизнеса в Алматы. Бот отвечает, записывает и напоминает 24/7. Запуск за 48 часов.">
+<meta property="og:type" content="website">
 <meta property="og:title" content="AqylAI — AI автоматизация для бизнеса в Алматы">
-<meta property="og:description" content="WhatsApp и Telegram боты для бизнеса в Алматы. Настройка за 48 часов.">
+<meta property="og:description" content="Бот отвечает, записывает и напоминает 24/7. Попробуйте живое демо — настройте бота под свой бизнес за 40 секунд.">
 <meta property="og:url" content="https://aqyl-ai.kz">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Cdefs%3E%3CclipPath id='c'%3E%3Ccircle cx='40' cy='40' r='32'/%3E%3C/clipPath%3E%3C/defs%3E%3Crect width='80' height='80' rx='16' fill='%23060c14'/%3E%3Ccircle cx='40' cy='40' r='32' fill='%2322d3ee'/%3E%3Ccircle cx='57' cy='34' r='27' fill='%23060c14' clip-path='url(%23c)'/%3E%3Ccircle cx='21' cy='23' r='4.5' fill='%23ffffff'/%3E%3C/svg%3E">
+<meta property="og:image" content="https://aqyl-ai.kz/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AqylAI — AI автоматизация для бизнеса в Алматы">
+<meta name="twitter:description" content="Бот отвечает, записывает и напоминает 24/7. Запуск за 48 часов.">
+<meta name="twitter:image" content="https://aqyl-ai.kz/og.png">
+<link rel="canonical" href="https://aqyl-ai.kz">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='18' fill='%2312161C'/%3E%3Cpath d='M47.23 8.82 A32 32 0 1 0 65.2 59.73 A27 27 0 0 1 47.23 8.82 Z' fill='%23E0A73A'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap&subset=cyrillic,cyrillic-ext,latin" rel="stylesheet">
 <style>
-  :root {
-    --bg: #060c14; --bg2: #0a1220; --bg3: #0e1929;
-    --cyan: #22d3ee; --cyan2: #06b6d4;
-    --cyan-dim: rgba(34,211,238,0.10); --cyan-glow: rgba(34,211,238,0.22);
-    --text: #f0f9ff; --muted: #94a3b8;
-    --border: rgba(34,211,238,0.13); --card: rgba(14,25,41,0.85);
-    --font: 'Sora', sans-serif; --mono: 'Space Mono', monospace;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { font-family: var(--font); background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
-  body::after {
-    content: ''; position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 9998; opacity: 0.5;
-  }
-  .mesh { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-  .mesh::before {
-    content: ''; position: absolute; width: 800px; height: 800px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(34,211,238,0.065) 0%, transparent 65%);
-    top: -250px; right: -250px; animation: drift1 20s ease-in-out infinite alternate;
-  }
-  .mesh::after {
-    content: ''; position: absolute; width: 600px; height: 600px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(6,182,212,0.05) 0%, transparent 65%);
-    bottom: 5%; left: -150px; animation: drift2 25s ease-in-out infinite alternate;
-  }
-  @keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(-80px,100px) scale(1.12); } }
-  @keyframes drift2 { from { transform: translate(0,0); } to { transform: translate(50px,-70px); } }
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    padding: 14px 40px; display: flex; align-items: center; justify-content: space-between;
-    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-    background: rgba(6,12,20,0.75); border-bottom: 1px solid var(--border);
-  }
-  .nav-logo { display: flex; align-items: center; text-decoration: none; }
-  .nav-cta {
-    background: var(--cyan-dim); border: 1px solid var(--border);
-    color: var(--cyan); padding: 9px 22px; border-radius: 7px;
-    font-size: 13px; font-family: var(--font); font-weight: 600;
-    cursor: pointer; text-decoration: none; transition: all 0.25s; white-space: nowrap;
-  }
-  .nav-cta:hover { background: var(--cyan-glow); border-color: var(--cyan); }
-  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
-  section { padding: 100px 0; }
-  .section-tag { font-family: var(--mono); font-size: 11px; color: var(--cyan); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 14px; display: block; }
-  h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 14px; }
-  .section-sub { font-size: 17px; color: var(--muted); max-width: 520px; line-height: 1.7; margin-bottom: 52px; }
-  #hero { min-height: 100vh; display: flex; align-items: center; padding: 120px 0 80px; }
-  .hero-tag {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-family: var(--mono); font-size: 11px; color: var(--cyan);
-    background: var(--cyan-dim); border: 1px solid var(--border);
-    padding: 5px 14px; border-radius: 100px; margin-bottom: 28px;
-    animation: fadeUp 0.8s ease both;
-  }
-  .hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); animation: blink 2s ease infinite; }
-  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
-  h1 { font-size: clamp(38px, 6.5vw, 72px); font-weight: 800; line-height: 1.07; letter-spacing: -0.035em; margin-bottom: 22px; animation: fadeUp 0.9s ease 0.1s both; }
-  h1 em { font-style: normal; background: linear-gradient(130deg, var(--cyan) 0%, #a5f3fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .hero-sub { font-size: 18px; color: var(--muted); max-width: 560px; margin-bottom: 38px; font-weight: 300; line-height: 1.75; animation: fadeUp 1s ease 0.2s both; }
-  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; animation: fadeUp 1s ease 0.3s both; }
-  .btn-primary { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, var(--cyan2), var(--cyan)); color: var(--bg); font-weight: 700; font-size: 15px; padding: 14px 28px; border-radius: 8px; text-decoration: none; border: none; cursor: pointer; transition: all 0.25s; box-shadow: 0 0 28px rgba(34,211,238,0.28); font-family: var(--font); }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 44px rgba(34,211,238,0.42); }
-  .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--text); font-size: 15px; font-weight: 600; padding: 14px 28px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.11); cursor: pointer; text-decoration: none; transition: all 0.25s; font-family: var(--font); }
-  .btn-secondary:hover { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); }
-  .hero-trust { margin-top: 22px; font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 8px; animation: fadeUp 1s ease 0.4s both; }
-  .hero-stats { display: flex; gap: 44px; margin-top: 60px; flex-wrap: wrap; animation: fadeUp 1s ease 0.5s both; border-top: 1px solid var(--border); padding-top: 40px; }
-  .stat-num { font-family: var(--mono); font-size: 30px; font-weight: 700; color: var(--cyan); letter-spacing: -0.02em; }
-  .stat-label { font-size: 13px; color: var(--muted); margin-top: 3px; }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: translateY(0); } }
-  #pain { background: var(--bg2); }
-  .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
-  .pain-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px; transition: all 0.3s; backdrop-filter: blur(10px); }
-  .pain-card:hover { border-color: rgba(34,211,238,0.32); transform: translateY(-4px); box-shadow: 0 14px 44px rgba(34,211,238,0.07); }
-  .pain-icon { font-size: 28px; margin-bottom: 14px; display: block; }
-  .pain-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
-  .pain-text { font-size: 14px; color: var(--muted); line-height: 1.65; }
-  .demo-wrapper { max-width: 480px; margin: 0 auto; background: var(--bg3); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 28px 90px rgba(34,211,238,0.09); }
-  .demo-header { background: linear-gradient(90deg, #091626, #0c1e33); padding: 16px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); }
-  .demo-avatar { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; background: linear-gradient(135deg, var(--cyan2), #0891b2); display: flex; align-items: center; justify-content: center; font-size: 20px; }
-  .demo-name { font-weight: 700; font-size: 14px; }
-  .demo-status { font-size: 12px; color: #4ade80; display: flex; align-items: center; gap: 5px; margin-top: 1px; }
-  .demo-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 6px #4ade80; animation: blink 2s ease infinite; }
-  .demo-messages { padding: 20px; height: 340px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
-  .demo-messages::-webkit-scrollbar { width: 3px; }
-  .demo-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-  .msg { max-width: 82%; padding: 10px 14px; border-radius: 12px; font-size: 14px; line-height: 1.55; animation: msgIn 0.3s ease; }
-  @keyframes msgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  .msg.bot { background: var(--bg2); border: 1px solid var(--border); align-self: flex-start; border-bottom-left-radius: 3px; }
-  .msg.user { background: linear-gradient(135deg, #0b4a6e, #0e5980); align-self: flex-end; border-bottom-right-radius: 3px; border: 1px solid rgba(34,211,238,0.18); }
-  .msg-time { font-size: 10px; color: var(--muted); margin-top: 5px; }
-  .typing { display: flex; gap: 4px; align-items: center; padding: 12px 14px; }
-  .typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); animation: bounce 1.2s ease infinite; }
-  .typing span:nth-child(2) { animation-delay: 0.2s; }
-  .typing span:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes bounce { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-7px); } }
-  .demo-chips { padding: 8px 16px 10px; display: flex; gap: 7px; flex-wrap: wrap; }
-  .chip { background: var(--cyan-dim); border: 1px solid var(--border); color: var(--cyan); font-size: 12px; padding: 5px 12px; border-radius: 100px; cursor: pointer; transition: all 0.2s; font-family: var(--font); }
-  .chip:hover { background: var(--cyan-glow); border-color: var(--cyan); }
-  .demo-input-row { padding: 10px 16px 16px; display: flex; gap: 8px; align-items: center; border-top: 1px solid var(--border); }
-  .demo-input { flex: 1; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 14px; color: var(--text); font-family: var(--font); outline: none; transition: border-color 0.2s; }
-  .demo-input:focus { border-color: var(--cyan2); }
-  .demo-input::placeholder { color: var(--muted); }
-  .demo-send { width: 40px; height: 40px; border-radius: 8px; flex-shrink: 0; background: linear-gradient(135deg, var(--cyan2), var(--cyan)); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--bg); font-size: 16px; transition: all 0.2s; }
-  .demo-send:hover { transform: scale(1.06); box-shadow: 0 0 18px rgba(34,211,238,0.38); }
-  .demo-send:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
-  #services { background: var(--bg2); }
-  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
-  .service-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px 24px; transition: all 0.3s; position: relative; overflow: hidden; backdrop-filter: blur(10px); }
-  .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--cyan2), transparent); opacity: 0; transition: opacity 0.3s; }
-  .service-card:hover { border-color: rgba(34,211,238,0.32); transform: translateY(-4px); }
-  .service-card:hover::before { opacity: 1; }
-  .service-badge { display: inline-block; font-size: 11px; font-weight: 700; background: var(--cyan-dim); color: var(--cyan); border: 1px solid var(--border); padding: 3px 10px; border-radius: 100px; margin-bottom: 16px; }
-  .service-icon { font-size: 28px; margin-bottom: 12px; display: block; }
-  .service-name { font-size: 15px; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
-  .service-desc { font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.55; }
-  .service-setup { font-family: var(--mono); font-size: 19px; font-weight: 700; color: var(--cyan); }
-  .service-monthly { font-size: 12px; color: var(--muted); margin-top: 3px; }
-  .steps { max-width: 640px; }
-  .step { display: flex; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--border); }
-  .step:last-child { border-bottom: none; }
-  .step-num { width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0; background: var(--cyan-dim); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 13px; color: var(--cyan); font-weight: 700; }
-  .step-body h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
-  .step-body p { font-size: 14px; color: var(--muted); line-height: 1.65; }
-  .guarantee-box { margin-top: 40px; background: var(--cyan-dim); border: 1px solid var(--border); border-radius: 10px; padding: 18px 24px; display: flex; align-items: center; gap: 14px; font-size: 14px; font-weight: 600; }
-  #faq { background: var(--bg2); }
-  .faq-list { max-width: 700px; display: flex; flex-direction: column; gap: 10px; }
-  .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; transition: border-color 0.2s; }
-  .faq-item.open { border-color: rgba(34,211,238,0.28); }
-  .faq-q { width: 100%; background: none; border: none; color: var(--text); font-size: 15px; font-weight: 600; font-family: var(--font); padding: 18px 22px; text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; transition: color 0.2s; }
-  .faq-q:hover { color: var(--cyan); }
-  .faq-icon { font-size: 20px; flex-shrink: 0; transition: transform 0.3s; color: var(--cyan); }
-  .faq-item.open .faq-icon { transform: rotate(45deg); }
-  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; font-size: 14px; color: var(--muted); line-height: 1.7; padding: 0 22px; }
-  .faq-item.open .faq-a { max-height: 200px; padding: 0 22px 18px; }
-  #cta { text-align: center; background: radial-gradient(ellipse at 50% 0%, rgba(34,211,238,0.065) 0%, transparent 55%), var(--bg); }
-  #cta h2 { margin-bottom: 14px; }
-  #cta .section-sub { margin: 0 auto 40px; text-align: center; }
-  .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-  footer { padding: 30px 40px; text-align: center; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted); position: relative; z-index: 1; line-height: 1.8; }
-  footer a { color: var(--cyan); text-decoration: none; }
-  footer a:hover { text-decoration: underline; }
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
-  .reveal.visible { opacity: 1; transform: none; }
-  @media (max-width: 640px) {
-    nav { padding: 14px 18px; } .wrap { padding: 0 18px; } section { padding: 72px 0; }
-    h1 { font-size: 36px; } .hero-stats { gap: 24px; } .stat-num { font-size: 24px; }
-    .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
-    .hero-btns, .cta-btns { flex-direction: column; }
-  }
+:root{
+  --paper:#F6F3EC; --paper2:#EFEBE1; --card:#FFFFFF;
+  --ink:#12161C; --ink-soft:#5A6270; --ink-faint:#8B93A1;
+  --blue:#1C7FA6; --blue-deep:#155F7D; --blue-tint:rgba(28,127,166,.08);
+  --gold:#E0A73A; --gold-tint:rgba(224,167,58,.14);
+  --line:rgba(18,22,28,.10);
+  --wa:#25D366;
+  --sans:'IBM Plex Sans',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --r:10px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img,svg{display:block;max-width:100%}
+.wrap{max-width:1060px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+section{padding:104px 0}
+h1,h2,h3{letter-spacing:-.02em;line-height:1.12;font-weight:700}
+h1{font-size:clamp(34px,5.6vw,60px);letter-spacing:-.035em}
+h2{font-size:clamp(26px,3.6vw,40px);margin-bottom:12px}
+.tag{font-family:var(--mono);font-size:11px;color:var(--blue);letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:12px;font-weight:500}
+.sub{font-size:17px;color:var(--ink-soft);max-width:560px;line-height:1.7;margin-bottom:48px}
+
+/* ---- nav ---- */
+nav{position:fixed;inset:0 0 auto;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:12px 28px;background:rgba(246,243,236,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand-txt{font-weight:700;font-size:19px;letter-spacing:-.02em}
+.brand-txt b{color:var(--gold);font-weight:700}
+.nav-right{display:flex;align-items:center;gap:10px}
+.langs{display:flex;gap:2px;background:var(--paper2);border:1px solid var(--line);border-radius:8px;padding:2px}
+.lang{border:0;background:none;font-family:var(--mono);font-size:11px;font-weight:500;color:var(--ink-faint);
+  padding:5px 9px;border-radius:6px;cursor:pointer;transition:.2s}
+.lang.on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--sans);font-weight:600;
+  font-size:15px;padding:13px 24px;border-radius:var(--r);text-decoration:none;cursor:pointer;border:1px solid transparent;transition:.2s}
+.btn-wa{background:var(--ink);color:var(--paper)}
+.btn-wa:hover{background:var(--blue-deep)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--ink);background:var(--card)}
+nav .btn{padding:9px 16px;font-size:13px}
+
+/* ---- oyu ornament divider ---- */
+.oyu{width:100%;height:34px;overflow:hidden;opacity:.5}
+.oyu path{fill:none;stroke:var(--gold);stroke-width:1.4;stroke-linecap:round;
+  stroke-dasharray:var(--len);stroke-dashoffset:var(--len);transition:stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1)}
+.oyu.drawn path{stroke-dashoffset:0}
+
+/* ---- hero ---- */
+#hero{padding:150px 0 84px;position:relative}
+#hero::before{content:'';position:absolute;top:0;right:-10%;width:620px;height:620px;border-radius:50%;
+  background:radial-gradient(circle,var(--gold-tint) 0%,transparent 62%);pointer-events:none;z-index:0}
+.pill{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  color:var(--blue-deep);background:var(--blue-tint);border:1px solid rgba(28,127,166,.18);
+  padding:5px 12px;border-radius:100px;margin-bottom:24px;font-weight:500}
+.pill::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--wa);animation:pulse 2.4s ease infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+h1 em{font-style:normal;color:var(--blue);position:relative;white-space:nowrap}
+h1 em::after{content:'';position:absolute;left:0;right:0;bottom:.06em;height:.10em;background:var(--gold);opacity:.5;border-radius:2px}
+.hero-sub{font-size:19px;color:var(--ink-soft);max-width:540px;margin:20px 0 34px;line-height:1.65}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.hero-note{margin-top:18px;font-size:13px;color:var(--ink-faint)}
+.stats{display:flex;gap:44px;flex-wrap:wrap;margin-top:60px;padding-top:34px;border-top:1px solid var(--line)}
+.stat-n{font-family:var(--mono);font-size:27px;font-weight:500;color:var(--ink);letter-spacing:-.02em}
+.stat-l{font-size:13px;color:var(--ink-faint);margin-top:2px}
+
+/* ---- split threads ---- */
+#split{background:var(--paper2)}
+.threads{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.thread{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.thread.lose{border-color:rgba(200,60,60,.22)}
+.thread.win{border-color:rgba(37,211,102,.32)}
+.th-head{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600}
+.dot{width:8px;height:8px;border-radius:50%;flex:none}
+.lose .dot{background:#C0392B}.win .dot{background:var(--wa)}
+.th-body{padding:16px;display:flex;flex-direction:column;gap:9px;min-height:330px;background:var(--paper)}
+.b{max-width:88%;padding:8px 12px;border-radius:12px;font-size:13.5px;line-height:1.5;opacity:0;transform:translateY(8px);
+  transition:opacity .45s ease,transform .45s ease}
+.b.in{opacity:1;transform:none}
+.b.them{background:var(--card);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:3px}
+.b.me{background:#DCF8C6;align-self:flex-end;border-bottom-right-radius:3px;border:1px solid rgba(37,211,102,.25)}
+.b .t{font-size:10px;color:var(--ink-faint);margin-top:3px;font-family:var(--mono);display:flex;gap:4px;justify-content:flex-end;align-items:center}
+.tick{font-size:11px;letter-spacing:-2px}
+.tick.read{color:#34B7F1}
+.gap{align-self:center;font-size:11px;font-family:var(--mono);color:var(--ink-faint);padding:10px 0;letter-spacing:.05em;
+  opacity:0;transition:opacity .5s}
+.gap.in{opacity:1}
+.th-foot{padding:12px 16px;border-top:1px solid var(--line);font-size:13px;font-weight:600}
+.lose .th-foot{color:#C0392B;background:rgba(192,57,43,.05)}
+.win .th-foot{color:#1E9E52;background:rgba(37,211,102,.07)}
+
+/* ---- demo ---- */
+.demo{max-width:520px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:16px;
+  overflow:hidden;box-shadow:0 20px 50px -20px rgba(18,22,28,.14)}
+.d-head{padding:14px 18px;display:flex;align-items:center;gap:11px;border-bottom:1px solid var(--line);background:var(--accent,var(--ink));color:#fff;transition:background .35s}
+.d-av{width:38px;height:38px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+  font-size:19px;background:rgba(255,255,255,.16)}
+.d-name{font-weight:600;font-size:14px}
+.d-stat{font-size:11px;opacity:.8;font-family:var(--mono)}
+.d-note{background:var(--gold-tint);border-bottom:1px solid var(--line);padding:7px 18px;font-size:11.5px;color:#8A6415;font-family:var(--mono)}
+.d-note[hidden]{display:none}
+.d-msgs{padding:18px;height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;background:var(--paper)}
+.d-msgs::-webkit-scrollbar{width:3px}
+.d-msgs::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+.m{max-width:84%;padding:9px 13px;border-radius:12px;font-size:14px;line-height:1.55;animation:pop .28s ease}
+@keyframes pop{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.m.bot{background:var(--card);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:3px}
+.m.user{background:var(--accent,var(--ink));color:#fff;align-self:flex-end;border-bottom-right-radius:3px}
+.typing{display:flex;gap:4px;padding:4px 2px}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--ink-faint);animation:bob 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes bob{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+.d-pick{padding:16px 18px}
+.d-pick p{font-size:13.5px;color:var(--ink-soft);margin-bottom:11px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:11px}
+.chip{background:var(--paper);border:1px solid var(--line);color:var(--ink);font-family:var(--sans);font-size:12.5px;
+  padding:6px 12px;border-radius:100px;cursor:pointer;transition:.18s}
+.chip:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-tint)}
+.row{display:flex;gap:8px}
+.inp{flex:1;background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:10px 13px;font-size:14px;
+  color:var(--ink);font-family:var(--sans);outline:none;transition:.18s;min-width:0}
+.inp:focus{border-color:var(--blue);background:var(--card)}
+.send{width:42px;height:42px;flex:none;border-radius:9px;border:0;cursor:pointer;background:var(--accent,var(--ink));color:#fff;
+  font-size:15px;display:flex;align-items:center;justify-content:center;transition:.18s}
+.send:hover{opacity:.85}.send:disabled{opacity:.35;cursor:not-allowed}
+.d-in{padding:12px 18px 16px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:center}
+.d-in[hidden]{display:none}
+.upsell{padding:0 18px 16px}
+.upsell[hidden]{display:none}
+.upsell button{width:100%;background:var(--gold-tint);border:1px dashed var(--gold);color:#8A6415;font-weight:600;
+  font-size:13.5px;padding:11px;border-radius:9px;cursor:pointer;font-family:var(--sans);transition:.18s}
+.upsell button:hover{background:var(--gold);color:var(--ink);border-style:solid}
+
+/* own-data panel */
+.own{padding:18px;border-top:1px solid var(--line);background:var(--paper2)}
+.own[hidden]{display:none}
+.own h4{font-size:14px;margin-bottom:3px}
+.own p.h{font-size:12px;color:var(--ink-faint);margin-bottom:14px}
+.f{margin-bottom:11px}
+.f label{display:block;font-size:11px;font-family:var(--mono);color:var(--ink-soft);margin-bottom:4px;letter-spacing:.04em}
+.f .inp,.f textarea{width:100%;background:var(--card)}
+.f textarea{border:1px solid var(--line);border-radius:9px;padding:10px 13px;font-size:13.5px;font-family:var(--sans);
+  color:var(--ink);outline:none;resize:vertical;min-height:76px;line-height:1.5}
+.f textarea:focus{border-color:var(--blue)}
+.sw{display:flex;gap:7px;flex-wrap:wrap}
+.sw button{width:30px;height:30px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:.15s;padding:0}
+.sw button:hover{transform:scale(1.1)}
+.sw button.on{border-color:var(--ink);transform:scale(1.12)}
+
+/* ---- services + configurator ---- */
+#services{background:var(--paper2)}
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px;margin-bottom:22px}
+.tier{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;transition:.22s;position:relative}
+.tier:hover{border-color:var(--blue);transform:translateY(-3px);box-shadow:0 12px 30px -14px rgba(18,22,28,.18)}
+.tier.on{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-tint)}
+.tier .bg{position:absolute;top:-9px;right:14px;font-family:var(--mono);font-size:10px;font-weight:500;background:var(--gold);
+  color:var(--ink);padding:3px 9px;border-radius:100px;letter-spacing:.05em}
+.tier h3{font-size:16px;margin-bottom:6px}
+.tier p{font-size:13px;color:var(--ink-soft);line-height:1.55;margin-bottom:16px;min-height:60px}
+.price{font-family:var(--mono);font-size:19px;font-weight:500;color:var(--ink);letter-spacing:-.02em}
+.per{font-size:12px;color:var(--ink-faint);margin-top:2px}
+.fine{font-size:12px;color:var(--ink-faint);line-height:1.6}
+
+.cfg{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px;margin-top:36px}
+.cfg h3{font-size:18px;margin-bottom:4px}
+.cfg .h{font-size:13px;color:var(--ink-faint);margin-bottom:22px}
+.cfg-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.ctrl{margin-bottom:18px}
+.ctrl label{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;font-weight:500;margin-bottom:8px}
+.ctrl label span{font-family:var(--mono);color:var(--blue);font-size:13px}
+input[type=range]{width:100%;height:4px;border-radius:3px;background:var(--line);appearance:none;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{appearance:none;width:18px;height:18px;border-radius:50%;background:var(--blue);cursor:pointer;border:3px solid var(--card);box-shadow:0 1px 4px rgba(0,0,0,.2)}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--blue);cursor:pointer;border:3px solid var(--card)}
+.tog{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-top:1px solid var(--line);font-size:13.5px;font-weight:500}
+.tog input{appearance:none;width:40px;height:22px;border-radius:100px;background:var(--line);position:relative;cursor:pointer;transition:.2s;flex:none}
+.tog input::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.2s}
+.tog input:checked{background:var(--blue)}
+.tog input:checked::after{transform:translateX(18px)}
+.out{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;justify-content:center}
+.out .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:5px}
+.out .tname{font-size:20px;font-weight:700;color:var(--blue);margin-bottom:14px}
+.out .pr{font-family:var(--mono);font-size:22px;font-weight:500;letter-spacing:-.02em}
+.out .pm{font-size:13px;color:var(--ink-soft);margin-top:2px;margin-bottom:16px}
+.loss{border-top:1px solid var(--line);padding-top:14px;margin-bottom:16px}
+.loss .v{font-family:var(--mono);font-size:19px;color:#C0392B;font-weight:500}
+.loss .d{font-size:11px;color:var(--ink-faint);margin-top:3px;line-height:1.5}
+.out .btn{width:100%}
+
+/* ---- steps / faq / cta ---- */
+.steps{max-width:660px}
+.step{display:flex;gap:22px;padding:26px 0;border-bottom:1px solid var(--line)}
+.step:last-child{border:0}
+.n{width:40px;height:40px;flex:none;border-radius:9px;background:var(--blue-tint);border:1px solid rgba(28,127,166,.2);
+  display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;color:var(--blue-deep);font-weight:500}
+.step h3{font-size:16px;margin-bottom:5px}
+.step p{font-size:14px;color:var(--ink-soft);line-height:1.65}
+.guar{margin-top:32px;background:var(--gold-tint);border:1px solid rgba(224,167,58,.35);border-radius:10px;padding:16px 20px;
+  display:flex;gap:12px;align-items:center;font-size:14px;font-weight:600}
+#faq{background:var(--paper2)}
+.faq{max-width:720px;display:flex;flex-direction:column;gap:8px}
+.q{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.q.open{border-color:var(--blue)}
+.q>button{width:100%;background:none;border:0;font-family:var(--sans);font-size:15px;font-weight:600;color:var(--ink);
+  padding:17px 20px;text-align:left;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.q>button:hover{color:var(--blue)}
+.q i{font-style:normal;font-size:19px;color:var(--gold);transition:transform .28s;flex:none}
+.q.open i{transform:rotate(45deg)}
+.a{max-height:0;overflow:hidden;transition:max-height .32s ease,padding .32s ease;font-size:14px;color:var(--ink-soft);
+  line-height:1.7;padding:0 20px}
+.q.open .a{max-height:260px;padding:0 20px 17px}
+#cta{text-align:center}
+#cta .sub{margin:0 auto 34px}
+#cta .tag{text-align:center}
+.cta-b{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+footer{padding:30px 28px;text-align:center;border-top:1px solid var(--line);font-size:13px;color:var(--ink-faint);line-height:1.9}
+footer a{color:var(--blue);text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+.rv{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.rv.in{opacity:1;transform:none}
+
+@media(max-width:820px){
+  .cfg-grid{grid-template-columns:1fr;gap:20px}
+  .threads{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  nav{padding:10px 16px}.wrap{padding:0 18px}section{padding:72px 0}
+  #hero{padding:126px 0 64px}
+  .stats{gap:26px}.stat-n{font-size:22px}
+  .hero-btns{flex-direction:column}.hero-btns .btn{width:100%}
+  .brand-txt{font-size:17px}
+  nav .btn span{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .rv,.b,.gap{opacity:1;transform:none}
+  .oyu path{stroke-dashoffset:0}
+}
 </style>
 <script type="text/javascript">
-  (function(m,e,t,r,i,k,a){
-    m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-    m[i].l=1*new Date();
-    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-  })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=108221709', 'ym');
-  ym(108221709, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();
+for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=108221709','ym');
+ym(108221709,'init',{ssr:true,webvisor:true,clickmap:true,accurateTrackBounce:true,trackLinks:true});
 </script>
-<noscript><div><img src="https://mc.yandex.ru/watch/108221709" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<noscript><div><img src="https://mc.yandex.ru/watch/108221709" style="position:absolute;left:-9999px" alt=""></div></noscript>
 </head>
 <body>
-<div class="mesh"></div>
+
 <nav>
-  <a class="nav-logo" href="#">
-    <svg width="140" height="38" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
-      <defs><clipPath id="nav-crescent"><circle cx="40" cy="40" r="32"/></clipPath></defs>
-      <circle cx="40" cy="40" r="32" fill="#22d3ee"/>
-      <circle cx="57" cy="34" r="27" fill="#060c14" clip-path="url(#nav-crescent)"/>
-      <circle cx="21" cy="23" r="4.5" fill="#ffffff"/>
-      <text x="96" y="52" font-family="'Sora','Helvetica Neue',Arial,sans-serif" font-size="40" font-weight="800" letter-spacing="-1.5" fill="#f0f9ff">AQYL</text>
-      <text x="221" y="52" font-family="'Sora','Helvetica Neue',Arial,sans-serif" font-size="40" font-weight="800" letter-spacing="-1.5" fill="#22d3ee">AI</text>
+  <a class="brand" href="#">
+    <svg width="30" height="30" viewBox="0 0 80 80" aria-label="AqylAI">
+      <rect width="80" height="80" rx="18" fill="#12161C"/>
+      <path d="M47.23 8.82 A32 32 0 1 0 65.2 59.73 A27 27 0 0 1 47.23 8.82 Z" fill="#E0A73A"/>
     </svg>
+    <span class="brand-txt">Aqyl<b>AI</b></span>
   </a>
-  <a class="nav-cta" href="https://wa.me/77074043006?text=Здравствуйте!+Хочу+узнать+про+AI-автоматизацию" target="_blank">Написать в WhatsApp →</a>
+  <div class="nav-right">
+    <div class="langs">
+      <button class="lang on" data-lang="ru">RU</button>
+      <button class="lang" data-lang="kz">KZ</button>
+      <button class="lang" data-lang="en">EN</button>
+    </div>
+    <a class="btn btn-wa" id="navWa" href="#" target="_blank" rel="noopener">
+      <span data-i="nav.wa">WhatsApp</span> →
+    </a>
+  </div>
 </nav>
 
 <section id="hero">
   <div class="wrap">
-    <div class="hero-tag">AI автоматизация · Алматы</div>
-    <h1>Ваш бизнес<br>теряет клиентов<br><em>прямо сейчас</em></h1>
-    <p class="hero-sub">Пока вы заняты — клиенты пишут и уходят к конкурентам. AI-бот AqylAI отвечает за вас круглосуточно, записывает и напоминает.</p>
+    <div class="pill" data-i="hero.pill">AI-автоматизация · Алматы</div>
+    <h1><span data-i="hero.h1a">Клиент написал в 22:47.</span><br><em data-i="hero.h1b">Никто не ответил.</em></h1>
+    <p class="hero-sub" data-i="hero.sub">К утру он записался к конкуренту. Бот AqylAI отвечает за 3 секунды — в любое время, на любой вопрос, и записывает клиента, пока вы спите.</p>
     <div class="hero-btns">
-      <a class="btn-primary" href="https://wa.me/77074043006?text=Здравствуйте!+Хочу+узнать+про+AI-автоматизацию" target="_blank">💬 Написать в WhatsApp</a>
-      <button class="btn-secondary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Смотреть демо ↓</button>
+      <a class="btn btn-wa" id="heroWa" href="#" target="_blank" rel="noopener" data-i="hero.cta1">Написать в WhatsApp</a>
+      <button class="btn btn-ghost" onclick="document.getElementById('demo').scrollIntoView()" data-i="hero.cta2">Собрать своего бота ↓</button>
     </div>
-    <p class="hero-trust">🔒 Без подписок. Только результат. Первая консультация бесплатно.</p>
-    <div class="hero-stats">
-      <div><div class="stat-num">1 150+</div><div class="stat-label">лидов в базе</div></div>
-      <div><div class="stat-num">48 ч</div><div class="stat-label">до запуска бота</div></div>
-      <div><div class="stat-num">~₸4K</div><div class="stat-label">стоимость API / мес</div></div>
+    <p class="hero-note" data-i="hero.note">Первая консультация бесплатно. Без подписок и скрытых платежей.</p>
+    <div class="stats">
+      <div><div class="stat-n">3 сек</div><div class="stat-l" data-i="stat.1">скорость ответа бота</div></div>
+      <div><div class="stat-n">48 ч</div><div class="stat-l" data-i="stat.2">до запуска в вашем WhatsApp</div></div>
+      <div><div class="stat-n">24/7</div><div class="stat-l" data-i="stat.3">включая ночь и выходные</div></div>
     </div>
   </div>
 </section>
 
-<section id="pain">
+<div class="wrap"><div class="oyu" id="oyu1"></div></div>
+
+<section id="split">
   <div class="wrap">
-    <span class="section-tag reveal">Проблема</span>
-    <h2 class="reveal">Узнаёте себя?</h2>
-    <p class="section-sub reveal">Каждый потерянный клиент — это деньги конкурентам.</p>
-    <div class="pain-grid">
-      <div class="pain-card reveal"><span class="pain-icon">😤</span><div class="pain-title">Администратор не успевает</div><p class="pain-text">Клиенты пишут в нерабочее время — и уходят, не дождавшись ответа. Вы об этом даже не узнаёте.</p></div>
-      <div class="pain-card reveal"><span class="pain-icon">📉</span><div class="pain-title">Пропущенные записи = потерянные деньги</div><p class="pain-text">Забытые напоминания и ручная запись стоят 20–40% выручки каждый месяц. Реальные цифры.</p></div>
-      <div class="pain-card reveal"><span class="pain-icon">🔁</span><div class="pain-title">Одни и те же вопросы каждый день</div><p class="pain-text">«Сколько стоит?», «Вы работаете в воскресенье?» — бот отвечает мгновенно, без усталости.</p></div>
+    <span class="tag rv" data-i="split.tag">Одна ночь</span>
+    <h2 class="rv" data-i="split.h2">Две клиники. Один клиент.</h2>
+    <p class="sub rv" data-i="split.sub">Одно и то же сообщение, отправленное в 22:47. Разница — в том, кто ответил.</p>
+    <div class="threads">
+      <div class="thread lose rv">
+        <div class="th-head"><span class="dot"></span><span data-i="split.a">Клиника без бота</span></div>
+        <div class="th-body" id="tA"></div>
+        <div class="th-foot" data-i="split.aFoot">✕ Клиент потерян</div>
+      </div>
+      <div class="thread win rv">
+        <div class="th-head"><span class="dot"></span><span data-i="split.b">Клиника с AqylAI</span></div>
+        <div class="th-body" id="tB"></div>
+        <div class="th-foot" data-i="split.bFoot">✓ Клиент записан за 71 секунду</div>
+      </div>
     </div>
   </div>
 </section>
 
 <section id="demo">
   <div class="wrap">
-    <span class="section-tag reveal">Живое демо</span>
-    <h2 class="reveal">Попробуйте прямо сейчас</h2>
-    <p class="section-sub reveal">Это реальный AI-бот для стоматологии. Задайте любой вопрос — он ответит так же, как будет отвечать вашим клиентам.</p>
-    <div class="demo-wrapper reveal">
-      <div class="demo-header">
-        <div class="demo-avatar">🦷</div>
-        <div><div class="demo-name">Стоматология «Жемчуг»</div><div class="demo-status">онлайн 24/7</div></div>
+    <span class="tag rv" data-i="demo.tag">Живое демо</span>
+    <h2 class="rv" data-i="demo.h2">Соберите бота для своего бизнеса</h2>
+    <p class="sub rv" data-i="demo.sub">Назовите тип бизнеса — бот настроится за пару секунд. Потом добавьте свои реальные услуги и цены, и посмотрите, как он будет говорить с вашими клиентами.</p>
+
+    <div class="demo rv" id="demoBox">
+      <div class="d-head">
+        <div class="d-av" id="dAv">🌙</div>
+        <div>
+          <div class="d-name" id="dName" data-i="demo.name">Демо-бот AqylAI</div>
+          <div class="d-stat" id="dStat" data-i="demo.online">онлайн 24/7</div>
+        </div>
       </div>
-      <div class="demo-messages" id="chat-messages">
-        <div class="msg bot">Здравствуйте! 👋 Я помощник стоматологии «Жемчуг». Чем могу помочь? Запишу на приём, расскажу о ценах или отвечу на вопросы.<div class="msg-time">сейчас</div></div>
+
+      <div class="d-note" id="dNote" hidden data-i="demo.fake">Данные вымышленные — для примера. Ваш бот будет знать ваши реальные услуги и цены.</div>
+
+      <div class="d-msgs" id="dMsgs" hidden></div>
+
+      <div class="d-pick" id="dPick">
+        <p data-i="demo.ask">Какой у вас бизнес?</p>
+        <div class="chips" id="dChips"></div>
+        <div class="row">
+          <input class="inp" id="dBiz" data-ph="demo.ph" placeholder="…или впишите свой">
+          <button class="send" id="dGo">→</button>
+        </div>
       </div>
-      <div class="demo-chips">
-        <button class="chip" onclick="sendChip('💰 Цены на услуги')">💰 Цены</button>
-        <button class="chip" onclick="sendChip('📅 Хочу записаться на приём')">📅 Записаться</button>
-        <button class="chip" onclick="sendChip('🕐 Часы работы')">🕐 Часы работы</button>
-        <button class="chip" onclick="sendChip('📍 Где вы находитесь?')">📍 Адрес</button>
+
+      <div class="d-in" id="dIn" hidden>
+        <input class="inp" id="dMsg" data-ph="demo.ph2" placeholder="Напишите сообщение…">
+        <button class="send" id="dSend">➤</button>
       </div>
-      <div class="demo-input-row">
-        <input class="demo-input" id="chat-input" type="text" placeholder="Напишите вопрос..." onkeydown="if(event.key==='Enter')sendMessage()">
-        <button class="demo-send" id="send-btn" onclick="sendMessage()">➤</button>
+
+      <div class="upsell" id="dUp" hidden>
+        <button id="dOwnBtn" data-i="demo.own">⚙ Хотите увидеть бота со СВОИМИ данными?</button>
+      </div>
+
+      <div class="own" id="dOwn" hidden>
+        <h4 data-i="own.h">Ваш бот, ваши данные</h4>
+        <p class="h" data-i="own.sub">40 секунд. Ничего не отправляется — всё остаётся в вашем браузере.</p>
+        <div class="f">
+          <label data-i="own.name">Название бизнеса</label>
+          <input class="inp" id="oName" placeholder="Стоматология «Аяла»">
+        </div>
+        <div class="f">
+          <label data-i="own.hours">Часы работы</label>
+          <input class="inp" id="oHours" placeholder="Пн–Сб 9:00–20:00">
+        </div>
+        <div class="f">
+          <label data-i="own.svc">Услуги и цены — по одной в строке</label>
+          <textarea id="oSvc" placeholder="Чистка — от 10 000 ₸&#10;Лечение кариеса — от 18 000 ₸&#10;Имплантация — от 200 000 ₸"></textarea>
+        </div>
+        <div class="f">
+          <label data-i="own.color">Цвет бренда</label>
+          <div class="sw" id="oSw"></div>
+        </div>
+        <button class="btn btn-wa" id="oGo" style="width:100%" data-i="own.go">Запустить моего бота</button>
       </div>
     </div>
   </div>
 </section>
 
+<div class="wrap"><div class="oyu" id="oyu2"></div></div>
+
 <section id="services">
   <div class="wrap">
-    <span class="section-tag reveal">Услуги</span>
-    <h2 class="reveal">Что мы делаем</h2>
-    <p class="section-sub reveal">Выберите то, что нужно вашему бизнесу прямо сейчас.</p>
-    <div class="services-grid">
-      <div class="service-card reveal"><span class="service-badge">🔥 Самый популярный</span><span class="service-icon">💬</span><div class="service-name">WhatsApp / Telegram бот</div><p class="service-desc">Отвечает, записывает, напоминает 24/7. Освобождает администратора для реальной работы.</p><div class="service-setup">от ₸120 000</div><div class="service-monthly">+ от ₸40 000 / мес</div></div>
-      <div class="service-card reveal"><span class="service-icon">🌐</span><div class="service-name">Чат-бот для сайта</div><p class="service-desc">Виджет на сайт. Захватывает лидов мгновенно, пока вы спите.</p><div class="service-setup">от ₸200 000</div><div class="service-monthly">+ от ₸40 000 / мес</div></div>
-      <div class="service-card reveal"><span class="service-badge">Новинка</span><span class="service-icon">📞</span><div class="service-name">Автодозвон по лидам</div><p class="service-desc">AI сам обзванивает базу клиентов и квалифицирует заявки без вашего участия.</p><div class="service-setup">от ₸300 000</div><div class="service-monthly">+ от ₸80 000 / мес</div></div>
-      <div class="service-card reveal"><span class="service-icon">🚀</span><div class="service-name">Полный пакет</div><p class="service-desc">Бот + запись + напоминания + голосовой ресепшн. Максимум автоматизации.</p><div class="service-setup">от ₸400 000</div><div class="service-monthly">+ от ₸150 000 / мес</div></div>
+    <span class="tag rv" data-i="svc.tag">Услуги</span>
+    <h2 class="rv" data-i="svc.h2">Что мы автоматизируем</h2>
+    <p class="sub rv" data-i="svc.sub">Начните с одного. Остальное добавим, когда первое окупится.</p>
+
+    <div class="tiers">
+      <div class="tier rv" data-tier="1">
+        <span class="bg" data-i="svc.pop">Популярное</span>
+        <h3 data-i="svc.1n">Автоответ</h3>
+        <p data-i="svc.1d">Бот отвечает на вопросы клиентов в WhatsApp и Telegram круглосуточно: услуги, цены, часы работы, адрес.</p>
+        <div class="price">от ₸150 000</div><div class="per" data-i="svc.1p">+ от ₸40 000 / мес</div>
+      </div>
+      <div class="tier rv" data-tier="2">
+        <h3 data-i="svc.2n">Автозапись</h3>
+        <p data-i="svc.2d">Всё из «Автоответа» + бот записывает клиента в календарь и напоминает о визите за день и за 2 часа.</p>
+        <div class="price">от ₸200 000</div><div class="per" data-i="svc.2p">+ от ₸60 000 / мес</div>
+      </div>
+      <div class="tier rv" data-tier="3">
+        <h3 data-i="svc.3n">Автобизнес</h3>
+        <p data-i="svc.3d">Полный цикл: ответ, квалификация клиента, запись, напоминания, возврат тех, кто не дошёл. Отчёт раз в месяц.</p>
+        <div class="price">от ₸400 000</div><div class="per" data-i="svc.3p">+ от ₸120 000 / мес</div>
+      </div>
+      <div class="tier rv" data-tier="4">
+        <span class="bg" data-i="svc.max">Максимум</span>
+        <h3 data-i="svc.4n">Голосовой ресепшн</h3>
+        <p data-i="svc.4d">AI отвечает на звонки живым голосом, записывает и переводит сложные вопросы на администратора.</p>
+        <div class="price">₸400 000 – ₸600 000</div><div class="per" data-i="svc.4p">+ ₸150 000 – ₸200 000 / мес</div>
+      </div>
+    </div>
+
+    <p class="fine rv" data-i="svc.fine">Точная стоимость зависит от задач. Автодозвон по лидам — 150 звонков/мес включено, далее ₸200 за звонок. Напишите нам — подберём решение и покажем демо бесплатно.</p>
+
+    <div class="cfg rv">
+      <h3 data-i="cfg.h">Сколько это будет стоить вам</h3>
+      <p class="h" data-i="cfg.sub">Подвигайте ползунки — покажем тариф и то, сколько вы теряете сейчас.</p>
+      <div class="cfg-grid">
+        <div>
+          <div class="ctrl">
+            <label><span data-i="cfg.msgs">Сообщений от клиентов в день</span><span id="vMsgs">50</span></label>
+            <input type="range" id="rMsgs" min="10" max="150" step="5" value="50">
+          </div>
+          <div class="ctrl">
+            <label><span data-i="cfg.check">Средний чек, ₸</span><span id="vCheck">15 000</span></label>
+            <input type="range" id="rCheck" min="3000" max="150000" step="1000" value="15000">
+          </div>
+          <label class="tog"><span data-i="cfg.book">Запись в календарь и напоминания</span><input type="checkbox" id="cBook"></label>
+          <label class="tog"><span data-i="cfg.voice">Голосовой ресепшн (приём звонков)</span><input type="checkbox" id="cVoice"></label>
+        </div>
+        <div class="out">
+          <div class="k" data-i="cfg.rec">Ваш тариф</div>
+          <div class="tname" id="oTier">Автоответ</div>
+          <div class="pr" id="oSetup">от ₸150 000</div>
+          <div class="pm" id="oMonth" data-i="cfg.setup">настройка · + от ₸40 000 / мес</div>
+          <div class="loss">
+            <div class="k" data-i="cfg.loss">Вы теряете примерно</div>
+            <div class="v" id="oLoss">₸0 / мес</div>
+            <div class="d" data-i="cfg.lossNote">Оценка: часть сообщений остаётся без ответа вне рабочих часов, часть этих людей уходит к конкурентам. Реальные цифры зависят от вашего бизнеса.</div>
+          </div>
+          <a class="btn btn-wa" id="cfgWa" href="#" target="_blank" rel="noopener" data-i="cfg.cta">Обсудить в WhatsApp</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <section id="how">
   <div class="wrap">
-    <span class="section-tag reveal">Процесс</span>
-    <h2 class="reveal">Бот живёт через 48 часов</h2>
-    <p class="section-sub reveal">Никакого долгого согласования. Быстро и понятно.</p>
+    <span class="tag rv" data-i="how.tag">Процесс</span>
+    <h2 class="rv" data-i="how.h2">Бот работает через 48 часов</h2>
+    <p class="sub rv" data-i="how.sub">Без долгих согласований и технических заданий на 20 страниц.</p>
     <div class="steps">
-      <div class="step reveal"><div class="step-num">01</div><div class="step-body"><h3>Разбор задачи — День 1</h3><p>Вы рассказываете про бизнес. Мы изучаем сайт, соцсети и частые вопросы клиентов — строим архитектуру бота под ваши задачи.</p></div></div>
-      <div class="step reveal"><div class="step-num">02</div><div class="step-body"><h3>Настройка и тест — День 1–2</h3><p>Настраиваем AI, пишем систему ответов, тестируем на реальных сценариях вашего бизнеса. Вы всё видите и одобряете.</p></div></div>
-      <div class="step reveal"><div class="step-num">03</div><div class="step-body"><h3>Запуск и поддержка — День 2</h3><p>Бот идёт в работу в вашем WhatsApp или Telegram. Вы получаете доступ и инструкцию. Мы всегда на связи.</p></div></div>
+      <div class="step rv"><div class="n">01</div><div>
+        <h3 data-i="how.1n">Разбор — день 1</h3>
+        <p data-i="how.1d">Вы рассказываете про бизнес. Мы изучаем ваши услуги, цены и частые вопросы клиентов.</p></div></div>
+      <div class="step rv"><div class="n">02</div><div>
+        <h3 data-i="how.2n">Настройка и тест — день 1–2</h3>
+        <p data-i="how.2d">Собираем бота, прогоняем на реальных сценариях вашего бизнеса. Вы всё видите и утверждаете.</p></div></div>
+      <div class="step rv"><div class="n">03</div><div>
+        <h3 data-i="how.3n">Запуск — день 2</h3>
+        <p data-i="how.3d">Бот идёт в работу в вашем WhatsApp. Вы получаете доступ и инструкцию. Мы остаёмся на связи.</p></div></div>
     </div>
-    <div class="guarantee-box reveal"><span>✅</span><span>Бот работает через 48 часов — или возвращаем деньги за настройку.</span></div>
+    <div class="guar rv"><span>✓</span><span data-i="how.guar">Бот не работает через 48 часов — возвращаем деньги за настройку.</span></div>
   </div>
 </section>
 
+<div class="wrap"><div class="oyu" id="oyu3"></div></div>
+
 <section id="faq">
   <div class="wrap">
-    <span class="section-tag reveal">FAQ</span>
-    <h2 class="reveal">Частые вопросы</h2>
-    <div class="faq-list">
-      <div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)">Это сложно для моего бизнеса?<span class="faq-icon">+</span></button><div class="faq-a">Нет. Мы берём на себя всё — от настройки до запуска. Вам нужно только ответить на наши вопросы про бизнес. Никаких технических знаний не требуется.</div></div>
-      <div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)">Бот отвечает на русском и казахском?<span class="faq-icon">+</span></button><div class="faq-a">Да. Бот определяет язык по первому сообщению клиента и отвечает на нём же — на русском или казахском.</div></div>
-      <div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)">Что если бот не знает ответа?<span class="faq-icon">+</span></button><div class="faq-a">Он скажет клиенту, что уточнит информацию, и пришлёт вам уведомление в Telegram с вопросом и номером клиента. Ни один лид не потеряется.</div></div>
-      <div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)">Мне нужен сайт или Instagram?<span class="faq-icon">+</span></button><div class="faq-a">Нет. Бот работает через WhatsApp или Telegram — там, где уже есть ваши клиенты. Сайт не обязателен.</div></div>
-      <div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)">Сколько реально стоит в месяц?<span class="faq-icon">+</span></button><div class="faq-a">От ₸40 000/мес + ~₸2 000–₸4 000 API-расходов для спокойной клиники. Никаких скрытых платежей — всё прозрачно с первого дня.</div></div>
-      <div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)">Можно сначала посмотреть демо?<span class="faq-icon">+</span></button><div class="faq-a">Конечно — оно прямо на этой странице выше. Также напишите нам в WhatsApp и мы покажем живую демонстрацию под ваш тип бизнеса.</div></div>
-    </div>
+    <span class="tag rv" data-i="faq.tag">Вопросы</span>
+    <h2 class="rv" style="margin-bottom:40px" data-i="faq.h2">Частые вопросы</h2>
+    <div class="faq" id="faqList"></div>
   </div>
 </section>
 
 <section id="cta">
   <div class="wrap">
-    <span class="section-tag reveal" style="display:block;text-align:center">Начать</span>
-    <h2 class="reveal">Готовы перестать<br>терять клиентов?</h2>
-    <p class="section-sub reveal">Первая консультация бесплатно. Покажем демо, разберём ваш бизнес и скажем точную стоимость.</p>
-    <div class="cta-btns reveal">
-      <a class="btn-primary" href="https://wa.me/77074043006?text=Здравствуйте!+Хочу+узнать+про+AI-автоматизацию" target="_blank">💬 Написать в WhatsApp</a>
-      <a class="btn-secondary" href="https://t.me/AnasTolebay" target="_blank">✈️ Написать в Telegram</a>
+    <span class="tag rv" data-i="cta.tag">Начать</span>
+    <h2 class="rv" data-i="cta.h2">Перестаньте терять клиентов ночью</h2>
+    <p class="sub rv" data-i="cta.sub">Первая консультация бесплатно. Покажем демо под ваш бизнес и назовём точную цену.</p>
+    <div class="cta-b rv">
+      <a class="btn btn-wa" id="ctaWa" href="#" target="_blank" rel="noopener" data-i="cta.wa">Написать в WhatsApp</a>
+      <a class="btn btn-ghost" href="https://t.me/AnasTolebay" target="_blank" rel="noopener" data-i="cta.tg">Написать в Telegram</a>
     </div>
   </div>
 </section>
 
 <footer>
-  📍 Алматы, Казахстан &nbsp;·&nbsp;
-  <a href="mailto:anastolebay7@gmail.com">anastolebay7@gmail.com</a> &nbsp;·&nbsp;
-  <a href="https://t.me/AnasTolebay" target="_blank">Telegram</a> &nbsp;·&nbsp;
-  <a href="https://instagram.com/anas.tolebay" target="_blank">Instagram</a>
-  <br>© 2026 Анас Толебай · AqylAI
+  <span data-i="ft.loc">Алматы, Казахстан</span> ·
+  <a href="mailto:anastolebay7@gmail.com">anastolebay7@gmail.com</a> ·
+  <a href="https://t.me/AnasTolebay" target="_blank" rel="noopener">Telegram</a> ·
+  <a href="https://instagram.com/anas.tolebay" target="_blank" rel="noopener">Instagram</a>
+  <br>© 2026 <span data-i="ft.who">Анас Толебай · AqylAI</span>
 </footer>
 
 <script>
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach((el, i) => {
-  el.style.transitionDelay = (i % 4) * 75 + 'ms';
-  observer.observe(el);
+/* ============ i18n ============ */
+const T = {
+ru:{
+ 'nav.wa':'WhatsApp','hero.pill':'AI-автоматизация · Алматы',
+ 'hero.h1a':'Клиент написал в 22:47.','hero.h1b':'Никто не ответил.',
+ 'hero.sub':'К утру он записался к конкуренту. Бот AqylAI отвечает за 3 секунды — в любое время, на любой вопрос, и записывает клиента, пока вы спите.',
+ 'hero.cta1':'Написать в WhatsApp','hero.cta2':'Собрать своего бота ↓',
+ 'hero.note':'Первая консультация бесплатно. Без подписок и скрытых платежей.',
+ 'stat.1':'скорость ответа бота','stat.2':'до запуска в вашем WhatsApp','stat.3':'включая ночь и выходные',
+ 'split.tag':'Одна ночь','split.h2':'Две клиники. Один клиент.',
+ 'split.sub':'Одно и то же сообщение, отправленное в 22:47. Разница — в том, кто ответил.',
+ 'split.a':'Клиника без бота','split.b':'Клиника с AqylAI',
+ 'split.aFoot':'✕ Клиент потерян','split.bFoot':'✓ Клиент записан за 71 секунду',
+ 'demo.tag':'Живое демо','demo.h2':'Соберите бота для своего бизнеса',
+ 'demo.sub':'Назовите тип бизнеса — бот настроится за пару секунд. Потом добавьте свои реальные услуги и цены, и посмотрите, как он будет говорить с вашими клиентами.',
+ 'demo.name':'Демо-бот AqylAI','demo.online':'онлайн 24/7',
+ 'demo.fake':'Данные вымышленные — для примера. Ваш бот будет знать ваши реальные услуги и цены.',
+ 'demo.real':'Ваши данные. Так бот будет говорить с вашими клиентами.',
+ 'demo.ask':'Какой у вас бизнес?','demo.ph':'…или впишите свой','demo.ph2':'Напишите сообщение…',
+ 'demo.own':'⚙ Хотите увидеть бота со СВОИМИ данными?',
+ 'demo.building':'собираю бота…','demo.err':'Не получилось. Попробуйте ещё раз.',
+ 'own.h':'Ваш бот, ваши данные','own.sub':'40 секунд. Ничего не отправляется — всё остаётся в вашем браузере.',
+ 'own.name':'Название бизнеса','own.hours':'Часы работы','own.svc':'Услуги и цены — по одной в строке',
+ 'own.color':'Цвет бренда','own.go':'Запустить моего бота',
+ 'svc.tag':'Услуги','svc.h2':'Что мы автоматизируем','svc.sub':'Начните с одного. Остальное добавим, когда первое окупится.',
+ 'svc.pop':'Популярное','svc.max':'Максимум',
+ 'svc.1n':'Автоответ','svc.1d':'Бот отвечает на вопросы клиентов в WhatsApp и Telegram круглосуточно: услуги, цены, часы работы, адрес.','svc.1p':'+ от ₸40 000 / мес',
+ 'svc.2n':'Автозапись','svc.2d':'Всё из «Автоответа» + бот записывает клиента в календарь и напоминает о визите за день и за 2 часа.','svc.2p':'+ от ₸60 000 / мес',
+ 'svc.3n':'Автобизнес','svc.3d':'Полный цикл: ответ, квалификация клиента, запись, напоминания, возврат тех, кто не дошёл. Отчёт раз в месяц.','svc.3p':'+ от ₸120 000 / мес',
+ 'svc.4n':'Голосовой ресепшн','svc.4d':'AI отвечает на звонки живым голосом, записывает и переводит сложные вопросы на администратора.','svc.4p':'+ ₸150 000 – ₸200 000 / мес',
+ 'svc.fine':'Точная стоимость зависит от задач. Автодозвон по лидам — 150 звонков/мес включено, далее ₸200 за звонок. Напишите нам — подберём решение и покажем демо бесплатно.',
+ 'cfg.h':'Сколько это будет стоить вам','cfg.sub':'Подвигайте ползунки — покажем тариф и то, сколько вы теряете сейчас.',
+ 'cfg.msgs':'Сообщений от клиентов в день','cfg.check':'Средний чек, ₸',
+ 'cfg.book':'Запись в календарь и напоминания','cfg.voice':'Голосовой ресепшн (приём звонков)',
+ 'cfg.rec':'Ваш тариф','cfg.loss':'Вы теряете примерно','cfg.cta':'Обсудить в WhatsApp',
+ 'cfg.lossNote':'Оценка: часть сообщений остаётся без ответа вне рабочих часов, часть этих людей уходит к конкурентам. Реальные цифры зависят от вашего бизнеса.',
+ 'how.tag':'Процесс','how.h2':'Бот работает через 48 часов','how.sub':'Без долгих согласований и технических заданий на 20 страниц.',
+ 'how.1n':'Разбор — день 1','how.1d':'Вы рассказываете про бизнес. Мы изучаем ваши услуги, цены и частые вопросы клиентов.',
+ 'how.2n':'Настройка и тест — день 1–2','how.2d':'Собираем бота, прогоняем на реальных сценариях вашего бизнеса. Вы всё видите и утверждаете.',
+ 'how.3n':'Запуск — день 2','how.3d':'Бот идёт в работу в вашем WhatsApp. Вы получаете доступ и инструкцию. Мы остаёмся на связи.',
+ 'how.guar':'Бот не работает через 48 часов — возвращаем деньги за настройку.',
+ 'faq.tag':'Вопросы','faq.h2':'Частые вопросы',
+ 'cta.tag':'Начать','cta.h2':'Перестаньте терять клиентов ночью',
+ 'cta.sub':'Первая консультация бесплатно. Покажем демо под ваш бизнес и назовём точную цену.',
+ 'cta.wa':'Написать в WhatsApp','cta.tg':'Написать в Telegram',
+ 'ft.loc':'Алматы, Казахстан','ft.who':'Анас Толебай · AqylAI'
+},
+kz:{
+ 'nav.wa':'WhatsApp','hero.pill':'AI-автоматтандыру · Алматы',
+ 'hero.h1a':'Клиент 22:47-де жазды.','hero.h1b':'Ешкім жауап бермеді.',
+ 'hero.sub':'Таңға дейін ол бәсекелеске жазылып қойды. AqylAI боты 3 секундта жауап береді — кез келген уақытта, кез келген сұраққа. Сіз ұйықтап жатқанда клиентті жазып алады.',
+ 'hero.cta1':'WhatsApp-қа жазу','hero.cta2':'Өз ботыңызды құрастыру ↓',
+ 'hero.note':'Алғашқы кеңес тегін. Жазылымсыз, жасырын төлемдерсіз.',
+ 'stat.1':'бот жауабының жылдамдығы','stat.2':'WhatsApp-та іске қосуға дейін','stat.3':'түн мен демалысты қоса',
+ 'split.tag':'Бір түн','split.h2':'Екі клиника. Бір клиент.',
+ 'split.sub':'22:47-де жіберілген бірдей хабарлама. Айырмашылық — кім жауап бергенінде.',
+ 'split.a':'Ботсыз клиника','split.b':'AqylAI-мен клиника',
+ 'split.aFoot':'✕ Клиент жоғалды','split.bFoot':'✓ Клиент 71 секундта жазылды',
+ 'demo.tag':'Тірі демо','demo.h2':'Бизнесіңізге бот құрастырыңыз',
+ 'demo.sub':'Бизнес түрін атаңыз — бот бірнеше секундта бапталады. Содан кейін өз қызметтеріңіз бен бағаларыңызды қосыңыз.',
+ 'demo.name':'AqylAI демо-боты','demo.online':'24/7 онлайн',
+ 'demo.fake':'Деректер ойдан шығарылған — мысал үшін. Сіздің ботыңыз нақты қызметтеріңізді біледі.',
+ 'demo.real':'Сіздің деректеріңіз. Бот клиенттеріңізбен осылай сөйлеседі.',
+ 'demo.ask':'Бизнесіңіз қандай?','demo.ph':'…немесе өзіңіздікін жазыңыз','demo.ph2':'Хабарлама жазыңыз…',
+ 'demo.own':'⚙ Ботты ӨЗ деректеріңізбен көргіңіз келе ме?',
+ 'demo.building':'бот құрастырылуда…','demo.err':'Болмады. Қайта көріңіз.',
+ 'own.h':'Сіздің ботыңыз, сіздің деректеріңіз','own.sub':'40 секунд. Ештеңе жіберілмейді — бәрі браузеріңізде қалады.',
+ 'own.name':'Бизнес атауы','own.hours':'Жұмыс уақыты','own.svc':'Қызметтер мен бағалар — әрқайсысы жаңа жолда',
+ 'own.color':'Бренд түсі','own.go':'Ботымды іске қосу',
+ 'svc.tag':'Қызметтер','svc.h2':'Біз нені автоматтандырамыз','svc.sub':'Біреуінен бастаңыз. Қалғанын бірінші өтелгенде қосамыз.',
+ 'svc.pop':'Танымал','svc.max':'Максимум',
+ 'svc.1n':'Автожауап','svc.1d':'Бот WhatsApp пен Telegram-да клиенттердің сұрақтарына тәулік бойы жауап береді: қызметтер, бағалар, жұмыс уақыты, мекенжай.','svc.1p':'+ ₸40 000-нан / ай',
+ 'svc.2n':'Автожазылу','svc.2d':'«Автожауаптағының» бәрі + бот клиентті күнтізбеге жазады және визит туралы еске салады.','svc.2p':'+ ₸60 000-нан / ай',
+ 'svc.3n':'Автобизнес','svc.3d':'Толық цикл: жауап, клиентті сұрыптау, жазылу, еске салу, келмегендерді қайтару. Айына бір рет есеп.','svc.3p':'+ ₸120 000-нан / ай',
+ 'svc.4n':'Дауыстық ресепшн','svc.4d':'AI қоңырауларға тірі дауыспен жауап береді, жазады және күрделі сұрақтарды әкімшіге аударады.','svc.4p':'+ ₸150 000 – ₸200 000 / ай',
+ 'svc.fine':'Нақты құны тапсырмаларға байланысты. Лидтерге автоқоңырау — айына 150 қоңырау кіреді, одан әрі қоңырауы ₸200. Бізге жазыңыз — шешім таңдап, тегін демо көрсетеміз.',
+ 'cfg.h':'Бұл сізге қанша тұрады','cfg.sub':'Жүгірткілерді жылжытыңыз — тарифті және қазір қанша жоғалтып жатқаныңызды көрсетеміз.',
+ 'cfg.msgs':'Клиенттерден күніне хабарлама','cfg.check':'Орташа чек, ₸',
+ 'cfg.book':'Күнтізбеге жазылу және еске салу','cfg.voice':'Дауыстық ресепшн (қоңырау қабылдау)',
+ 'cfg.rec':'Сіздің тарифіңіз','cfg.loss':'Сіз шамамен жоғалтасыз','cfg.cta':'WhatsApp-та талқылау',
+ 'cfg.lossNote':'Бағалау: хабарламалардың бір бөлігі жұмыс уақытынан тыс жауапсыз қалады, бұл адамдардың бір бөлігі бәсекелестерге кетеді.',
+ 'how.tag':'Процесс','how.h2':'Бот 48 сағаттан кейін жұмыс істейді','how.sub':'Ұзақ келісімдерсіз және 20 беттік техникалық тапсырмаларсыз.',
+ 'how.1n':'Талдау — 1-күн','how.1d':'Сіз бизнес туралы айтасыз. Біз қызметтеріңізді, бағаларыңызды және клиенттердің жиі сұрақтарын зерттейміз.',
+ 'how.2n':'Баптау және тест — 1–2-күн','how.2d':'Ботты құрастырамыз, бизнесіңіздің нақты сценарийлерінде тексереміз. Сіз бәрін көріп, бекітесіз.',
+ 'how.3n':'Іске қосу — 2-күн','how.3d':'Бот сіздің WhatsApp-та жұмысқа кіріседі. Сіз қолжетімділік пен нұсқаулық аласыз.',
+ 'how.guar':'Бот 48 сағатта жұмыс істемесе — баптау ақшасын қайтарамыз.',
+ 'faq.tag':'Сұрақтар','faq.h2':'Жиі қойылатын сұрақтар',
+ 'cta.tag':'Бастау','cta.h2':'Түнде клиенттерді жоғалтуды тоқтатыңыз',
+ 'cta.sub':'Алғашқы кеңес тегін. Бизнесіңізге демо көрсетіп, нақты бағаны айтамыз.',
+ 'cta.wa':'WhatsApp-қа жазу','cta.tg':'Telegram-ға жазу',
+ 'ft.loc':'Алматы, Қазақстан','ft.who':'Анас Төлебай · AqylAI'
+},
+en:{
+ 'nav.wa':'WhatsApp','hero.pill':'AI automation · Almaty',
+ 'hero.h1a':'A customer wrote at 22:47.','hero.h1b':'Nobody answered.',
+ 'hero.sub':'By morning they had booked with your competitor. The AqylAI bot replies in 3 seconds — any hour, any question — and books the client while you sleep.',
+ 'hero.cta1':'Message on WhatsApp','hero.cta2':'Build your own bot ↓',
+ 'hero.note':'First consultation is free. No subscriptions, no hidden fees.',
+ 'stat.1':'bot reply time','stat.2':'to launch in your WhatsApp','stat.3':'nights and weekends included',
+ 'split.tag':'One night','split.h2':'Two clinics. One customer.',
+ 'split.sub':'The same message, sent at 22:47. The only difference is who replied.',
+ 'split.a':'Clinic without a bot','split.b':'Clinic with AqylAI',
+ 'split.aFoot':'✕ Customer lost','split.bFoot':'✓ Booked in 71 seconds',
+ 'demo.tag':'Live demo','demo.h2':'Build a bot for your business',
+ 'demo.sub':'Name your business type — the bot configures itself in seconds. Then add your real services and prices and see how it will talk to your customers.',
+ 'demo.name':'AqylAI demo bot','demo.online':'online 24/7',
+ 'demo.fake':'Example data, invented for the demo. Your bot will know your real services and prices.',
+ 'demo.real':'Your data. This is how the bot will talk to your customers.',
+ 'demo.ask':'What kind of business do you run?','demo.ph':'…or type your own','demo.ph2':'Type a message…',
+ 'demo.own':'⚙ Want to see the bot with YOUR data?',
+ 'demo.building':'building your bot…','demo.err':"That didn't work. Try again.",
+ 'own.h':'Your bot, your data','own.sub':'40 seconds. Nothing is sent anywhere — it stays in your browser.',
+ 'own.name':'Business name','own.hours':'Opening hours','own.svc':'Services and prices — one per line',
+ 'own.color':'Brand colour','own.go':'Launch my bot',
+ 'svc.tag':'Services','svc.h2':'What we automate','svc.sub':'Start with one. We add the rest once the first one pays for itself.',
+ 'svc.pop':'Most popular','svc.max':'Maximum',
+ 'svc.1n':'Auto-Reply','svc.1d':'The bot answers customer questions on WhatsApp and Telegram around the clock: services, prices, hours, address.','svc.1p':'+ from ₸40,000 / mo',
+ 'svc.2n':'Auto-Booking','svc.2d':'Everything in Auto-Reply, plus the bot books the customer into your calendar and sends reminders.','svc.2p':'+ from ₸60,000 / mo',
+ 'svc.3n':'Auto-Business','svc.3d':'The full cycle: reply, qualify, book, remind, and win back no-shows. Monthly report included.','svc.3p':'+ from ₸120,000 / mo',
+ 'svc.4n':'Voice Reception','svc.4d':'AI answers your phone in a natural voice, books appointments and escalates hard questions to a human.','svc.4p':'+ ₸150,000 – ₸200,000 / mo',
+ 'svc.fine':'Final pricing depends on scope. Outbound calling includes 150 calls/month, then ₸200 per call. Message us — we will scope it and show you a free demo.',
+ 'cfg.h':'What this would cost you','cfg.sub':'Move the sliders — we will show your tier and what you are losing right now.',
+ 'cfg.msgs':'Customer messages per day','cfg.check':'Average ticket, ₸',
+ 'cfg.book':'Calendar booking and reminders','cfg.voice':'Voice reception (answering calls)',
+ 'cfg.rec':'Your tier','cfg.loss':'You are losing roughly','cfg.cta':'Discuss on WhatsApp',
+ 'cfg.lossNote':'An estimate: some messages go unanswered outside working hours, and some of those people go to a competitor. Real numbers depend on your business.',
+ 'how.tag':'Process','how.h2':'Your bot is live in 48 hours','how.sub':'No long approvals, no 20-page specification documents.',
+ 'how.1n':'Discovery — day 1','how.1d':'You tell us about the business. We study your services, prices and the questions customers ask most.',
+ 'how.2n':'Build and test — day 1–2','how.2d':'We build the bot and run it against real scenarios from your business. You see everything and approve it.',
+ 'how.3n':'Launch — day 2','how.3d':'The bot goes live in your WhatsApp. You get access and a short guide. We stay reachable.',
+ 'how.guar':'If the bot is not working in 48 hours, we refund the setup fee.',
+ 'faq.tag':'Questions','faq.h2':'Frequently asked',
+ 'cta.tag':'Start','cta.h2':'Stop losing customers at night',
+ 'cta.sub':'First consultation is free. We will show a demo for your business and quote an exact price.',
+ 'cta.wa':'Message on WhatsApp','cta.tg':'Message on Telegram',
+ 'ft.loc':'Almaty, Kazakhstan','ft.who':'Anas Tolebay · AqylAI'
+}};
+
+const FAQ = {
+ru:[
+ ['Это сложно для моего бизнеса?','Нет. Мы делаем всё сами — от настройки до запуска. От вас нужны только ответы на вопросы про бизнес. Технических знаний не требуется.'],
+ ['На каком языке отвечает бот?','По умолчанию — на русском: качество ответов там самое высокое. Казахский подключаем по запросу, с отдельной настройкой под ваш бизнес. Обсудим на первом звонке.'],
+ ['Что если бот не знает ответа?','Он честно скажет, что уточнит, и пришлёт вам уведомление в Telegram с вопросом и номером клиента. Ни один лид не теряется.'],
+ ['Мне нужен сайт или Instagram?','Нет. Бот работает в WhatsApp или Telegram — там, где ваши клиенты уже есть.'],
+ ['Сколько реально выходит в месяц?','От ₸40 000/мес обслуживание + примерно ₸2 000–₸4 000 расходов на AI для спокойной клиники. Больше сообщений — больше расход, но он всегда прозрачен.'],
+ ['Почему цена такая, а не дешевле?','Потому что бот не шаблонный. Мы пишем его под ваши услуги, цены и манеру общения, тестируем на реальных сценариях и остаёмся на связи после запуска.'],
+ ['Вы уже с кем-то работаете?','Мы в самом начале — и говорим об этом честно. Поэтому первые клиенты получают специальную цену и максимум внимания к своему проекту.']
+],
+kz:[
+ ['Бұл бизнесім үшін күрделі ме?','Жоқ. Біз бәрін өзіміз жасаймыз — баптаудан іске қосуға дейін. Сізден тек бизнес туралы сұрақтарға жауап керек.'],
+ ['Бот қай тілде жауап береді?','Әдепкіде — орысша: жауап сапасы сонда ең жоғары. Қазақ тілін сұрау бойынша, бизнесіңізге бөлек баптаумен қосамыз.'],
+ ['Бот жауапты білмесе ше?','Ол шынын айтады — нақтылаймын дейді және сізге Telegram-ға клиенттің сұрағы мен нөмірін жібереді. Бірде-бір лид жоғалмайды.'],
+ ['Маған сайт немесе Instagram керек пе?','Жоқ. Бот WhatsApp немесе Telegram-да жұмыс істейді — клиенттеріңіз әлдеқашан сонда.'],
+ ['Айына нақты қанша шығады?','Айына ₸40 000-нан қызмет көрсету + тыныш клиника үшін AI-ға шамамен ₸2 000–₸4 000 шығын.'],
+ ['Неге бағасы дәл осындай?','Себебі бот шаблон емес. Оны сіздің қызметтеріңізге, бағаларыңызға және сөйлеу мәнеріңізге жазамыз.'],
+ ['Сіздер қазір біреумен жұмыс істейсіздер ме?','Біз енді бастап жатырмыз — және мұны ашық айтамыз. Сондықтан алғашқы клиенттер арнайы баға мен барынша назар алады.']
+],
+en:[
+ ['Is this complicated for my business?','No. We handle everything from setup to launch. All we need from you is answers about your business. No technical knowledge required.'],
+ ['What language does the bot reply in?','Russian by default — that is where reply quality is highest. Kazakh is available on request, with dedicated tuning for your business. We will discuss it on the first call.'],
+ ["What if the bot doesn't know the answer?",'It says honestly that it will check, and sends you a Telegram notification with the question and the customer\'s number. No lead is lost.'],
+ ['Do I need a website or Instagram?','No. The bot works in WhatsApp or Telegram — where your customers already are.'],
+ ['What does it actually cost per month?','From ₸40,000/mo for maintenance plus roughly ₸2,000–₸4,000 of AI usage for a quiet clinic. More messages means more usage, but it is always transparent.'],
+ ['Why this price and not cheaper?','Because the bot is not a template. We write it around your services, prices and tone of voice, test it on real scenarios, and stay reachable after launch.'],
+ ['Do you already have clients?','We are right at the start, and we say so openly. That is why the first clients get special pricing and our full attention.']
+]};
+
+const CHIPS = {
+ ru:['Стоматология','Салон красоты','Ресторан','Недвижимость','Автошкола','Фитнес','Цветы','Турагентство'],
+ kz:['Стоматология','Сұлулық салоны','Мейрамхана','Жылжымайтын мүлік','Автомектеп','Фитнес','Гүлдер','Турагенттік'],
+ en:['Dental clinic','Beauty salon','Restaurant','Real estate','Driving school','Gym','Florist','Tour agency']
+};
+
+let lang = 'ru';
+const t = k => (T[lang][k] ?? T.ru[k] ?? '');
+
+const WA = '77074043006';
+const waLink = txt => `https://wa.me/${WA}?text=${encodeURIComponent(txt)}`;
+const WATXT = {
+ ru:{nav:'Здравствуйте! Пишу с сайта — хочу узнать про AI-автоматизацию.',
+     hero:'Здравствуйте! Пишу с сайта. Теряю клиентов из-за медленных ответов — расскажите про бота.',
+     cta:'Здравствуйте! Хочу бесплатную консультацию и демо под мой бизнес.'},
+ kz:{nav:'Сәлеметсіз бе! Сайттан жазып отырмын — AI-автоматтандыру туралы білгім келеді.',
+     hero:'Сәлеметсіз бе! Сайттан жазып отырмын. Баяу жауаптардан клиент жоғалтамын — бот туралы айтыңызшы.',
+     cta:'Сәлеметсіз бе! Тегін кеңес пен бизнеске демо алғым келеді.'},
+ en:{nav:'Hello! Writing from the website — I would like to know more about AI automation.',
+     hero:'Hello! Writing from your website. I am losing customers to slow replies — tell me about the bot.',
+     cta:'Hello! I would like the free consultation and a demo for my business.'}
+};
+
+function applyLang(){
+  document.documentElement.lang = lang === 'kz' ? 'kk' : lang;
+  document.querySelectorAll('[data-i]').forEach(el=>{
+    const v = t(el.dataset.i); if(v) el.textContent = v;
+  });
+  document.querySelectorAll('[data-ph]').forEach(el=>{
+    const v = t(el.dataset.ph); if(v) el.placeholder = v;
+  });
+  document.getElementById('navWa').href  = waLink(WATXT[lang].nav);
+  document.getElementById('heroWa').href = waLink(WATXT[lang].hero);
+  document.getElementById('ctaWa').href  = waLink(WATXT[lang].cta);
+  buildChips(); buildFaq(); calc();
+}
+
+document.querySelectorAll('.lang').forEach(b=>b.onclick=()=>{
+  lang = b.dataset.lang;
+  document.querySelectorAll('.lang').forEach(x=>x.classList.toggle('on', x===b));
+  applyLang();
 });
 
-function toggleFaq(btn) {
-  const item = btn.closest('.faq-item');
-  const isOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-  if (!isOpen) item.classList.add('open');
-}
-
-const GROQ_KEY = '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';
-const SYSTEM = `Ты — дружелюбный AI-ассистент стоматологической клиники «Жемчуг» в Алматы.
-Отвечай ТОЛЬКО на русском языке. Будь тёплым, вежливым и профессиональным.
-Отвечай коротко — максимум 3-4 предложения. Никогда не выходи из роли.
-
-Клиника: Стоматология «Жемчуг», ул. Абая 15, Алматы
-Часы: Пн–Пт 9:00–20:00, Сб 10:00–18:00, Вс — выходной
-
-Услуги:
-- Консультация: бесплатно
-- Чистка: от 8 000 тг
-- Лечение кариеса: от 15 000 тг
-- Удаление зуба: от 12 000 тг
-- Коронка: от 45 000 тг
-- Отбеливание: от 35 000 тг
-- Имплантация: от 150 000 тг
-- Брекеты: от 200 000 тг
-
-Запись: уточни имя, дату, услугу — затем: «Заявка принята, перезвоним за 30 минут»
-Если спросят кто создал бота: «Команда AqylAI — wa.me/77074043006 😊»`;
-
-let history = [];
-
-function getTime() { return new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }); }
-
-function addMsg(text, role) {
-  const box = document.getElementById('chat-messages');
-  const d = document.createElement('div');
-  d.className = 'msg ' + role;
-  d.innerHTML = text.replace(/\n/g, '<br>') + '<div class="msg-time">' + getTime() + '</div>';
-  box.appendChild(d);
-  box.scrollTop = box.scrollHeight;
-}
-
-function showTyping() {
-  const box = document.getElementById('chat-messages');
-  const d = document.createElement('div');
-  d.className = 'msg bot'; d.id = 'typing';
-  d.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>';
-  box.appendChild(d);
-  box.scrollTop = box.scrollHeight;
-}
-
-async function sendMessage() {
-  const input = document.getElementById('chat-input');
-  const text = input.value.trim();
-  if (!text) return;
-  input.value = '';
-  addMsg(text, 'user');
-  history.push({ role: 'user', content: text });
-  const btn = document.getElementById('send-btn');
-  btn.disabled = true;
-  showTyping();
-  try {
-    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + GROQ_KEY },
-      body: JSON.stringify({ model: 'llama-3.1-8b-instant', messages: [{ role: 'system', content: SYSTEM }, ...history], max_tokens: 300, temperature: 0.7 })
-    });
-    const data = await res.json();
-    const reply = data.choices?.[0]?.message?.content || 'Извините, произошла ошибка. Попробуйте ещё раз.';
-    history.push({ role: 'assistant', content: reply });
-    document.getElementById('typing')?.remove();
-    addMsg(reply, 'bot');
-  } catch(e) {
-    document.getElementById('typing')?.remove();
-    addMsg('Ошибка соединения. Попробуйте ещё раз.', 'bot');
+/* ============ oyu ornament dividers ============ */
+/* koshkar-muyiz: paired mirrored spirals, tiled across the band */
+function oyu(id){
+  const el = document.getElementById(id); if(!el) return;
+  const unit = 'M0 26 C0 12, 14 6, 22 14 C29 21, 24 32, 16 30 C10 28.5, 9 21, 15 20';
+  let p = '';
+  for(let i=0;i<22;i++){
+    const x = i*48;
+    p += `<path d="${unit}" transform="translate(${x},2)"/>`;
+    p += `<path d="${unit}" transform="translate(${x+48},2) scale(-1,1)"/>`;
   }
-  btn.disabled = false;
+  el.innerHTML = `<svg viewBox="0 0 1056 34" preserveAspectRatio="xMidYMid slice" width="100%" height="34">${p}</svg>`;
+  el.querySelectorAll('path').forEach(pt=>{
+    const L = pt.getTotalLength();
+    pt.style.setProperty('--len', L);
+  });
+}
+['oyu1','oyu2','oyu3'].forEach(oyu);
+
+/* ============ reveal + oyu draw-in ============ */
+const io = new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){ e.target.classList.add('in','drawn'); io.unobserve(e.target); }
+}),{threshold:.12});
+document.querySelectorAll('.rv,.oyu').forEach((el,i)=>{
+  el.style.transitionDelay = (i%4)*70 + 'ms';
+  io.observe(el);
+});
+
+/* ============ split threads ============ */
+const SCRIPT = {
+ ru:{A:[['them','Здравствуйте! Можно записаться на завтра?','22:47','read'],
+        ['gap','— тишина —'],
+        ['them','Уже не надо, записалась в другую клинику','09:14','']],
+     B:[['them','Здравствуйте! Можно записаться на завтра?','22:47',''],
+        ['me','Здравствуйте! 👋 Конечно. Завтра свободно в 11:00 и 15:30. Какое время удобнее?','22:47','read'],
+        ['them','11:00','22:48',''],
+        ['me','Записал вас на 11:00. Как вас зовут?','22:48','read'],
+        ['them','Айгуль','22:48',''],
+        ['me','Готово, Айгуль ✅ Ждём завтра в 11:00. Напомню за 2 часа до визита.','22:48','read']]},
+ kz:{A:[['them','Сәлеметсіз бе! Ертеңге жазылуға бола ма?','22:47','read'],
+        ['gap','— тыныштық —'],
+        ['them','Керегі жоқ енді, басқа клиникаға жазылдым','09:14','']],
+     B:[['them','Сәлеметсіз бе! Ертеңге жазылуға бола ма?','22:47',''],
+        ['me','Сәлеметсіз бе! 👋 Әрине. Ертең 11:00 және 15:30 бос. Қай уақыт ыңғайлы?','22:47','read'],
+        ['them','11:00','22:48',''],
+        ['me','11:00-ге жаздым. Атыңыз кім?','22:48','read'],
+        ['them','Айгүл','22:48',''],
+        ['me','Дайын, Айгүл ✅ Ертең 11:00-де күтеміз. 2 сағат бұрын еске саламын.','22:48','read']]},
+ en:{A:[['them','Hi! Can I book an appointment for tomorrow?','22:47','read'],
+        ['gap','— silence —'],
+        ['them','Never mind, I booked with another clinic','09:14','']],
+     B:[['them','Hi! Can I book an appointment for tomorrow?','22:47',''],
+        ['me','Hello! 👋 Of course. Tomorrow 11:00 and 15:30 are free. Which suits you?','22:47','read'],
+        ['them','11:00','22:48',''],
+        ['me','Booked you for 11:00. What is your name?','22:48','read'],
+        ['them','Aigul','22:48',''],
+        ['me','All set, Aigul ✅ See you tomorrow at 11:00. I will remind you 2 hours before.','22:48','read']]}
+};
+
+let played = false;
+function playThreads(){
+  if(played) return; played = true;
+  const S = SCRIPT[lang] || SCRIPT.ru;
+  ['A','B'].forEach(k=>{
+    const box = document.getElementById('t'+k);
+    box.innerHTML = '';
+    let d = 300;
+    S[k].forEach(row=>{
+      if(row[0]==='gap'){
+        const g = document.createElement('div');
+        g.className='gap'; g.textContent=row[1];
+        box.appendChild(g);
+        setTimeout(()=>g.classList.add('in'), d);
+        d += 1400;
+        return;
+      }
+      const [who,txt,time,tick] = row;
+      const b = document.createElement('div');
+      b.className = 'b '+who;
+      const tk = tick==='read' ? '<span class="tick read">✓✓</span>' : (who==='me'?'<span class="tick">✓✓</span>':'');
+      b.innerHTML = `${txt}<div class="t">${time}${tk}</div>`;
+      box.appendChild(b);
+      setTimeout(()=>b.classList.add('in'), d);
+      d += 750;
+    });
+  });
+}
+new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) playThreads(); }),{threshold:.3})
+  .observe(document.getElementById('split'));
+
+/* ============ FAQ ============ */
+function buildFaq(){
+  const list = document.getElementById('faqList');
+  list.innerHTML = '';
+  (FAQ[lang]||FAQ.ru).forEach(([q,a])=>{
+    const d = document.createElement('div');
+    d.className = 'q rv in';
+    d.innerHTML = `<button>${q}<i>+</i></button><div class="a">${a}</div>`;
+    d.querySelector('button').onclick = ()=>{
+      const open = d.classList.contains('open');
+      list.querySelectorAll('.q').forEach(x=>x.classList.remove('open'));
+      if(!open) d.classList.add('open');
+    };
+    list.appendChild(d);
+  });
 }
 
-function sendChip(text) {
-  document.getElementById('chat-input').value = text;
-  sendMessage();
+/* ============ pricing configurator ============ */
+const TIERS = {
+ 1:{key:'svc.1n', setup:'от ₸150 000', mo:'от ₸40 000'},
+ 2:{key:'svc.2n', setup:'от ₸200 000', mo:'от ₸60 000'},
+ 3:{key:'svc.3n', setup:'от ₸400 000', mo:'от ₸120 000'},
+ 4:{key:'svc.4n', setup:'₸400 000 – ₸600 000', mo:'₸150 000 – ₸200 000'}
+};
+const fmt = n => Math.round(n).toLocaleString('ru-RU').replace(/,/g,' ');
+
+function calc(){
+  const msgs  = +document.getElementById('rMsgs').value;
+  const check = +document.getElementById('rCheck').value;
+  const book  = document.getElementById('cBook').checked;
+  const voice = document.getElementById('cVoice').checked;
+
+  document.getElementById('vMsgs').textContent  = msgs;
+  document.getElementById('vCheck').textContent = fmt(check);
+
+  let n = 1;
+  if(voice) n = 4;
+  else if(book && msgs >= 60) n = 3;
+  else if(book) n = 2;
+  const T2 = TIERS[n];
+
+  document.getElementById('oTier').textContent  = t(T2.key);
+  document.getElementById('oSetup').textContent = T2.setup;
+  const word = {ru:'настройка · + ',kz:'баптау · + ',en:'setup · + '}[lang];
+  const per  = {ru:' / мес',kz:' / ай',en:' / mo'}[lang];
+  document.getElementById('oMonth').textContent = word + T2.mo + per;
+
+  // conservative: 25% of messages go unanswered after hours, 8% of those would have bought
+  const lost = msgs * 30 * 0.25 * 0.08 * check;
+  document.getElementById('oLoss').textContent = '₸' + fmt(lost) + per;
+
+  document.querySelectorAll('.tier').forEach(el=>el.classList.toggle('on', +el.dataset.tier === n));
+
+  const msg = {
+    ru:`Здравствуйте! Собрал на сайте: тариф «${t(T2.key)}», ~${msgs} сообщений в день${book?', нужна запись в календарь':''}${voice?', нужен голосовой ресепшн':''}. Хочу обсудить.`,
+    kz:`Сәлеметсіз бе! Сайтта жинадым: «${t(T2.key)}» тарифі, күніне ~${msgs} хабарлама${book?', күнтізбеге жазылу керек':''}${voice?', дауыстық ресепшн керек':''}. Талқылағым келеді.`,
+    en:`Hello! I configured this on your site: "${t(T2.key)}" tier, ~${msgs} messages a day${book?', need calendar booking':''}${voice?', need voice reception':''}. I would like to discuss it.`
+  }[lang];
+  document.getElementById('cfgWa').href = waLink(msg);
 }
+['rMsgs','rCheck','cBook','cVoice'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', calc);
+});
+
+/* ============ demo bot ============ */
+const D = { persona:null, history:[], accent:'#12161C' };
+const $ = id => document.getElementById(id);
+
+function buildChips(){
+  const box = $('dChips'); box.innerHTML = '';
+  (CHIPS[lang]||CHIPS.ru).forEach(c=>{
+    const b = document.createElement('button');
+    b.className = 'chip'; b.textContent = c;
+    b.onclick = ()=> initBot(c);
+    box.appendChild(b);
+  });
+}
+
+function bubble(txt, who){
+  const m = document.createElement('div');
+  m.className = 'm ' + who;
+  m.textContent = txt;
+  $('dMsgs').appendChild(m);
+  $('dMsgs').scrollTop = $('dMsgs').scrollHeight;
+  return m;
+}
+function typing(){
+  const m = document.createElement('div');
+  m.className = 'm bot'; m.id = 'typing';
+  m.innerHTML = '<div class="typing"><i></i><i></i><i></i></div>';
+  $('dMsgs').appendChild(m);
+  $('dMsgs').scrollTop = $('dMsgs').scrollHeight;
+}
+const untype = () => $('typing')?.remove();
+
+async function api(payload){
+  const r = await fetch('/api/chat',{
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ ...payload, lang: lang === 'kz' ? 'ru' : lang })
+  });
+  if(!r.ok) throw new Error('api');
+  return r.json();
+}
+
+async function initBot(business){
+  $('dPick').hidden = true;
+  $('dMsgs').hidden = false;
+  $('dMsgs').innerHTML = '';
+  $('dStat').textContent = t('demo.building');
+  typing();
+  try{
+    const { persona, greeting } = await api({ action:'init', business });
+    D.persona = persona; D.history = [];
+    untype();
+    $('dAv').textContent  = persona.emoji || '💬';
+    $('dName').textContent = persona.name;
+    $('dStat').textContent = t('demo.online');
+    $('dNote').hidden = false;
+    $('dNote').textContent = t('demo.fake');
+    bubble(greeting, 'bot');
+    D.history.push({ role:'assistant', content: greeting });
+    $('dIn').hidden = false;
+    $('dUp').hidden = false;
+    $('dMsg').focus();
+  }catch(e){
+    untype();
+    $('dStat').textContent = t('demo.online');
+    bubble(t('demo.err'), 'bot');
+    $('dPick').hidden = false;
+  }
+}
+
+async function send(){
+  const inp = $('dMsg');
+  const txt = inp.value.trim();
+  if(!txt || !D.persona) return;
+  inp.value = '';
+  bubble(txt, 'user');
+  D.history.push({ role:'user', content: txt });
+  $('dSend').disabled = true;
+  typing();
+  try{
+    const { reply } = await api({ persona: D.persona, messages: D.history });
+    untype();
+    bubble(reply, 'bot');
+    D.history.push({ role:'assistant', content: reply });
+  }catch(e){
+    untype();
+    bubble(t('demo.err'), 'bot');
+  }
+  $('dSend').disabled = false;
+  inp.focus();
+}
+
+$('dGo').onclick   = ()=>{ const v = $('dBiz').value.trim(); if(v) initBot(v); };
+$('dBiz').onkeydown = e =>{ if(e.key==='Enter'){ const v=$('dBiz').value.trim(); if(v) initBot(v); } };
+$('dSend').onclick  = send;
+$('dMsg').onkeydown = e =>{ if(e.key==='Enter') send(); };
+
+/* ---- Tier 2: their own data ---- */
+const SWATCH = ['#12161C','#1C7FA6','#E0A73A','#7B4B94','#C0392B','#1E9E52'];
+function buildSw(){
+  const box = $('oSw'); box.innerHTML='';
+  SWATCH.forEach((c,i)=>{
+    const b = document.createElement('button');
+    b.style.background = c;
+    if(i===0) b.classList.add('on');
+    b.onclick = ()=>{
+      box.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+      D.accent = c;
+      $('demoBox').style.setProperty('--accent', c);
+    };
+    box.appendChild(b);
+  });
+}
+buildSw();
+
+$('dOwnBtn').onclick = ()=>{
+  $('dOwn').hidden = false;
+  $('dUp').hidden = true;
+  $('dOwn').scrollIntoView({block:'center'});
+};
+
+$('oGo').onclick = async ()=>{
+  const name  = $('oName').value.trim();
+  const hours = $('oHours').value.trim();
+  const raw   = $('oSvc').value.trim();
+  if(!name || !raw){ $('oName').focus(); return; }
+
+  const services = raw.split('\n').map(l=>l.trim()).filter(Boolean).slice(0,8).map(l=>{
+    const m = l.split(/[—\-–:]\s*/);
+    return m.length > 1
+      ? { name: m[0].trim(), price: m.slice(1).join(' ').trim() }
+      : { name: l, price: '' };
+  });
+
+  D.persona = {
+    business: D.persona?.business || name,
+    name, emoji: D.persona?.emoji || '💬',
+    address: '', hours, services,
+    booking: {ru:'Заявка принята, свяжемся с вами в течение 30 минут.',
+              kz:'Өтінім қабылданды, 30 минут ішінде хабарласамыз.',
+              en:'Request received, we will contact you within 30 minutes.'}[lang],
+    real: true
+  };
+  D.history = [];
+
+  $('dOwn').hidden = true;
+  $('dMsgs').innerHTML = '';
+  $('dName').textContent = name;
+  $('dNote').textContent = t('demo.real');
+  $('demoBox').style.setProperty('--accent', D.accent);
+
+  const hi = {
+    ru:`Здравствуйте! 👋 Я AI-помощник «${name}». Спросите про услуги, цены или запишитесь.`,
+    kz:`Сәлеметсіз бе! 👋 Мен «${name}» AI-көмекшісімін. Қызметтер мен бағаларды сұраңыз.`,
+    en:`Hello! 👋 I'm the AI assistant for "${name}". Ask about services and prices, or book a slot.`
+  }[lang];
+  bubble(hi, 'bot');
+  D.history.push({ role:'assistant', content: hi });
+  $('dMsg').focus();
+
+  const cta = {
+    ru:`Здравствуйте! Настроил демо-бота на сайте под «${name}». Хочу такого же в свой WhatsApp.`,
+    kz:`Сәлеметсіз бе! Сайтта «${name}» үшін демо-бот баптадым. Дәл сондайды WhatsApp-қа алғым келеді.`,
+    en:`Hello! I configured a demo bot on your site for "${name}". I want one in my own WhatsApp.`
+  }[lang];
+  const w = document.createElement('div');
+  w.className = 'upsell';
+  w.innerHTML = `<a class="btn btn-wa" style="width:100%" href="${waLink(cta)}" target="_blank" rel="noopener">
+    ${ {ru:'Хочу такого бота в свой WhatsApp →',kz:'Осындай ботты WhatsApp-қа алғым келеді →',en:'I want this bot in my WhatsApp →'}[lang] }</a>`;
+  $('dOwn').after(w);
+};
+
+/* ============ go ============ */
+applyLang();
 </script>
 </body>
 </html>
