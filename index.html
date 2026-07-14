@@ -132,21 +132,47 @@ h1 em::after{content:'';position:absolute;left:0;right:0;bottom:.06em;height:.10
 .win .th-foot{color:#1E9E52;background:rgba(37,211,102,.07)}
 
 /* ---- demo ---- */
-.demo{max-width:520px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:16px;
-  overflow:hidden;box-shadow:0 20px 50px -20px rgba(18,22,28,.14)}
+.stage{position:relative;max-width:520px;margin:0 auto}
+.demo{position:relative;z-index:3;background:var(--card);border:1px solid var(--a30,var(--line));border-radius:16px;
+  overflow:hidden;box-shadow:0 20px 50px -20px rgba(18,22,28,.14);transition:border-color .7s ease,box-shadow .9s ease}
+
+/* concentric echo rings radiating out of the widget */
+.echo{position:absolute;border:1px solid var(--accent,var(--ink));border-radius:24px;pointer-events:none;z-index:1;
+  transition:border-color .8s ease;opacity:0}
+.echo.on{opacity:var(--o)}
+.echo:nth-of-type(1){inset:-16px;border-radius:22px;--o:.20}
+.echo:nth-of-type(2){inset:-40px;border-radius:30px;--o:.12}
+.echo:nth-of-type(3){inset:-70px;border-radius:40px;--o:.07}
+.echo:nth-of-type(4){inset:-108px;border-radius:52px;--o:.035}
+.stage.ripple .echo{animation:ring .95s cubic-bezier(.2,.7,.2,1)}
+.stage.ripple .echo:nth-of-type(2){animation-delay:.07s}
+.stage.ripple .echo:nth-of-type(3){animation-delay:.14s}
+.stage.ripple .echo:nth-of-type(4){animation-delay:.21s}
+@keyframes ring{0%{transform:scale(.96);opacity:.5}100%{transform:scale(1)}}
+
+/* oyu ornament wings unfurling from the widget's flanks */
+.wing{position:absolute;top:50%;width:300px;height:34px;margin-top:-17px;pointer-events:none;z-index:1;opacity:.55}
+.wing-l{right:calc(100% + 44px)}
+.wing-r{left:calc(100% + 44px);transform:scaleX(-1)}
+.wing path{fill:none;stroke:var(--accent,var(--gold));stroke-width:1.4;stroke-linecap:round;
+  stroke-dasharray:var(--len);stroke-dashoffset:var(--len);
+  transition:stroke-dashoffset 1.5s cubic-bezier(.4,0,.2,1),stroke .8s ease}
+.wing.drawn path{stroke-dashoffset:0}
+@media(max-width:1080px){.wing{display:none}}
+@media(max-width:700px){.echo:nth-of-type(3),.echo:nth-of-type(4){display:none}}
 .d-head{padding:14px 18px;display:flex;align-items:center;gap:11px;border-bottom:1px solid var(--line);background:var(--accent,var(--ink));color:var(--onacc,#fff);transition:background .6s ease,color .6s ease}
 .d-av{width:38px;height:38px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
-  font-size:19px;background:rgba(255,255,255,.16)}
+  font-size:19px;background:rgba(255,255,255,.16);box-shadow:0 0 0 3px rgba(255,255,255,.10)}
 .d-name{font-weight:600;font-size:14px}
 .d-stat{font-size:11px;opacity:.8;font-family:var(--mono)}
-.d-note{background:var(--gold-tint);border-bottom:1px solid var(--line);padding:7px 18px;font-size:11.5px;color:#8A6415;font-family:var(--mono)}
+.d-note{background:var(--a12,var(--gold-tint));border-bottom:1px solid var(--a30,var(--line));padding:7px 18px;font-size:11.5px;color:var(--ink-soft);font-family:var(--mono);transition:background .8s ease}
 .d-note[hidden]{display:none}
-.d-msgs{padding:18px;height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;background:var(--paper)}
+.d-msgs{padding:18px;height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;background:var(--a06,var(--paper));transition:background .8s ease}
 .d-msgs::-webkit-scrollbar{width:3px}
 .d-msgs::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
 .m{max-width:84%;padding:9px 13px;border-radius:12px;font-size:14px;line-height:1.55;animation:pop .28s ease}
 @keyframes pop{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
-.m.bot{background:var(--card);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:3px}
+.m.bot{background:var(--card);border:1px solid var(--a30,var(--line));align-self:flex-start;border-bottom-left-radius:3px;transition:border-color .7s ease}
 .m.user{background:var(--accent,var(--ink));color:var(--onacc,#fff);align-self:flex-end;border-bottom-right-radius:3px;transition:background .6s ease,color .6s ease}
 .typing{display:flex;gap:4px;padding:4px 2px}
 .typing i{width:6px;height:6px;border-radius:50%;background:var(--ink-faint);animation:bob 1.2s infinite}
@@ -157,24 +183,24 @@ h1 em::after{content:'';position:absolute;left:0;right:0;bottom:.06em;height:.10
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:11px}
 .chip{background:var(--paper);border:1px solid var(--line);color:var(--ink);font-family:var(--sans);font-size:12.5px;
   padding:6px 12px;border-radius:100px;cursor:pointer;transition:.18s}
-.chip:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-tint)}
+.chip:hover{border-color:var(--accent,var(--blue));color:var(--accent,var(--blue));background:var(--a12,var(--blue-tint))}
 .row{display:flex;gap:8px}
 .inp{flex:1;background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:10px 13px;font-size:14px;
   color:var(--ink);font-family:var(--sans);outline:none;transition:.18s;min-width:0}
-.inp:focus{border-color:var(--blue);background:var(--card)}
+.inp:focus{border-color:var(--accent,var(--blue));background:var(--card)}
 .send{width:42px;height:42px;flex:none;border-radius:9px;border:0;cursor:pointer;background:var(--accent,var(--ink));color:var(--onacc,#fff);transition:background .6s ease;
   font-size:15px;display:flex;align-items:center;justify-content:center;transition:.18s}
 .send:hover{opacity:.85}.send:disabled{opacity:.35;cursor:not-allowed}
-.d-in{padding:12px 18px 16px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:center}
+.d-in{padding:12px 18px 16px;border-top:1px solid var(--a30,var(--line));display:flex;gap:8px;align-items:center;transition:border-color .7s ease}
 .d-in[hidden]{display:none}
 .upsell{padding:0 18px 16px}
 .upsell[hidden]{display:none}
-.upsell button{width:100%;background:var(--gold-tint);border:1px dashed var(--gold);color:#8A6415;font-weight:600;
+.upsell button{width:100%;background:var(--a12,var(--gold-tint));border:1px dashed var(--accent,var(--gold));color:var(--ink);font-weight:600;
   font-size:13.5px;padding:11px;border-radius:9px;cursor:pointer;font-family:var(--sans);transition:.18s}
-.upsell button:hover{background:var(--gold);color:var(--ink);border-style:solid}
+.upsell button:hover{background:var(--accent,var(--gold));color:var(--onacc,#fff);border-style:solid}
 
 /* own-data panel */
-.own{padding:18px;border-top:1px solid var(--line);background:var(--paper2)}
+.own{padding:18px;border-top:1px solid var(--a30,var(--line));background:var(--a06,var(--paper2));transition:background .8s ease}
 .own[hidden]{display:none}
 .own h4{font-size:14px;margin-bottom:3px}
 .own p.h{font-size:12px;color:var(--ink-faint);margin-bottom:14px}
@@ -359,7 +385,11 @@ ym(108221709,'init',{ssr:true,webvisor:true,clickmap:true,accurateTrackBounce:tr
     <h2 class="rv" data-i="demo.h2">Соберите бота для своего бизнеса</h2>
     <p class="sub rv" data-i="demo.sub">Назовите тип бизнеса — бот настроится за пару секунд. Потом добавьте свои реальные услуги и цены, и посмотрите, как он будет говорить с вашими клиентами.</p>
 
-    <div class="demo rv" id="demoBox">
+    <div class="stage rv" id="stage">
+      <div class="wing wing-l" id="wingL"></div>
+      <div class="wing wing-r" id="wingR"></div>
+      <div class="echo"></div><div class="echo"></div><div class="echo"></div><div class="echo"></div>
+      <div class="demo" id="demoBox">
       <div class="d-head">
         <div class="d-av" id="dAv">🌙</div>
         <div>
@@ -411,6 +441,7 @@ ym(108221709,'init',{ssr:true,webvisor:true,clickmap:true,accurateTrackBounce:tr
           <input type="color" id="oCustom" value="#1C7FA6" style="margin-top:9px;width:100%;height:34px;border:1px solid var(--line);border-radius:8px;background:var(--card);cursor:pointer;padding:3px">
         </div>
         <button class="btn btn-wa" id="oGo" style="width:100%" data-i="own.go">Запустить моего бота</button>
+      </div>
       </div>
     </div>
   </div>
@@ -901,7 +932,25 @@ function calc(){
 
 /* ============ demo bot ============ */
 const D = { persona:null, history:[], accent:'#1C7FA6' };
-const $ = id => document.getElementById(id);
+const $  = id => document.getElementById(id);
+const $$ = s  => document.querySelectorAll(s);
+
+/* ornament wings that unfurl from the widget's flanks */
+function wings(){
+  const unit = 'M0 26 C0 12, 14 6, 22 14 C29 21, 24 32, 16 30 C10 28.5, 9 21, 15 20';
+  let p = '';
+  for(let i=0;i<6;i++){
+    const x = i*48;
+    p += `<path d="${unit}" transform="translate(${x},2)"/>`;
+    p += `<path d="${unit}" transform="translate(${x+48},2) scale(-1,1)"/>`;
+  }
+  ['wingL','wingR'].forEach(id=>{
+    const el = $(id);
+    el.innerHTML = `<svg viewBox="0 0 300 34" width="100%" height="34">${p}</svg>`;
+    el.querySelectorAll('path').forEach(pt=>pt.style.setProperty('--len', pt.getTotalLength()));
+  });
+}
+wings();
 
 function buildChips(){
   const box = $('dChips'); box.innerHTML = '';
@@ -1009,10 +1058,12 @@ function lum(hex){
 
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* the reveal: colour blooms out of the swatch, sweeps the page, settles into the section */
+/* the reveal: colour blooms out of the swatch, sweeps the page, floods the widget */
 function applyAccent(hex, origin){
   D.accent = hex;
   const root = document.documentElement.style;
+  const rgb = [1,3,5].map((_,i)=>parseInt(hex.replace('#','').substr(i*2,2),16));
+  const a = o => `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${o})`;
 
   // 1. radial wash from the exact point they clicked
   if(origin && !reduce){
@@ -1021,19 +1072,27 @@ function applyAccent(hex, origin){
     rv.style.background = hex;
     rv.style.setProperty('--ox', (r.left + r.width/2) + 'px');
     rv.style.setProperty('--oy', (r.top  + r.height/2) + 'px');
-    rv.classList.remove('go');
-    void rv.offsetWidth;              // force reflow so the animation restarts
-    rv.classList.add('go');
+    rv.classList.remove('go'); void rv.offsetWidth; rv.classList.add('go');
   }
 
-  // 2. the widget itself
-  const box = $('demoBox');
-  box.style.setProperty('--accent', hex);
-  box.style.setProperty('--onacc', lum(hex) > .55 ? '#12161C' : '#FFFFFF');
-  box.style.boxShadow = `0 20px 60px -18px ${hex}55`;
-  if(!reduce){ box.classList.remove('pulse'); void box.offsetWidth; box.classList.add('pulse'); }
+  // 2. the whole widget takes the colour — borders, chat bg, bubbles, inputs, panel
+  const box = $('demoBox'), stage = $('stage');
+  [box, stage].forEach(el=>{
+    el.style.setProperty('--accent', hex);
+    el.style.setProperty('--onacc', lum(hex) > .55 ? '#12161C' : '#FFFFFF');
+    el.style.setProperty('--a06', a(.05));
+    el.style.setProperty('--a12', a(.12));
+    el.style.setProperty('--a30', a(.30));
+  });
+  box.style.boxShadow = `0 22px 60px -20px ${a(.42)}`;
 
-  // 3. the page absorbs it — section glow + ornament bands
+  // 3. rings ripple outward, wings and page ornament follow
+  $$('.echo').forEach(e=>e.classList.add('on'));
+  ['wingL','wingR'].forEach(id=>$(id).classList.add('drawn'));
+  if(!reduce){
+    stage.classList.remove('ripple'); void stage.offsetWidth; stage.classList.add('ripple');
+    box.classList.remove('pulse');   void box.offsetWidth;   box.classList.add('pulse');
+  }
   $('demoGlow').style.color = hex;
   root.setProperty('--oyu', hex);
 }
