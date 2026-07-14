@@ -86,6 +86,22 @@ nav .btn{padding:9px 16px;font-size:13px}
   transition:color 900ms ease}
 .demo{transition:box-shadow .9s ease}
 .demo.pulse{animation:pulseCard .9s ease}
+
+/* ornament ON the widget — cannot be clipped, cannot be hidden by viewport */
+.d-head{position:relative;overflow:hidden}
+.hdr-orn{position:absolute;inset:0;pointer-events:none;opacity:.22;display:flex;align-items:center}
+.hdr-orn svg{width:100%;height:34px}
+.hdr-orn path{fill:none;stroke:var(--onacc,#fff);stroke-width:1.2;stroke-linecap:round}
+.d-head>*:not(.hdr-orn){position:relative;z-index:1}
+
+.mark{position:absolute;right:-30px;bottom:-40px;width:200px;height:200px;pointer-events:none;
+  opacity:.05;z-index:0;color:var(--accent,var(--ink));transition:color .8s ease}
+.d-msgs{position:relative}
+.d-msgs>.m{position:relative;z-index:1}
+
+.foot-orn{height:26px;overflow:hidden;opacity:.5;background:var(--card);border-top:1px solid var(--a30,var(--line))}
+.foot-orn svg{width:100%;height:26px}
+.foot-orn path{fill:none;stroke:var(--accent,var(--gold));stroke-width:1.2;stroke-linecap:round;transition:stroke .8s ease}
 @keyframes pulseCard{0%{transform:scale(1)}30%{transform:scale(1.018)}100%{transform:scale(1)}}
 
 /* ---- hero ---- */
@@ -140,26 +156,17 @@ h1 em::after{content:'';position:absolute;left:0;right:0;bottom:.06em;height:.10
 .echo{position:absolute;border:1px solid var(--accent,var(--ink));border-radius:24px;pointer-events:none;z-index:1;
   transition:border-color .8s ease;opacity:0}
 .echo.on{opacity:var(--o)}
-.echo:nth-of-type(1){inset:-16px;border-radius:22px;--o:.20}
-.echo:nth-of-type(2){inset:-40px;border-radius:30px;--o:.12}
-.echo:nth-of-type(3){inset:-70px;border-radius:40px;--o:.07}
-.echo:nth-of-type(4){inset:-108px;border-radius:52px;--o:.035}
+.echo:nth-of-type(1){inset:-14px;border-radius:22px;--o:.22}
+.echo:nth-of-type(2){inset:-32px;border-radius:30px;--o:.13}
+.echo:nth-of-type(3){inset:-54px;border-radius:38px;--o:.07}
+.echo:nth-of-type(4){display:none}
 .stage.ripple .echo{animation:ring .95s cubic-bezier(.2,.7,.2,1)}
 .stage.ripple .echo:nth-of-type(2){animation-delay:.07s}
 .stage.ripple .echo:nth-of-type(3){animation-delay:.14s}
 .stage.ripple .echo:nth-of-type(4){animation-delay:.21s}
 @keyframes ring{0%{transform:scale(.96);opacity:.5}100%{transform:scale(1)}}
 
-/* oyu ornament wings unfurling from the widget's flanks */
-.wing{position:absolute;top:50%;width:300px;height:34px;margin-top:-17px;pointer-events:none;z-index:1;opacity:.55}
-.wing-l{right:calc(100% + 44px)}
-.wing-r{left:calc(100% + 44px);transform:scaleX(-1)}
-.wing path{fill:none;stroke:var(--accent,var(--gold));stroke-width:1.4;stroke-linecap:round;
-  stroke-dasharray:var(--len);stroke-dashoffset:var(--len);
-  transition:stroke-dashoffset 1.5s cubic-bezier(.4,0,.2,1),stroke .8s ease}
-.wing.drawn path{stroke-dashoffset:0}
-@media(max-width:1080px){.wing{display:none}}
-@media(max-width:700px){.echo:nth-of-type(3),.echo:nth-of-type(4){display:none}}
+@media(max-width:640px){.echo:nth-of-type(3){display:none}}
 .d-head{padding:14px 18px;display:flex;align-items:center;gap:11px;border-bottom:1px solid var(--line);background:var(--accent,var(--ink));color:var(--onacc,#fff);transition:background .6s ease,color .6s ease}
 .d-av{width:38px;height:38px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
   font-size:19px;background:rgba(255,255,255,.16);box-shadow:0 0 0 3px rgba(255,255,255,.10)}
@@ -386,11 +393,10 @@ ym(108221709,'init',{ssr:true,webvisor:true,clickmap:true,accurateTrackBounce:tr
     <p class="sub rv" data-i="demo.sub">Назовите тип бизнеса — бот настроится за пару секунд. Потом добавьте свои реальные услуги и цены, и посмотрите, как он будет говорить с вашими клиентами.</p>
 
     <div class="stage rv" id="stage">
-      <div class="wing wing-l" id="wingL"></div>
-      <div class="wing wing-r" id="wingR"></div>
       <div class="echo"></div><div class="echo"></div><div class="echo"></div><div class="echo"></div>
       <div class="demo" id="demoBox">
       <div class="d-head">
+        <div class="hdr-orn" id="hdrOrn"></div>
         <div class="d-av" id="dAv">🌙</div>
         <div>
           <div class="d-name" id="dName" data-i="demo.name">Демо-бот AqylAI</div>
@@ -400,7 +406,9 @@ ym(108221709,'init',{ssr:true,webvisor:true,clickmap:true,accurateTrackBounce:tr
 
       <div class="d-note" id="dNote" hidden data-i="demo.fake">Данные вымышленные — для примера. Ваш бот будет знать ваши реальные услуги и цены.</div>
 
-      <div class="d-msgs" id="dMsgs" hidden></div>
+      <div class="d-msgs" id="dMsgs" hidden>
+        <svg class="mark" viewBox="0 0 80 80"><path d="M47.23 8.82 A32 32 0 1 0 65.2 59.73 A27 27 0 0 1 47.23 8.82 Z" fill="currentColor"/></svg>
+      </div>
 
       <div class="d-pick" id="dPick">
         <p data-i="demo.ask">Какой у вас бизнес?</p>
@@ -442,6 +450,8 @@ ym(108221709,'init',{ssr:true,webvisor:true,clickmap:true,accurateTrackBounce:tr
         </div>
         <button class="btn btn-wa" id="oGo" style="width:100%" data-i="own.go">Запустить моего бота</button>
       </div>
+
+      <div class="foot-orn" id="footOrn"></div>
       </div>
     </div>
   </div>
@@ -935,22 +945,19 @@ const D = { persona:null, history:[], accent:'#1C7FA6' };
 const $  = id => document.getElementById(id);
 const $$ = s  => document.querySelectorAll(s);
 
-/* ornament wings that unfurl from the widget's flanks */
-function wings(){
+/* ornament bands that live ON the widget: header + footer strip */
+function band(el, w, h2){
   const unit = 'M0 26 C0 12, 14 6, 22 14 C29 21, 24 32, 16 30 C10 28.5, 9 21, 15 20';
   let p = '';
-  for(let i=0;i<6;i++){
-    const x = i*48;
-    p += `<path d="${unit}" transform="translate(${x},2)"/>`;
-    p += `<path d="${unit}" transform="translate(${x+48},2) scale(-1,1)"/>`;
+  for(let i=0;i<Math.ceil(w/96)+1;i++){
+    const x = i*96;
+    p += `<path d="${unit}" transform="translate(${x},${h2>30?2:0}) scale(1,${h2>30?1:0.78})"/>`;
+    p += `<path d="${unit}" transform="translate(${x+48},${h2>30?2:0}) scale(-1,${h2>30?1:0.78})"/>`;
   }
-  ['wingL','wingR'].forEach(id=>{
-    const el = $(id);
-    el.innerHTML = `<svg viewBox="0 0 300 34" width="100%" height="34">${p}</svg>`;
-    el.querySelectorAll('path').forEach(pt=>pt.style.setProperty('--len', pt.getTotalLength()));
-  });
+  el.innerHTML = `<svg viewBox="0 0 ${w} ${h2}" preserveAspectRatio="xMidYMid slice">${p}</svg>`;
 }
-wings();
+band($('hdrOrn'),  520, 34);
+band($('footOrn'), 520, 26);
 
 function buildChips(){
   const box = $('dChips'); box.innerHTML = '';
@@ -1088,7 +1095,6 @@ function applyAccent(hex, origin){
 
   // 3. rings ripple outward, wings and page ornament follow
   $$('.echo').forEach(e=>e.classList.add('on'));
-  ['wingL','wingR'].forEach(id=>$(id).classList.add('drawn'));
   if(!reduce){
     stage.classList.remove('ripple'); void stage.offsetWidth; stage.classList.add('ripple');
     box.classList.remove('pulse');   void box.offsetWidth;   box.classList.add('pulse');
@@ -1180,6 +1186,7 @@ $('oGo').onclick = async ()=>{
 
 /* ============ go ============ */
 applyLang();
+applyAccent(D.accent, null);
 </script>
 </body>
 </html>
