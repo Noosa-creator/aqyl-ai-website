@@ -59,7 +59,7 @@
   const geo = pairGeometry();
 
   // scatter many faint pairs across a wide slab of space, at varied depth/scale/spin
-  const COUNT = 20;
+  const COUNT = 30;
   const group = new THREE.Group();
   const items = [];
 
@@ -68,7 +68,7 @@
     const mat = new THREE.LineBasicMaterial({
       color: useGold ? PALETTE.gold : PALETTE.blue,
       transparent: true,
-      opacity: 0.22 + Math.random() * 0.20
+      opacity: 0.28 + Math.random() * 0.22
     });
     const line = new THREE.LineSegments(geo, mat);
 
