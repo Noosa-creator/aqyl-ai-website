@@ -59,7 +59,7 @@
   const geo = pairGeometry();
 
   // scatter many faint pairs across a wide slab of space, at varied depth/scale/spin
-  const COUNT = 26;
+  const COUNT = 20;
   const group = new THREE.Group();
   const items = [];
 
@@ -68,11 +68,11 @@
     const mat = new THREE.LineBasicMaterial({
       color: useGold ? PALETTE.gold : PALETTE.blue,
       transparent: true,
-      opacity: 0.10 + Math.random() * 0.12
+      opacity: 0.22 + Math.random() * 0.20
     });
     const line = new THREE.LineSegments(geo, mat);
 
-    const s = 0.6 + Math.random() * 2.4;
+    const s = 1.1 + Math.random() * 2.9;
     line.scale.setScalar(s);
     line.position.set(
       (Math.random() - 0.5) * 34,
@@ -134,7 +134,7 @@
         it.line.position.y += it.driftY;
         it.line.rotation.z += it.spin;
         // gentle breathing opacity
-        it.mat.opacity = it.baseOp + Math.sin(t + it.phase) * 0.03;
+        it.mat.opacity = it.baseOp + Math.sin(t + it.phase) * 0.05;
         // wrap around when drifting off the slab
         if (it.line.position.x > 18) it.line.position.x = -18;
         if (it.line.position.x < -18) it.line.position.x = 18;
