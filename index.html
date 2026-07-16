@@ -37,6 +37,14 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+#bg3d{position:fixed;inset:0;z-index:0;pointer-events:none}
+#bg3d canvas{display:block}
+nav,section,footer,.wrap{position:relative;z-index:1}
+/* sections are opaque paper so the field reads as a subtle depth layer, not noise behind text */
+#hero,#demo,#how,#cta{background:transparent}
+#split,#services,#faq{background:var(--paper2)}
+section{background:var(--paper)}
+#hero,#demo,#how,#cta{background:rgba(246,243,236,.72);backdrop-filter:blur(1px)}
 img,svg{display:block;max-width:100%}
 .wrap{max-width:1060px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
 section{padding:104px 0}
@@ -323,6 +331,7 @@ ym(108221709,'init',{ssr:true,webvisor:true,clickmap:true,accurateTrackBounce:tr
 </head>
 <body>
 
+<div id="bg3d"></div>
 <div id="reveal"></div>
 
 <nav>
@@ -1101,6 +1110,7 @@ function applyAccent(hex, origin){
   }
   $('demoGlow').style.color = hex;
   root.setProperty('--oyu', hex);
+  if(window.__bg3dAccent) window.__bg3dAccent(hex);
 }
 
 function buildSw(){
@@ -1188,5 +1198,7 @@ $('oGo').onclick = async ()=>{
 applyLang();
 applyAccent(D.accent, null);
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="/bg3d.js" defer></script>
 </body>
 </html>
