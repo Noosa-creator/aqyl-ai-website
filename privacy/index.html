@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Политика конфиденциальности — AqylAI</title>
+<meta name="description" content="Как AqylAI обрабатывает и защищает персональные данные пользователей сайта и клиентов.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.aqyl-ai.kz/privacy">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap&subset=cyrillic,cyrillic-ext,latin" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F3EC; --paper2:#EFEBE1; --card:#FFFFFF;
+  --ink:#12161C; --ink-soft:#5A6270; --ink-faint:#8B93A1;
+  --blue:#1C7FA6; --blue-deep:#155F7D; --gold:#E0A73A;
+  --rule:rgba(18,22,28,.10);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  font-size:16px; line-height:1.65; font-weight:400;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px}
+
+.top{border-bottom:1px solid var(--rule);background:var(--paper)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:18px;padding-bottom:18px}
+.brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand svg{display:block;border-radius:8px}
+.brand b{font-weight:700;letter-spacing:-.02em;font-size:17px}
+.brand b span{color:var(--gold)}
+.back{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  color:var(--ink-soft);text-decoration:none;border-bottom:1px solid transparent;
+  transition:color .15s ease,border-color .15s ease;
+}
+.back:hover{color:var(--blue);border-bottom-color:var(--blue)}
+
+.oyu{display:block;width:100%;height:22px;opacity:.55;margin:0}
+
+header.doc{padding:56px 0 8px}
+h1{font-size:clamp(26px,4.6vw,38px);line-height:1.18;letter-spacing:-.03em;font-weight:700;margin:0 0 18px}
+.meta{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;color:var(--ink-faint);line-height:1.9}
+.meta strong{color:var(--ink-soft);font-weight:500}
+
+main{padding:20px 0 72px}
+.lede{
+  background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--gold);
+  padding:20px 22px;margin:28px 0 40px;font-size:15.5px;color:var(--ink-soft);
+}
+.lede p{margin:0 0 10px}
+.lede p:last-child{margin:0}
+.lede b{color:var(--ink);font-weight:600}
+
+h2{
+  font-size:15px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;
+  margin:44px 0 14px;padding-top:18px;border-top:1px solid var(--rule);
+  display:flex;gap:12px;align-items:baseline;
+}
+h2 i{font-family:"IBM Plex Mono",ui-monospace,monospace;font-style:normal;color:var(--gold);font-size:14px;font-weight:500;flex:none}
+p{margin:0 0 13px}
+.c{margin:0 0 13px;padding-left:52px;text-indent:-52px}
+.c b.n{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;color:var(--ink-soft);font-size:14px}
+strong{font-weight:600}
+.hi{background:linear-gradient(transparent 62%,rgba(224,167,58,.28) 0)}
+ul{margin:0 0 15px;padding-left:20px}
+li{margin:0 0 7px}
+li::marker{color:var(--gold)}
+
+table{width:100%;border-collapse:collapse;margin:6px 0 20px;font-size:15px;background:var(--card);border:1px solid var(--rule)}
+th{
+  text-align:left;font-weight:600;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--ink-soft);padding:11px 14px;border-bottom:1px solid var(--rule);background:var(--paper2);
+}
+td{padding:11px 14px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-soft)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:500;width:42%}
+
+.req{
+  background:var(--card);border:1px solid var(--rule);padding:24px 26px;margin-top:36px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:14px;line-height:2;
+}
+.req .lbl{font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15px;letter-spacing:.02em;text-transform:uppercase;margin-bottom:12px;display:block}
+.req span{color:var(--ink-faint)}
+.req a{color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(28,127,166,.3)}
+.req a:hover{border-bottom-color:var(--blue)}
+mark{background:rgba(224,167,58,.3);color:var(--ink);padding:1px 4px;border-radius:2px}
+a.inline{color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(28,127,166,.3)}
+a.inline:hover{border-bottom-color:var(--blue)}
+
+footer{border-top:1px solid var(--rule);padding:26px 0 40px;background:var(--paper2)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;align-items:center}
+footer a{color:var(--ink-soft);text-decoration:none;font-size:14px}
+footer a:hover{color:var(--blue)}
+footer .n{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--ink-faint)}
+nav.docs{display:flex;gap:18px;flex-wrap:wrap}
+
+a:focus-visible,.brand:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:2px}
+
+@media(max-width:560px){
+  body{font-size:15.5px}
+  header.doc{padding-top:36px}
+  .c{padding-left:44px;text-indent:-44px}
+  .req{padding:20px}
+  table{font-size:14px}
+  th,td{padding:9px 11px}
+  td:first-child{width:44%}
+}
+@media print{
+  .top,footer,.oyu,.back{display:none}
+  body{background:#fff;font-size:11pt}
+  .lede,.req,table{border:1px solid #ccc;background:#fff}
+  h2{page-break-after:avoid}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg width="30" height="30" viewBox="0 0 80 80" aria-hidden="true">
+        <rect width="80" height="80" rx="18" fill="#12161C"/>
+        <path d="M47.23 8.82 A32 32 0 1 0 65.2 59.73 A27 27 0 0 1 47.23 8.82 Z" fill="#E0A73A"/>
+      </svg>
+      <b>Aqyl<span>AI</span></b>
+    </a>
+    <a class="back" href="/">← на главную</a>
+  </div>
+</div>
+
+<svg class="oyu" viewBox="0 0 1200 22" preserveAspectRatio="none" aria-hidden="true">
+  <g fill="none" stroke="#E0A73A" stroke-width="1.4" stroke-linecap="round">
+    <g transform="translate(600,11)">
+      <path d="M0,8 C-14,8 -24,0 -24,-8 C-24,-14 -18,-16 -14,-13 C-11,-11 -11,-6 -15,-6"/>
+      <path d="M0,8 C14,8 24,0 24,-8 C24,-14 18,-16 14,-13 C11,-11 11,-6 15,-6"/>
+    </g>
+    <path d="M0,11 H560" stroke-opacity=".35"/>
+    <path d="M640,11 H1200" stroke-opacity=".35"/>
+  </g>
+</svg>
+
+<div class="wrap">
+  <header class="doc">
+    <h1>Политика конфиденциальности</h1>
+    <div class="meta">
+      <strong>Редакция от</strong> 24 июля 2026 г.<br>
+      <strong>г.</strong> Алматы, Республика Казахстан
+    </div>
+  </header>
+</div>
+
+<main class="wrap">
+
+  <div class="lede">
+    <p>Мы собираем минимум данных: то, что вы сами написали нам, и обезличенную статистику посещений. <b>Мы не продаём ваши данные и не передаём их для чужой рекламы.</b></p>
+    <p>Ниже — подробно, как это устроено.</p>
+  </div>
+
+  <h2><i>01</i> Общие положения</h2>
+  <p class="c"><b class="n">1.1.</b> Настоящая Политика определяет порядок обработки и защиты персональных данных пользователей сайта aqyl-ai.kz (далее — «Сайт») и клиентов Толебай Анас, ИИН <mark>[ИИН]</mark> (далее — «Оператор»).</p>
+  <p class="c"><b class="n">1.2.</b> Политика разработана в соответствии с Законом Республики Казахстан «О персональных данных и их защите».</p>
+  <p class="c"><b class="n">1.3.</b> Используя Сайт или обращаясь к Оператору, пользователь подтверждает согласие с условиями настоящей Политики.</p>
+
+  <h2><i>02</i> Какие данные мы собираем</h2>
+  <p><strong>Данные, которые вы предоставляете сами:</strong></p>
+  <table>
+    <thead><tr><th>Данные</th><th>Когда собираются</th></tr></thead>
+    <tbody>
+      <tr><td>Имя</td><td>При обращении через форму, WhatsApp или Telegram</td></tr>
+      <tr><td>Номер телефона</td><td>При обращении</td></tr>
+      <tr><td>Название и сфера деятельности компании</td><td>При обращении и при настройке демонстрации</td></tr>
+      <tr><td>Содержание переписки</td><td>При общении с нами</td></tr>
+      <tr><td>Сведения, вводимые в демонстрационный конструктор</td><td>При использовании демонстрации на Сайте</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Данные, собираемые автоматически:</strong> IP-адрес; тип устройства, браузера и операционной системы; источник перехода на Сайт; просмотренные страницы и время посещения. Эти данные собираются с помощью системы веб-аналитики <strong>Яндекс.Метрика</strong> и используются в обезличенном виде.</p>
+  <p class="c"><b class="n">2.3.</b> Оператор <strong>не собирает</strong> данные специальных категорий: сведения о состоянии здоровья, расовой или национальной принадлежности, политических взглядах, религиозных убеждениях.</p>
+
+  <h2><i>03</i> Зачем мы обрабатываем данные</h2>
+  <p class="c"><b class="n">3.1.</b> Персональные данные обрабатываются для следующих целей:</p>
+  <ul>
+    <li>ответ на ваше обращение и консультирование;</li>
+    <li>подготовка коммерческого предложения;</li>
+    <li>заключение и исполнение договора;</li>
+    <li>оказание услуг технической поддержки;</li>
+    <li>улучшение работы Сайта и качества услуг;</li>
+    <li>выполнение требований законодательства.</li>
+  </ul>
+  <p class="c"><b class="n">3.2.</b> <span class="hi">Оператор не использует ваши данные для рассылки рекламы третьих лиц и не продаёт их.</span></p>
+
+  <h2><i>04</i> Основания обработки</h2>
+  <p>Обработка персональных данных осуществляется на основании вашего согласия, выраженного путём направления обращения или использования Сайта; необходимости исполнения заключённого с вами договора; требований законодательства Республики Казахстан.</p>
+
+  <h2><i>05</i> Cookie-файлы</h2>
+  <p class="c"><b class="n">5.1.</b> Сайт использует файлы cookie для обеспечения корректной работы и сбора обезличенной статистики посещаемости.</p>
+  <p class="c"><b class="n">5.2.</b> Вы можете отключить cookie в настройках браузера. При этом отдельные функции Сайта могут работать некорректно.</p>
+
+  <h2><i>06</i> Сторонние сервисы</h2>
+  <p class="c"><b class="n">6.1.</b> Для работы Сайта и оказания услуг используются следующие сторонние сервисы:</p>
+  <table>
+    <thead><tr><th>Сервис</th><th>Назначение</th></tr></thead>
+    <tbody>
+      <tr><td>Яндекс.Метрика</td><td>Веб-аналитика</td></tr>
+      <tr><td>Хостинг-провайдер Сайта</td><td>Размещение Сайта</td></tr>
+      <tr><td>Провайдеры технологий ИИ</td><td>Формирование ответов в демонстрации и в решениях клиентов</td></tr>
+      <tr><td>Мессенджеры (WhatsApp, Telegram)</td><td>Приём обращений и работа решений</td></tr>
+    </tbody>
+  </table>
+  <p class="c"><b class="n">6.2.</b> <span class="hi">Обработка данных указанными сервисами может осуществляться за пределами Республики Казахстан.</span> Направляя обращение или используя демонстрацию на Сайте, вы даёте согласие на трансграничную передачу ваших данных в объёме, необходимом для оказания услуг.</p>
+  <p class="c"><b class="n">6.3.</b> Каждый из указанных сервисов действует на основании собственной политики конфиденциальности.</p>
+
+  <h2><i>07</i> Данные клиентов наших заказчиков</h2>
+  <p class="c"><b class="n">7.1.</b> При оказании услуг Оператор обрабатывает персональные данные клиентов своих заказчиков (имена, номера телефонов, содержание обращений) <strong>исключительно по поручению заказчика</strong>.</p>
+  <p class="c"><b class="n">7.2.</b> В таких отношениях <strong>собственником персональных данных является заказчик</strong>, а Оператор выступает оператором, действующим по его поручению.</p>
+  <p class="c"><b class="n">7.3.</b> Обязанность по получению согласия конечных клиентов на обработку их персональных данных возлагается на заказчика.</p>
+  <p class="c"><b class="n">7.4.</b> Оператор не использует данные конечных клиентов заказчика в собственных целях, не передаёт их третьим лицам и не формирует на их основе собственные базы.</p>
+
+  <h2><i>08</i> Срок хранения</h2>
+  <p class="c"><b class="n">8.1.</b> Данные обращений хранятся в течение 3 (трёх) лет с момента последнего взаимодействия.</p>
+  <p class="c"><b class="n">8.2.</b> Данные, обрабатываемые в рамках договора, хранятся в течение срока действия договора и 3 (трёх) лет после его прекращения, если иной срок не установлен законодательством.</p>
+  <p class="c"><b class="n">8.3.</b> По истечении срока хранения данные уничтожаются.</p>
+
+  <h2><i>09</i> Защита данных</h2>
+  <p class="c"><b class="n">9.1.</b> Оператор принимает необходимые организационные и технические меры для защиты персональных данных от неправомерного доступа, уничтожения, изменения и распространения, включая ограничение круга лиц, имеющих доступ к данным, и использование защищённых каналов передачи.</p>
+  <p class="c"><b class="n">9.2.</b> Полная безопасность передачи данных в сети Интернет не может быть гарантирована ни одним оператором. Оператор обязуется незамедлительно уведомить затронутых лиц в случае выявления инцидента, затрагивающего их персональные данные.</p>
+
+  <h2><i>10</i> Ваши права</h2>
+  <p>Вы вправе:</p>
+  <ul>
+    <li>получить сведения о том, какие ваши данные обрабатываются;</li>
+    <li>потребовать уточнения, блокирования или уничтожения ваших данных, если они являются неполными, устаревшими, недостоверными или полученными неправомерно;</li>
+    <li>отозвать согласие на обработку персональных данных;</li>
+    <li>обжаловать действия Оператора в уполномоченный орган по защите персональных данных или в суд.</li>
+  </ul>
+  <p>Для реализации указанных прав направьте обращение на <a class="inline" href="mailto:anastolebay7@gmail.com">anastolebay7@gmail.com</a> либо на WhatsApp <a class="inline" href="https://wa.me/77074043006">+7 707 404 30 06</a>. Ответ предоставляется в срок, установленный законодательством.</p>
+
+  <h2><i>11</i> Изменения Политики</h2>
+  <p class="c"><b class="n">11.1.</b> Оператор вправе вносить изменения в настоящую Политику. Актуальная редакция всегда размещается по адресу aqyl-ai.kz/privacy.</p>
+  <p class="c"><b class="n">11.2.</b> Дата последнего обновления указана в начале документа.</p>
+
+  <h2><i>12</i> Контакты</h2>
+  <div class="req">
+    <span class="lbl">Толебай Анас</span>
+    <span>ИИН</span> &nbsp;<mark>[ИИН]</mark><br>
+    <span>Адрес</span> &nbsp;г. Алматы, Республика Казахстан<br>
+    <span>WhatsApp</span> &nbsp;<a href="https://wa.me/77074043006">+7 707 404 30 06</a><br>
+    <span>E-mail</span> &nbsp;<a href="mailto:anastolebay7@gmail.com">anastolebay7@gmail.com</a>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <nav class="docs">
+      <a href="/oferta">Публичная оферта</a>
+      <a href="/privacy">Конфиденциальность</a>
+      <a href="/terms">Условия использования</a>
+    </nav>
+    <span class="n">© 2026 AqylAI · Алматы</span>
+  </div>
+</footer>
+
+</body>
+</html>

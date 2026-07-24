@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Пользовательское соглашение — AqylAI</title>
+<meta name="description" content="Условия использования сайта aqyl-ai.kz и демонстрационного режима AqylAI.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.aqyl-ai.kz/terms">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap&subset=cyrillic,cyrillic-ext,latin" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F3EC; --paper2:#EFEBE1; --card:#FFFFFF;
+  --ink:#12161C; --ink-soft:#5A6270; --ink-faint:#8B93A1;
+  --blue:#1C7FA6; --blue-deep:#155F7D; --gold:#E0A73A;
+  --rule:rgba(18,22,28,.10);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  font-size:16px; line-height:1.65; font-weight:400;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px}
+
+.top{border-bottom:1px solid var(--rule);background:var(--paper)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:18px;padding-bottom:18px}
+.brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand svg{display:block;border-radius:8px}
+.brand b{font-weight:700;letter-spacing:-.02em;font-size:17px}
+.brand b span{color:var(--gold)}
+.back{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  color:var(--ink-soft);text-decoration:none;border-bottom:1px solid transparent;
+  transition:color .15s ease,border-color .15s ease;
+}
+.back:hover{color:var(--blue);border-bottom-color:var(--blue)}
+
+.oyu{display:block;width:100%;height:22px;opacity:.55;margin:0}
+
+header.doc{padding:56px 0 8px}
+h1{font-size:clamp(26px,4.6vw,38px);line-height:1.18;letter-spacing:-.03em;font-weight:700;margin:0 0 18px}
+.meta{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;color:var(--ink-faint);line-height:1.9}
+.meta strong{color:var(--ink-soft);font-weight:500}
+
+main{padding:20px 0 72px}
+.lede{
+  background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--gold);
+  padding:20px 22px;margin:28px 0 40px;font-size:15.5px;color:var(--ink-soft);
+}
+.lede p{margin:0 0 10px}
+.lede p:last-child{margin:0}
+.lede b{color:var(--ink);font-weight:600}
+
+h2{
+  font-size:15px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;
+  margin:44px 0 14px;padding-top:18px;border-top:1px solid var(--rule);
+  display:flex;gap:12px;align-items:baseline;
+}
+h2 i{font-family:"IBM Plex Mono",ui-monospace,monospace;font-style:normal;color:var(--gold);font-size:14px;font-weight:500;flex:none}
+p{margin:0 0 13px}
+.c{margin:0 0 13px;padding-left:52px;text-indent:-52px}
+.c b.n{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;color:var(--ink-soft);font-size:14px}
+strong{font-weight:600}
+.hi{background:linear-gradient(transparent 62%,rgba(224,167,58,.28) 0)}
+ul{margin:0 0 15px;padding-left:20px}
+li{margin:0 0 7px}
+li::marker{color:var(--gold)}
+
+.req{
+  background:var(--card);border:1px solid var(--rule);padding:24px 26px;margin-top:36px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:14px;line-height:2;
+}
+.req .lbl{font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15px;letter-spacing:.02em;text-transform:uppercase;margin-bottom:12px;display:block}
+.req span{color:var(--ink-faint)}
+.req a{color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(28,127,166,.3)}
+.req a:hover{border-bottom-color:var(--blue)}
+mark{background:rgba(224,167,58,.3);color:var(--ink);padding:1px 4px;border-radius:2px}
+a.inline{color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(28,127,166,.3)}
+a.inline:hover{border-bottom-color:var(--blue)}
+
+footer{border-top:1px solid var(--rule);padding:26px 0 40px;background:var(--paper2)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;align-items:center}
+footer a{color:var(--ink-soft);text-decoration:none;font-size:14px}
+footer a:hover{color:var(--blue)}
+footer .n{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--ink-faint)}
+nav.docs{display:flex;gap:18px;flex-wrap:wrap}
+
+a:focus-visible,.brand:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:2px}
+
+@media(max-width:560px){
+  body{font-size:15.5px}
+  header.doc{padding-top:36px}
+  .c{padding-left:44px;text-indent:-44px}
+  .req{padding:20px}
+}
+@media print{
+  .top,footer,.oyu,.back{display:none}
+  body{background:#fff;font-size:11pt}
+  .lede,.req{border:1px solid #ccc;background:#fff}
+  h2{page-break-after:avoid}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg width="30" height="30" viewBox="0 0 80 80" aria-hidden="true">
+        <rect width="80" height="80" rx="18" fill="#12161C"/>
+        <path d="M47.23 8.82 A32 32 0 1 0 65.2 59.73 A27 27 0 0 1 47.23 8.82 Z" fill="#E0A73A"/>
+      </svg>
+      <b>Aqyl<span>AI</span></b>
+    </a>
+    <a class="back" href="/">← на главную</a>
+  </div>
+</div>
+
+<svg class="oyu" viewBox="0 0 1200 22" preserveAspectRatio="none" aria-hidden="true">
+  <g fill="none" stroke="#E0A73A" stroke-width="1.4" stroke-linecap="round">
+    <g transform="translate(600,11)">
+      <path d="M0,8 C-14,8 -24,0 -24,-8 C-24,-14 -18,-16 -14,-13 C-11,-11 -11,-6 -15,-6"/>
+      <path d="M0,8 C14,8 24,0 24,-8 C24,-14 18,-16 14,-13 C11,-11 11,-6 15,-6"/>
+    </g>
+    <path d="M0,11 H560" stroke-opacity=".35"/>
+    <path d="M640,11 H1200" stroke-opacity=".35"/>
+  </g>
+</svg>
+
+<div class="wrap">
+  <header class="doc">
+    <h1>Пользовательское соглашение</h1>
+    <div class="meta">
+      <strong>Редакция от</strong> 24 июля 2026 г.<br>
+      <strong>г.</strong> Алматы, Республика Казахстан
+    </div>
+  </header>
+</div>
+
+<main class="wrap">
+
+  <div class="lede">
+    <p>Демонстрация на этом сайте — <b>ознакомительная</b>. Названия компаний, цены и услуги в ней генерируются автоматически и вымышлены. Ответы формирует система искусственного интеллекта и они могут содержать неточности.</p>
+    <p>Условия оказания реальных услуг — в <a class="inline" href="/oferta">публичной оферте</a>.</p>
+  </div>
+
+  <h2><i>01</i> Общие положения</h2>
+  <p class="c"><b class="n">1.1.</b> Настоящее Соглашение регулирует условия использования сайта aqyl-ai.kz (далее — «Сайт»), принадлежащего Толебай Анас, ИИН <mark>[ИИН]</mark> (далее — «Администрация»).</p>
+  <p class="c"><b class="n">1.2.</b> Начиная использование Сайта, вы принимаете условия настоящего Соглашения в полном объёме. Если вы не согласны с его условиями — прекратите использование Сайта.</p>
+  <p class="c"><b class="n">1.3.</b> Администрация вправе изменять условия Соглашения без предварительного уведомления. Актуальная редакция размещается по адресу aqyl-ai.kz/terms.</p>
+
+  <h2><i>02</i> Назначение Сайта</h2>
+  <p class="c"><b class="n">2.1.</b> Сайт предназначен для информирования об услугах Администрации в сфере автоматизации бизнес-процессов на основе технологий искусственного интеллекта и для приёма обращений.</p>
+  <p class="c"><b class="n">2.2.</b> Сайт содержит <strong>демонстрационный конструктор</strong>, позволяющий ознакомиться с примерным принципом работы предлагаемых решений.</p>
+
+  <h2><i>03</i> Демонстрационный режим</h2>
+  <p class="c"><b class="n">3.1.</b> <strong>Демонстрация носит исключительно ознакомительный характер.</strong></p>
+  <p class="c"><b class="n">3.2.</b> <span class="hi">Сведения о вымышленных организациях, формируемые в демонстрационном режиме (наименования, услуги, цены, режим работы, адреса), являются вымышленными, генерируются автоматически и не относятся к реально существующим организациям.</span> Любое совпадение случайно.</p>
+  <p class="c"><b class="n">3.3.</b> Если вы вводите в демонстрацию сведения о собственном бизнесе, вы подтверждаете, что вправе их использовать, и что они не нарушают прав третьих лиц.</p>
+  <p class="c"><b class="n">3.4.</b> Ответы демонстрационного бота формируются автоматически системой искусственного интеллекта, <strong>могут содержать неточности и не являются офертой, консультацией или обязательством Администрации.</strong></p>
+  <p class="c"><b class="n">3.5.</b> Администрация не гарантирует непрерывную и безошибочную работу демонстрации.</p>
+
+  <h2><i>04</i> Ограничения использования</h2>
+  <p class="c"><b class="n">4.1.</b> Запрещается:</p>
+  <ul>
+    <li>использовать Сайт для совершения противоправных действий;</li>
+    <li>предпринимать действия, нарушающие работоспособность Сайта, включая автоматизированный сбор данных, чрезмерную нагрузку, попытки несанкционированного доступа;</li>
+    <li>вводить в демонстрационный конструктор материалы, нарушающие законодательство Республики Казахстан, права третьих лиц, содержащие оскорбления, угрозы или недостоверные сведения об иных лицах;</li>
+    <li>вводить в демонстрацию персональные данные третьих лиц;</li>
+    <li>копировать и использовать материалы Сайта в коммерческих целях без письменного согласия Администрации.</li>
+  </ul>
+  <p class="c"><b class="n">4.2.</b> При нарушении настоящего раздела Администрация вправе ограничить доступ к Сайту без предварительного уведомления.</p>
+
+  <h2><i>05</i> Интеллектуальная собственность</h2>
+  <p class="c"><b class="n">5.1.</b> Все материалы Сайта — тексты, графические элементы, логотип, орнаментальные элементы, программный код, структура и оформление — являются объектами интеллектуальной собственности Администрации.</p>
+  <p class="c"><b class="n">5.2.</b> Использование материалов Сайта допускается только с письменного согласия Администрации, за исключением цитирования с обязательным указанием источника.</p>
+  <p class="c"><b class="n">5.3.</b> Наименование <strong>AqylAI</strong> и логотип являются средствами индивидуализации Администрации.</p>
+
+  <h2><i>06</i> Ограничение ответственности</h2>
+  <p class="c"><b class="n">6.1.</b> Сайт предоставляется на условиях «как есть». Администрация не гарантирует его бесперебойную работу и соответствие ожиданиям конкретного пользователя.</p>
+  <p class="c"><b class="n">6.2.</b> Администрация не несёт ответственности за убытки, возникшие вследствие использования или невозможности использования Сайта, включая последствия принятия решений на основании сведений, полученных в демонстрационном режиме.</p>
+  <p class="c"><b class="n">6.3.</b> Сведения о стоимости услуг, размещённые на Сайте, носят информационный характер, если прямо не указано иное, и <strong>не являются публичной офертой в понимании статьи 395 Гражданского кодекса Республики Казахстан.</strong> Условия оказания услуг определяются <a class="inline" href="/oferta">публичной офертой</a> либо отдельным договором.</p>
+  <p class="c"><b class="n">6.4.</b> Сайт может содержать ссылки на сторонние ресурсы. Администрация не отвечает за их содержание и политику.</p>
+
+  <h2><i>07</i> Персональные данные</h2>
+  <p>Обработка персональных данных пользователей осуществляется в соответствии с <a class="inline" href="/privacy">Политикой конфиденциальности</a>.</p>
+
+  <h2><i>08</i> Заключительные положения</h2>
+  <p class="c"><b class="n">8.1.</b> К настоящему Соглашению применяется право Республики Казахстан.</p>
+  <p class="c"><b class="n">8.2.</b> Споры разрешаются путём переговоров, а при недостижении согласия — в суде по месту нахождения Администрации.</p>
+  <p class="c"><b class="n">8.3.</b> Признание отдельного положения Соглашения недействительным не влечёт недействительности остальных положений.</p>
+
+  <h2><i>09</i> Контакты</h2>
+  <div class="req">
+    <span class="lbl">Толебай Анас</span>
+    <span>Адрес</span> &nbsp;г. Алматы, Республика Казахстан<br>
+    <span>WhatsApp</span> &nbsp;<a href="https://wa.me/77074043006">+7 707 404 30 06</a><br>
+    <span>E-mail</span> &nbsp;<a href="mailto:anastolebay7@gmail.com">anastolebay7@gmail.com</a><br>
+    <span>Сайт</span> &nbsp;<a href="https://www.aqyl-ai.kz">aqyl-ai.kz</a>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <nav class="docs">
+      <a href="/oferta">Публичная оферта</a>
+      <a href="/privacy">Конфиденциальность</a>
+      <a href="/terms">Условия использования</a>
+    </nav>
+    <span class="n">© 2026 AqylAI · Алматы</span>
+  </div>
+</footer>
+
+</body>
+</html>
