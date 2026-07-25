@@ -1121,6 +1121,56 @@ function applyAccent(hex, origin){
   if(window.__bg3dAccent) window.__bg3dAccent(hex);
 }
 
+/* ---- shareable demo link (?demo=) ---- */
+const MAX_DEMO_PARAM_LEN = 4000; // hard cap on the encoded query value; anything longer is rejected unread
+
+// Same truncation rule as the server's s(v,max) in api/chat.js — keep both sides in lockstep.
+const sTrunc = (v, max) => (typeof v === 'string' ? v.slice(0, max).trim() : '');
+
+function b64urlEncode(str){
+  const bytes = new TextEncoder().encode(str);
+  let bin = '';
+  bytes.forEach(b => bin += String.fromCharCode(b));
+  return btoa(bin).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+}
+function b64urlDecode(str){
+  str = str.replace(/-/g,'+').replace(/_/g,'/');
+  while(str.length % 4) str += '=';
+  const bin = atob(str);
+  const bytes = new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++) bytes[i] = bin.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+
+// Mirrors api/chat.js's clean(): never trust decoded fields, rebuild from scratch with the same caps.
+// business/emoji/address/booking aren't part of the share link — only what the Tier-2 form actually collects.
+function cleanDemoConfig(p){
+  if(!p || typeof p !== 'object') return null;
+  const services = Array.isArray(p.services)
+    ? p.services.slice(0,8).map(x => ({ name: sTrunc(x?.name,60), price: sTrunc(x?.price,40) })).filter(x => x.name)
+    : [];
+  const color = typeof p.color === 'string' && /^#[0-9a-fA-F]{6}$/.test(p.color) ? p.color : '#1C7FA6';
+  const out = { name: sTrunc(p.name,60), hours: sTrunc(p.hours,90), services, color };
+  return out.name && out.services.length ? out : null;
+}
+
+function shareUrlFor(name, hours, services, color){
+  const cfg = {
+    name: sTrunc(name,60),
+    hours: sTrunc(hours,90),
+    services: (services||[]).slice(0,8).map(x => ({ name: sTrunc(x?.name,60), price: sTrunc(x?.price,40) })).filter(x => x.name),
+    color: typeof color === 'string' && /^#[0-9a-fA-F]{6}$/.test(color) ? color : '#1C7FA6'
+  };
+  if(!cfg.name || !cfg.services.length) return null;
+  let encoded;
+  try { encoded = b64urlEncode(JSON.stringify(cfg)); } catch(e) { return null; }
+  if(encoded.length > MAX_DEMO_PARAM_LEN) return null;
+  const url = new URL(location.href);
+  url.search = ''; url.hash = '';
+  url.searchParams.set('demo', encoded);
+  return url.toString();
+}
+
 function buildSw(){
   const box = $('oSw'); box.innerHTML = '';
   SWATCH.forEach((c,i)=>{
@@ -1150,11 +1200,17 @@ $('dOwnBtn').onclick = ()=>{
   $('dOwn').scrollIntoView({block:'center'});
 };
 
-$('oGo').onclick = async ()=>{
+async function launchOwnBot(){
   const name  = $('oName').value.trim();
   const hours = $('oHours').value.trim();
   const raw   = $('oSvc').value.trim();
   if(!name || !raw){ $('oName').focus(); return; }
+
+  // Normalize visibility so this also works as a cold auto-launch (no prior Tier-1 interaction).
+  $('dPick').hidden = true;
+  $('dMsgs').hidden = false;
+  $('dIn').hidden = false;
+  $('dUp').hidden = false;
 
   const services = raw.split('\n').map(l=>l.trim()).filter(Boolean).slice(0,8).map(l=>{
     const m = l.split(/[—\-–:]\s*/);
@@ -1200,11 +1256,57 @@ $('oGo').onclick = async ()=>{
   w.innerHTML = `<a class="btn btn-wa" style="width:100%" href="${waLink(cta)}" target="_blank" rel="noopener">
     ${ {ru:'Хочу такого бота в свой WhatsApp →',kz:'Осындай ботты WhatsApp-қа алғым келеді →',en:'I want this bot in my WhatsApp →'}[lang] }</a>`;
   $('dOwn').after(w);
-};
+
+  document.getElementById('demoShareBtn')?.remove();
+  const shareUrl = shareUrlFor(name, hours, services, D.accent);
+  if(shareUrl){
+    const label = {ru:'📋 Скопировать ссылку на демо',kz:'📋 Демо сілтемесін көшіру',en:'📋 Copy demo link'}[lang];
+    const copied = {ru:'✓ Скопировано',kz:'✓ Көшірілді',en:'✓ Copied'}[lang];
+    const failed = {ru:'Не удалось скопировать',kz:'Көшіру сәтсіз аяқталды',en:'Copy failed'}[lang];
+    const sBtn = document.createElement('button');
+    sBtn.id = 'demoShareBtn';
+    sBtn.type = 'button';
+    sBtn.className = 'btn btn-ghost';
+    sBtn.style.width = '100%';
+    sBtn.style.marginTop = '10px';
+    sBtn.textContent = label;
+    sBtn.onclick = async ()=>{
+      try{ await navigator.clipboard.writeText(shareUrl); sBtn.textContent = copied; }
+      catch(e){ sBtn.textContent = failed; }
+      setTimeout(()=> sBtn.textContent = label, 1800);
+    };
+    w.after(sBtn);
+  }
+}
+$('oGo').onclick = launchOwnBot;
+
+/* ============ shared demo link: auto-launch on load ============ */
+function launchFromDemoParam(cfg){
+  $('oName').value = cfg.name;
+  $('oHours').value = cfg.hours;
+  $('oSvc').value = cfg.services.map(x => x.price ? `${x.name} — ${x.price}` : x.name).join('\n');
+  $('oCustom').value = cfg.color;
+  $('oSw').querySelectorAll('button').forEach(b => b.classList.remove('on'));
+  applyAccent(cfg.color, null);
+  launchOwnBot();
+}
+
+function initFromDemoParam(){
+  try{
+    const raw = new URLSearchParams(location.search).get('demo');
+    if(!raw || raw.length > MAX_DEMO_PARAM_LEN) return; // absent or oversized -> normal Tier-1 default
+    const cfg = cleanDemoConfig(JSON.parse(b64urlDecode(raw)));
+    if(!cfg) return; // missing/invalid fields -> normal Tier-1 default
+    launchFromDemoParam(cfg);
+  }catch(e){
+    // decode/parse failure -> fall back silently, page already loaded in its normal default state
+  }
+}
 
 /* ============ go ============ */
 applyLang();
 applyAccent(D.accent, null);
+initFromDemoParam();
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="/bg3d.js" defer></script>
