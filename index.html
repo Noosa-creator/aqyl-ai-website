@@ -1144,24 +1144,32 @@ function b64urlDecode(str){
 
 // Mirrors api/chat.js's clean(): never trust decoded fields, rebuild from scratch with the same caps.
 // business/emoji/address/booking aren't part of the share link — only what the Tier-2 form actually collects.
+// Accepts both new short-key {n,h,s,c} payloads and legacy long-key {name,hours,services,color}
+// payloads so links already sent out under the old format still resolve.
 function cleanDemoConfig(p){
   if(!p || typeof p !== 'object') return null;
-  const services = Array.isArray(p.services)
-    ? p.services.slice(0,8).map(x => ({ name: sTrunc(x?.name,60), price: sTrunc(x?.price,40) })).filter(x => x.name)
+  const rawName     = p.n !== undefined ? p.n : p.name;
+  const rawHours    = p.h !== undefined ? p.h : p.hours;
+  const rawServices = p.s !== undefined ? p.s : p.services;
+  const rawColor    = p.c !== undefined ? p.c : p.color;
+
+  const services = Array.isArray(rawServices)
+    ? rawServices.slice(0,8).map(x => ({ name: sTrunc(x?.name,60), price: sTrunc(x?.price,40) })).filter(x => x.name)
     : [];
-  const color = typeof p.color === 'string' && /^#[0-9a-fA-F]{6}$/.test(p.color) ? p.color : '#1C7FA6';
-  const out = { name: sTrunc(p.name,60), hours: sTrunc(p.hours,90), services, color };
+  const color = typeof rawColor === 'string' && /^#[0-9a-fA-F]{6}$/.test(rawColor) ? rawColor : '#1C7FA6';
+  const out = { name: sTrunc(rawName,60), hours: sTrunc(rawHours,90), services, color };
   return out.name && out.services.length ? out : null;
 }
 
+// Short top-level keys (n/h/s/c) keep the encoded link meaningfully shorter than {name,hours,services,color}.
 function shareUrlFor(name, hours, services, color){
   const cfg = {
-    name: sTrunc(name,60),
-    hours: sTrunc(hours,90),
-    services: (services||[]).slice(0,8).map(x => ({ name: sTrunc(x?.name,60), price: sTrunc(x?.price,40) })).filter(x => x.name),
-    color: typeof color === 'string' && /^#[0-9a-fA-F]{6}$/.test(color) ? color : '#1C7FA6'
+    n: sTrunc(name,60),
+    h: sTrunc(hours,90),
+    s: (services||[]).slice(0,8).map(x => ({ name: sTrunc(x?.name,60), price: sTrunc(x?.price,40) })).filter(x => x.name),
+    c: typeof color === 'string' && /^#[0-9a-fA-F]{6}$/.test(color) ? color : '#1C7FA6'
   };
-  if(!cfg.name || !cfg.services.length) return null;
+  if(!cfg.n || !cfg.s.length) return null;
   let encoded;
   try { encoded = b64urlEncode(JSON.stringify(cfg)); } catch(e) { return null; }
   if(encoded.length > MAX_DEMO_PARAM_LEN) return null;
@@ -1258,11 +1266,14 @@ async function launchOwnBot(){
   $('dOwn').after(w);
 
   document.getElementById('demoShareBtn')?.remove();
+  document.getElementById('demoShareNote')?.remove();
   const shareUrl = shareUrlFor(name, hours, services, D.accent);
   if(shareUrl){
     const label = {ru:'📋 Скопировать ссылку на демо',kz:'📋 Демо сілтемесін көшіру',en:'📋 Copy demo link'}[lang];
     const copied = {ru:'✓ Скопировано',kz:'✓ Көшірілді',en:'✓ Copied'}[lang];
     const failed = {ru:'Не удалось скопировать',kz:'Көшіру сәтсіз аяқталды',en:'Copy failed'}[lang];
+    const notShortened = {ru:'ссылка не сокращена',kz:'сілтеме қысқартылмады',en:'link not shortened'}[lang];
+
     const sBtn = document.createElement('button');
     sBtn.id = 'demoShareBtn';
     sBtn.type = 'button';
@@ -1270,12 +1281,49 @@ async function launchOwnBot(){
     sBtn.style.width = '100%';
     sBtn.style.marginTop = '10px';
     sBtn.textContent = label;
+
+    const note = document.createElement('div');
+    note.id = 'demoShareNote';
+    note.style.cssText = 'font-size:11px;color:var(--ink-faint);text-align:center;margin-top:4px;min-height:14px';
+
     sBtn.onclick = async ()=>{
-      try{ await navigator.clipboard.writeText(shareUrl); sBtn.textContent = copied; }
-      catch(e){ sBtn.textContent = failed; }
-      setTimeout(()=> sBtn.textContent = label, 1800);
+      note.textContent = '';
+      let urlToCopy = shareUrl;
+      let shortened = false;
+
+      // is.gd has no CORS support for direct browser calls, so this goes through our own
+      // /api/shorten proxy (server-side call, no CORS issue there). 2s budget, then fall back.
+      try{
+        const controller = new AbortController();
+        const timer = setTimeout(()=> controller.abort(), 2000);
+        const res = await fetch('/api/shorten', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ url: shareUrl }),
+          signal: controller.signal
+        });
+        clearTimeout(timer);
+        if(res.ok){
+          const data = await res.json();
+          if(data && typeof data.short === 'string' && data.short){
+            urlToCopy = data.short;
+            shortened = true;
+          }
+        }
+      }catch(e){ /* timeout or network failure -> fall back to the long link below */ }
+
+      try{
+        await navigator.clipboard.writeText(urlToCopy);
+        sBtn.textContent = copied;
+        if(!shortened) note.textContent = notShortened;
+      }catch(e){
+        sBtn.textContent = failed;
+      }
+      setTimeout(()=>{ sBtn.textContent = label; note.textContent = ''; }, 1800);
     };
+
     w.after(sBtn);
+    sBtn.after(note);
   }
 }
 $('oGo').onclick = launchOwnBot;
