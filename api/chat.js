@@ -1,7 +1,7 @@
 // api/chat.js — AqylAI live demo bot
 // Tier 1: prospect names any business type -> we invent a plausible Almaty business.
 // Tier 2: prospect submits their OWN name/hours/services -> bot answers as THEIR bot.
-// The Groq key and every system prompt live here. The browser never sees them.
+// The Gemini/Groq keys and every system prompt live here. The browser never sees them.
 
 export const config = { runtime: 'edge' };
 
@@ -12,7 +12,12 @@ const ALLOWED = [
   'http://127.0.0.1:5500'
 ];
 
-const MODEL = 'llama-3.1-8b-instant';
+// Gemini 3.5 Flash is primary (via its OpenAI-compatible endpoint). Groq is an
+// automatic fallback if Gemini errors — never the other way around.
+const GEMINI_MODEL = 'gemini-3.5-flash';
+const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions';
+const GROQ_MODEL = 'llama-3.3-70b-versatile';
+const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
 /* ---------------- helpers ---------------- */
 
@@ -31,26 +36,50 @@ const json = (body, status, headers) =>
 
 const s = (v, max) => (typeof v === 'string' ? v.slice(0, max).trim() : '');
 
-async function groq(messages, { maxTokens = 400, temp = 0.7, jsonMode = false } = {}) {
-  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.GROQ_API_KEY}`
-    },
-    body: JSON.stringify({
-      model: MODEL,
-      max_tokens: maxTokens,
-      temperature: temp,
-      ...(jsonMode ? { response_format: { type: 'json_object' } } : {}),
-      messages
-    })
-  });
-  if (!res.ok) throw new Error(`groq_${res.status}`);
+// Bounded per-provider timeout so a slow/overloaded primary can't stall the whole
+// function past Vercel's execution limit — that would kill the request before the
+// fallback ever got a chance to run, defeating the point of having one.
+const MODEL_TIMEOUT_MS = 10000;
+
+async function callModel(provider, url, apiKey, model, messages, { maxTokens = 400, temp = 0.7, jsonMode = false } = {}) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), MODEL_TIMEOUT_MS);
+  let res;
+  try {
+    res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model,
+        max_tokens: maxTokens,
+        temperature: temp,
+        ...(jsonMode ? { response_format: { type: 'json_object' } } : {}),
+        messages
+      }),
+      signal: controller.signal
+    });
+  } catch (e) {
+    throw new Error(`${provider}_timeout`);
+  } finally {
+    clearTimeout(timer);
+  }
+  if (!res.ok) throw new Error(`${provider}_${res.status}`);
   const data = await res.json();
   const text = data?.choices?.[0]?.message?.content?.trim();
-  if (!text) throw new Error('groq_empty');
+  if (!text) throw new Error(`${provider}_empty`);
   return text;
+}
+
+// Gemini primary, Groq automatic fallback on any Gemini failure.
+async function llm(messages, opts = {}) {
+  try {
+    return await callModel('gemini', GEMINI_URL, process.env.GEMINI_API_KEY, GEMINI_MODEL, messages, opts);
+  } catch (e) {
+    return await callModel('groq', GROQ_URL, process.env.GROQ_API_KEY, GROQ_MODEL, messages, opts);
+  }
 }
 
 // Never trust what the browser sends back. Rebuild the persona from scratch.
@@ -148,12 +177,12 @@ Return ONLY valid JSON. No markdown, no commentary.
 
 Requirements: exactly 6 services, realistic Almaty prices in tenge, all in English.`;
 
-  const raw = await groq(
+  const raw = await llm(
     [
       { role: 'system', content: lang === 'en' ? en : ru },
       { role: 'user', content: `${lang === 'en' ? 'Business type' : 'Тип бизнеса'}: ${business}` }
     ],
-    { maxTokens: 700, temp: 0.9, jsonMode: true }
+    { maxTokens: 1200, temp: 0.9, jsonMode: true }
   );
 
   let parsed;
@@ -215,7 +244,7 @@ export default async function handler(req) {
 
     if (!msgs.length) return json({ error: 'empty' }, 400, headers);
 
-    const reply = await groq(
+    const reply = await llm(
       [{ role: 'system', content: systemPrompt(persona, lang) }, ...msgs],
       { maxTokens: 300, temp: 0.7 }
     );
@@ -223,6 +252,7 @@ export default async function handler(req) {
     return json({ reply }, 200, headers);
   } catch (e) {
     const m = String(e?.message || '');
-    return json({ error: 'upstream', detail: m }, m.startsWith('groq_') ? 502 : 500, headers);
+    const isUpstream = m.startsWith('gemini_') || m.startsWith('groq_');
+    return json({ error: 'upstream', detail: m }, isUpstream ? 502 : 500, headers);
   }
 }
