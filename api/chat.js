@@ -41,9 +41,13 @@ const s = (v, max) => (typeof v === 'string' ? v.slice(0, max).trim() : '');
 // fallback ever got a chance to run, defeating the point of having one.
 const MODEL_TIMEOUT_MS = 10000;
 
-async function callModel(provider, url, apiKey, model, messages, { maxTokens = 400, temp = 0.7, jsonMode = false } = {}) {
+// invent()'s 2000-token Cyrillic JSON generation needs more room than the default
+// 10s budget or we'd just be trading truncation for timeouts.
+const INVENT_TIMEOUT_MS = 20000;
+
+async function callModel(provider, url, apiKey, model, messages, { maxTokens = 400, temp = 0.7, jsonMode = false, timeoutMs = MODEL_TIMEOUT_MS } = {}) {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), MODEL_TIMEOUT_MS);
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
   let res;
   try {
     res = await fetch(url, {
@@ -147,6 +151,66 @@ ${list}
 
 /* ---------------- Tier 1: invent the business ---------------- */
 
+// Groq's JSON mode can still wrap output in markdown fences or add a preamble,
+// and can truncate before closing the object. Pull out the outermost {...} and
+// parse that instead of trusting the raw string; return null (never throw) so
+// the caller can fall back instead of surfacing an error to the prospect.
+function parseInventedPersona(raw, business) {
+  const match = raw.match(/\{[\s\S]*\}/);
+  if (!match) {
+    console.error('[invent] no JSON object found in Groq output, raw (first 300 chars):', raw.slice(0, 300));
+    return null;
+  }
+  let parsed;
+  try {
+    parsed = JSON.parse(match[0]);
+  } catch {
+    console.error('[invent] JSON.parse failed, raw (first 300 chars):', raw.slice(0, 300));
+    return null;
+  }
+  const persona = clean({ ...parsed, business, real: false });
+  if (!persona) {
+    console.error('[invent] parsed JSON missing required fields, raw (first 300 chars):', raw.slice(0, 300));
+    return null;
+  }
+  return persona;
+}
+
+// Generic Almaty business matching the requested vertical (business is just the
+// type the prospect typed, e.g. "кофейня" — used verbatim as the fallback name).
+// Used only when the model's output can't be parsed/validated. The widget must
+// never show "Не получилось" to a prospect just because the model returned bad
+// JSON, so this always succeeds (clean() can't reject it — business is already
+// validated non-empty by the handler, and services is a fixed non-empty list).
+function fallbackPersona(business, lang) {
+  const base = lang === 'en'
+    ? {
+        name: business,
+        emoji: '💬',
+        address: 'Almaty',
+        hours: 'Mon-Sat 9:00-20:00',
+        services: [
+          { name: 'Consultation', price: 'from 5,000 KZT' },
+          { name: 'Standard service', price: 'from 8,000 KZT' },
+          { name: 'Premium service', price: 'from 15,000 KZT' }
+        ],
+        booking: 'Request received, we will call you back within 30 minutes.'
+      }
+    : {
+        name: business,
+        emoji: '💬',
+        address: 'Алматы',
+        hours: 'Пн–Сб 9:00–20:00',
+        services: [
+          { name: 'Консультация', price: 'от 5 000 ₸' },
+          { name: 'Стандартная услуга', price: 'от 8 000 ₸' },
+          { name: 'Премиум услуга', price: 'от 15 000 ₸' }
+        ],
+        booking: 'Заявка принята, перезвоним в течение 30 минут.'
+      };
+  return clean({ ...base, business, real: false });
+}
+
 async function invent(business, lang) {
   const ru = `Ты генерируешь профиль ВЫМЫШЛЕННОГО малого бизнеса в Алматы, Казахстан, для демонстрации чат-бота.
 Верни ТОЛЬКО валидный JSON. Без markdown, без пояснений.
@@ -177,23 +241,22 @@ Return ONLY valid JSON. No markdown, no commentary.
 
 Requirements: exactly 6 services, realistic Almaty prices in tenge, all in English.`;
 
-  const raw = await llm(
-    [
-      { role: 'system', content: lang === 'en' ? en : ru },
-      { role: 'user', content: `${lang === 'en' ? 'Business type' : 'Тип бизнеса'}: ${business}` }
-    ],
-    { maxTokens: 1200, temp: 0.9, jsonMode: true }
-  );
-
-  let parsed;
+  let raw = null;
   try {
-    parsed = JSON.parse(raw);
-  } catch {
-    throw new Error('bad_json');
+    raw = await llm(
+      [
+        { role: 'system', content: lang === 'en' ? en : ru },
+        { role: 'user', content: `${lang === 'en' ? 'Business type' : 'Тип бизнеса'}: ${business}` }
+      ],
+      { maxTokens: 2000, temp: 0.9, jsonMode: true, timeoutMs: INVENT_TIMEOUT_MS }
+    );
+  } catch (e) {
+    // Network error, non-2xx from either provider, timeout, etc. Log it, never
+    // surface it — the widget must always produce a working greeting.
+    console.error('[invent] llm() call failed, falling back:', String(e?.message || e));
   }
 
-  const persona = clean({ ...parsed, business, real: false });
-  if (!persona) throw new Error('bad_persona');
+  const persona = (raw && parseInventedPersona(raw, business)) || fallbackPersona(business, lang);
 
   const greeting =
     lang === 'en'
