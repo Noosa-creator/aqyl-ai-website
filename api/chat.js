@@ -385,16 +385,6 @@ async function handleRequest(req) {
   const lang = body.lang === 'en' ? 'en' : 'ru';
 
   try {
-    // TEMPORARY -- manual test hook for verifying Sentry+Resend wiring end to
-    // end. Exercises the real capture/email functions with real tags. Remove
-    // this block once the test is confirmed; not a permanent feature.
-    if (body.action === '__test_catastrophic__') {
-      const err = new Error('manual_test_trigger: verifying Sentry + Resend wiring');
-      captureError(err, { function: 'test', reason: 'manual_catastrophic_test' });
-      sendCatastrophicEmail('manual_test', err);
-      return json({ tested: 'catastrophic_path_fired' }, 200, headers);
-    }
-
     // Tier 1 — invent a business from a type
     if (body.action === 'init') {
       const business = s(body.business, 60);
