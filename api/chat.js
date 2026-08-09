@@ -45,6 +45,77 @@ const MODEL_TIMEOUT_MS = 10000;
 // 10s budget or we'd just be trading truncation for timeouts.
 const INVENT_TIMEOUT_MS = 20000;
 
+/* ---------------- Sentry + Resend (hand-rolled fetch, no SDKs, edge runtime) ---------------- */
+
+// Parses a Sentry DSN into the envelope-ingest URL + public key. Returns null
+// on any missing/malformed DSN so callers can skip silently.
+function parseSentryDsn(dsn) {
+  try {
+    const u = new URL(dsn);
+    const projectId = u.pathname.replace(/^\//, '');
+    if (!u.username || !projectId) return null;
+    return { url: `${u.protocol}//${u.host}/api/${projectId}/envelope/`, publicKey: u.username };
+  } catch {
+    return null;
+  }
+}
+
+const SENTRY = process.env.SENTRY_DSN ? parseSentryDsn(process.env.SENTRY_DSN) : null;
+
+// Fire-and-forget: never awaited by callers, never throws, no-ops if SENTRY_DSN
+// is absent/malformed. Sends a minimal Sentry envelope (event_id + exception +
+// tags) directly via fetch -- see chat for why this isn't @sentry/vercel-edge.
+function captureError(error, tags = {}) {
+  if (!SENTRY) return;
+  try {
+    const eventId = crypto.randomUUID().replace(/-/g, '');
+    const envelopeHeader = JSON.stringify({ event_id: eventId, sent_at: new Date().toISOString(), dsn: process.env.SENTRY_DSN });
+    const itemHeader = JSON.stringify({ type: 'event' });
+    const event = JSON.stringify({
+      event_id: eventId,
+      timestamp: Date.now() / 1000,
+      platform: 'javascript',
+      level: 'error',
+      logger: 'api/chat.js',
+      exception: { values: [{ type: 'Error', value: String(error?.message || error) }] },
+      tags
+    });
+    fetch(SENTRY.url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-sentry-envelope',
+        'X-Sentry-Auth': `Sentry sentry_version=7, sentry_client=aqylai-edge/1.0, sentry_key=${SENTRY.publicKey}`
+      },
+      body: `${envelopeHeader}\n${itemHeader}\n${event}\n`
+    }).catch(() => {});
+  } catch {
+    // Telemetry must never break the request it's reporting on.
+  }
+}
+
+// Catastrophic-only alert, narrowly triggered (see call sites). Fire-and-forget,
+// own try/catch, no-ops silently if RESEND_API_KEY/ALERT_EMAIL are unset.
+function sendCatastrophicEmail(source, error) {
+  if (!process.env.RESEND_API_KEY || !process.env.ALERT_EMAIL) return;
+  try {
+    fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`
+      },
+      body: JSON.stringify({
+        from: 'onboarding@resend.dev',
+        to: process.env.ALERT_EMAIL,
+        subject: '[AqylAI] Widget catastrophic failure',
+        text: `Source: ${source}\nError: ${String(error?.message || error)}\nTimestamp: ${new Date().toISOString()}`
+      })
+    }).catch(() => {});
+  } catch {
+    // Never let alerting break the request it's reporting on.
+  }
+}
+
 async function callModel(provider, url, apiKey, model, messages, { maxTokens = 400, temp = 0.7, jsonMode = false, timeoutMs = MODEL_TIMEOUT_MS } = {}) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
@@ -77,12 +148,25 @@ async function callModel(provider, url, apiKey, model, messages, { maxTokens = 4
   return text;
 }
 
-// Gemini primary, Groq automatic fallback on any Gemini failure.
+// Gemini primary, Groq automatic fallback on any Gemini failure. opts.fnTag
+// identifies the caller ('invent' or 'chat') for Sentry tagging -- every
+// individual provider failure is captured here regardless of whether the
+// other provider then succeeds (a single-provider failure the other one
+// catches is Sentry-only, never an email -- see callers for the email path).
 async function llm(messages, opts = {}) {
+  const fn = opts.fnTag || 'llm';
   try {
     return await callModel('gemini', GEMINI_URL, process.env.GEMINI_API_KEY, GEMINI_MODEL, messages, opts);
-  } catch (e) {
-    return await callModel('groq', GROQ_URL, process.env.GROQ_API_KEY, GROQ_MODEL, messages, opts);
+  } catch (geminiErr) {
+    captureError(geminiErr, { function: fn, provider: 'gemini' });
+    try {
+      return await callModel('groq', GROQ_URL, process.env.GROQ_API_KEY, GROQ_MODEL, messages, opts);
+    } catch (groqErr) {
+      captureError(groqErr, { function: fn, provider: 'groq' });
+      const bothFailed = new Error(`both_providers_failed: gemini=${geminiErr?.message}, groq=${groqErr?.message}`);
+      bothFailed.bothProvidersFailed = true;
+      throw bothFailed;
+    }
   }
 }
 
@@ -242,21 +326,33 @@ Return ONLY valid JSON. No markdown, no commentary.
 Requirements: exactly 6 services, realistic Almaty prices in tenge, all in English.`;
 
   let raw = null;
+  let llmFailure = null;
   try {
     raw = await llm(
       [
         { role: 'system', content: lang === 'en' ? en : ru },
         { role: 'user', content: `${lang === 'en' ? 'Business type' : 'Тип бизнеса'}: ${business}` }
       ],
-      { maxTokens: 2000, temp: 0.9, jsonMode: true, timeoutMs: INVENT_TIMEOUT_MS }
+      { maxTokens: 2000, temp: 0.9, jsonMode: true, timeoutMs: INVENT_TIMEOUT_MS, fnTag: 'invent' }
     );
   } catch (e) {
+    llmFailure = e;
     // Network error, non-2xx from either provider, timeout, etc. Log it, never
     // surface it — the widget must always produce a working greeting.
     console.error('[invent] llm() call failed, falling back:', String(e?.message || e));
   }
 
-  const persona = (raw && parseInventedPersona(raw, business)) || fallbackPersona(business, lang);
+  const parsed = raw ? parseInventedPersona(raw, business) : null;
+  const persona = parsed || fallbackPersona(business, lang);
+
+  // CATASTROPHIC: the fallback path actually fired, for any reason (both
+  // providers failed, or one responded with bad JSON). Sentry + email --
+  // this is the one hardcoded-generic-persona path a prospect can hit.
+  if (!parsed) {
+    const err = llmFailure || new Error('invent_bad_model_output: response was not valid/parseable persona JSON');
+    captureError(err, { function: 'invent', reason: llmFailure ? 'llm_call_failed' : 'bad_model_output' });
+    sendCatastrophicEmail('invent', err);
+  }
 
   const greeting =
     lang === 'en'
@@ -268,7 +364,7 @@ Requirements: exactly 6 services, realistic Almaty prices in tenge, all in Engli
 
 /* ---------------- handler ---------------- */
 
-export default async function handler(req) {
+async function handleRequest(req) {
   const origin = req.headers.get('origin') || '';
   const headers = cors(origin);
 
@@ -309,13 +405,35 @@ export default async function handler(req) {
 
     const reply = await llm(
       [{ role: 'system', content: systemPrompt(persona, lang) }, ...msgs],
-      { maxTokens: 300, temp: 0.7 }
+      { maxTokens: 300, temp: 0.7, fnTag: 'chat' }
     );
 
     return json({ reply }, 200, headers);
   } catch (e) {
+    // Any error on an ordinary chat turn. Individual provider failures were
+    // already captured inside llm(); this is the aggregate "this turn errors
+    // out" signal. Sentry-only: a chat-turn failure still returns a proper
+    // (if erroring) response, so it doesn't meet either catastrophic
+    // criterion — narrowly, that's invent()'s fallback firing, or the whole
+    // handler throwing before any response at all (see the wrapper below).
     const m = String(e?.message || '');
-    const isUpstream = m.startsWith('gemini_') || m.startsWith('groq_');
+    const isUpstream = m.startsWith('gemini_') || m.startsWith('groq_') || e?.bothProvidersFailed;
+    captureError(e, { function: 'chat', reason: 'chat_turn_failed' });
     return json({ error: 'upstream', detail: m }, isUpstream ? 502 : 500, headers);
+  }
+}
+
+// Outermost safety net: anything that escapes handleRequest entirely (i.e.
+// wasn't already caught and turned into a response above) is the other
+// catastrophic case — capture + email, and still return a real Response so
+// the browser sees a clean error instead of a raw network failure.
+export default async function handler(req) {
+  try {
+    return await handleRequest(req);
+  } catch (e) {
+    captureError(e, { function: 'handler', reason: 'unhandled_throw' });
+    sendCatastrophicEmail('handler', e);
+    const origin = req.headers.get('origin') || '';
+    return json({ error: 'internal' }, 500, cors(origin));
   }
 }
