@@ -65,8 +65,14 @@ const SENTRY = process.env.SENTRY_DSN ? parseSentryDsn(process.env.SENTRY_DSN) :
 // Fire-and-forget: never awaited by callers, never throws, no-ops if SENTRY_DSN
 // is absent/malformed. Sends a minimal Sentry envelope (event_id + exception +
 // tags) directly via fetch -- see chat for why this isn't @sentry/vercel-edge.
+// Always returns a settled (never-rejecting) Promise, bounded to 3s. Ordinary
+// call sites fire this without awaiting (identical to before -- an unawaited
+// promise is still fire-and-forget). The two catastrophic call sites await
+// it so the fetch survives past the point the response would otherwise be
+// returned and the edge runtime freezes the execution context.
 function captureError(error, tags = {}) {
-  if (!SENTRY) return;
+  if (!SENTRY) return Promise.resolve();
+  let body;
   try {
     const eventId = crypto.randomUUID().replace(/-/g, '');
     const envelopeHeader = JSON.stringify({ event_id: eventId, sent_at: new Date().toISOString(), dsn: process.env.SENTRY_DSN });
@@ -80,40 +86,52 @@ function captureError(error, tags = {}) {
       exception: { values: [{ type: 'Error', value: String(error?.message || error) }] },
       tags
     });
-    fetch(SENTRY.url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-sentry-envelope',
-        'X-Sentry-Auth': `Sentry sentry_version=7, sentry_client=aqylai-edge/1.0, sentry_key=${SENTRY.publicKey}`
-      },
-      body: `${envelopeHeader}\n${itemHeader}\n${event}\n`
-    }).catch(() => {});
+    body = `${envelopeHeader}\n${itemHeader}\n${event}\n`;
   } catch {
-    // Telemetry must never break the request it's reporting on.
+    return Promise.resolve(); // Telemetry must never break the request it's reporting on.
   }
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 3000);
+  return fetch(SENTRY.url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-sentry-envelope',
+      'X-Sentry-Auth': `Sentry sentry_version=7, sentry_client=aqylai-edge/1.0, sentry_key=${SENTRY.publicKey}`
+    },
+    body,
+    signal: controller.signal
+  }).catch(() => {}).finally(() => clearTimeout(timer));
 }
 
 // Catastrophic-only alert, narrowly triggered (see call sites). Fire-and-forget,
 // own try/catch, no-ops silently if RESEND_API_KEY/ALERT_EMAIL are unset.
+// Same shape as captureError: always a settled Promise, 3s-bounded. Unawaited
+// at ordinary call sites (none currently -- this is only ever called on the
+// catastrophic path), awaited where delivery must survive the response.
 function sendCatastrophicEmail(source, error) {
-  if (!process.env.RESEND_API_KEY || !process.env.ALERT_EMAIL) return;
+  if (!process.env.RESEND_API_KEY || !process.env.ALERT_EMAIL) return Promise.resolve();
+  let body;
   try {
-    fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.RESEND_API_KEY}`
-      },
-      body: JSON.stringify({
-        from: 'onboarding@resend.dev',
-        to: process.env.ALERT_EMAIL,
-        subject: '[AqylAI] Widget catastrophic failure',
-        text: `Source: ${source}\nError: ${String(error?.message || error)}\nTimestamp: ${new Date().toISOString()}`
-      })
-    }).catch(() => {});
+    body = JSON.stringify({
+      from: 'onboarding@resend.dev',
+      to: process.env.ALERT_EMAIL,
+      subject: '[AqylAI] Widget catastrophic failure',
+      text: `Source: ${source}\nError: ${String(error?.message || error)}\nTimestamp: ${new Date().toISOString()}`
+    });
   } catch {
-    // Never let alerting break the request it's reporting on.
+    return Promise.resolve(); // Never let alerting break the request it's reporting on.
   }
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 3000);
+  return fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${process.env.RESEND_API_KEY}`
+    },
+    body,
+    signal: controller.signal
+  }).catch(() => {}).finally(() => clearTimeout(timer));
 }
 
 async function callModel(provider, url, apiKey, model, messages, { maxTokens = 400, temp = 0.7, jsonMode = false, timeoutMs = MODEL_TIMEOUT_MS } = {}) {
@@ -350,8 +368,14 @@ Requirements: exactly 6 services, realistic Almaty prices in tenge, all in Engli
   // this is the one hardcoded-generic-persona path a prospect can hit.
   if (!parsed) {
     const err = llmFailure || new Error('invent_bad_model_output: response was not valid/parseable persona JSON');
-    captureError(err, { function: 'invent', reason: llmFailure ? 'llm_call_failed' : 'bad_model_output' });
-    sendCatastrophicEmail('invent', err);
+    // Catastrophic path only: await so both fetches survive past the point
+    // the response would otherwise be returned (each individually bounded
+    // to 3s inside the functions themselves, so worst case ~3s added here,
+    // not 6s -- they run concurrently).
+    await Promise.all([
+      captureError(err, { function: 'invent', reason: llmFailure ? 'llm_call_failed' : 'bad_model_output' }),
+      sendCatastrophicEmail('invent', err)
+    ]);
   }
 
   const greeting =
@@ -385,6 +409,17 @@ async function handleRequest(req) {
   const lang = body.lang === 'en' ? 'en' : 'ru';
 
   try {
+    // TEMPORARY -- manual test hook, verifying the awaited-with-timeout fix.
+    // Remove immediately after confirming Resend delivery.
+    if (body.action === '__test_catastrophic__') {
+      const err = new Error('manual_test_trigger_v2: verifying awaited Sentry + Resend delivery');
+      await Promise.all([
+        captureError(err, { function: 'test', reason: 'manual_catastrophic_test' }),
+        sendCatastrophicEmail('manual_test', err)
+      ]);
+      return json({ tested: 'catastrophic_path_fired' }, 200, headers);
+    }
+
     // Tier 1 — invent a business from a type
     if (body.action === 'init') {
       const business = s(body.business, 60);
@@ -431,8 +466,11 @@ export default async function handler(req) {
   try {
     return await handleRequest(req);
   } catch (e) {
-    captureError(e, { function: 'handler', reason: 'unhandled_throw' });
-    sendCatastrophicEmail('handler', e);
+    // Catastrophic path only -- see invent() for why this is awaited.
+    await Promise.all([
+      captureError(e, { function: 'handler', reason: 'unhandled_throw' }),
+      sendCatastrophicEmail('handler', e)
+    ]);
     const origin = req.headers.get('origin') || '';
     return json({ error: 'internal' }, 500, cors(origin));
   }
