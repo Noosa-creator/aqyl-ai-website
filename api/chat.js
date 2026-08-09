@@ -409,17 +409,6 @@ async function handleRequest(req) {
   const lang = body.lang === 'en' ? 'en' : 'ru';
 
   try {
-    // TEMPORARY -- manual test hook, verifying the awaited-with-timeout fix.
-    // Remove immediately after confirming Resend delivery.
-    if (body.action === '__test_catastrophic__') {
-      const err = new Error('manual_test_trigger_v2: verifying awaited Sentry + Resend delivery');
-      await Promise.all([
-        captureError(err, { function: 'test', reason: 'manual_catastrophic_test' }),
-        sendCatastrophicEmail('manual_test', err)
-      ]);
-      return json({ tested: 'catastrophic_path_fired' }, 200, headers);
-    }
-
     // Tier 1 — invent a business from a type
     if (body.action === 'init') {
       const business = s(body.business, 60);
