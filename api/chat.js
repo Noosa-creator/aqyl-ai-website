@@ -161,8 +161,17 @@ async function callModel(provider, url, apiKey, model, messages, { maxTokens = 4
   }
   if (!res.ok) throw new Error(`${provider}_${res.status}`);
   const data = await res.json();
-  const text = data?.choices?.[0]?.message?.content?.trim();
+  const choice = data?.choices?.[0];
+  const text = choice?.message?.content?.trim();
   if (!text) throw new Error(`${provider}_empty`);
+  // A non-empty reply can still be cut off mid-sentence if the provider hit
+  // its token budget before finishing (observed on Gemini even for trivial
+  // one-word-answer questions -- something is consuming the budget before
+  // visible output starts, likely invisible "thinking" tokens). Treating
+  // this as a real failure (not a silent success) lets llm()'s existing
+  // Gemini-then-Groq fallback retry with the other provider automatically,
+  // instead of the client ever seeing a truncated reply as if it were done.
+  if (choice?.finish_reason === 'length') throw new Error(`${provider}_truncated`);
   return text;
 }
 
@@ -429,7 +438,7 @@ async function handleRequest(req) {
 
     const reply = await llm(
       [{ role: 'system', content: systemPrompt(persona, lang) }, ...msgs],
-      { maxTokens: 300, temp: 0.7, fnTag: 'chat' }
+      { maxTokens: 700, temp: 0.7, fnTag: 'chat' }
     );
 
     return json({ reply }, 200, headers);
