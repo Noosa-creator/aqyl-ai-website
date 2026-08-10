@@ -35,8 +35,8 @@
   --r:10px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth;max-width:100%;overflow-x:hidden}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6;max-width:100%;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 #bg3d{position:fixed;inset:0;z-index:0;pointer-events:none}
 #bg3d canvas{display:block}
 nav,section,footer,.wrap{position:relative;z-index:1}
