@@ -16,7 +16,7 @@ const ALLOWED = [
 // automatic fallback if Gemini errors — never the other way around.
 const GEMINI_MODEL = 'gemini-3.5-flash';
 const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions';
-const GROQ_MODEL = 'llama-3.3-70b-versatile';
+const GROQ_MODEL = 'openai/gpt-oss-120b';
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
 /* ---------------- helpers ---------------- */
@@ -40,6 +40,14 @@ const s = (v, max) => (typeof v === 'string' ? v.slice(0, max).trim() : '');
 // function past Vercel's execution limit — that would kill the request before the
 // fallback ever got a chance to run, defeating the point of having one.
 const MODEL_TIMEOUT_MS = 10000;
+
+// Gemini (primary) specifically gets a shorter timeout than the general default.
+// A gemini_timeout observed in Sentry with no matching groq event, and no clean
+// response reaching the user, pointed at Vercel's own edge-function execution
+// ceiling killing the request mid-fallback: Gemini hanging its full 10s left too
+// little headroom for Groq's own attempt afterward. 8s for Gemini leaves Groq a
+// real window to complete within the platform's total budget.
+const GEMINI_TIMEOUT_MS = 8000;
 
 // invent()'s 2000-token Cyrillic JSON generation needs more room than the default
 // 10s budget or we'd just be trading truncation for timeouts.
@@ -134,7 +142,7 @@ function sendCatastrophicEmail(source, error) {
   }).catch(() => {}).finally(() => clearTimeout(timer));
 }
 
-async function callModel(provider, url, apiKey, model, messages, { maxTokens = 400, temp = 0.7, jsonMode = false, timeoutMs = MODEL_TIMEOUT_MS } = {}) {
+async function callModel(provider, url, apiKey, model, messages, { maxTokens = 400, temp = 0.7, jsonMode = false, timeoutMs = MODEL_TIMEOUT_MS, reasoningEffort } = {}) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   let res;
@@ -150,12 +158,17 @@ async function callModel(provider, url, apiKey, model, messages, { maxTokens = 4
         max_tokens: maxTokens,
         temperature: temp,
         ...(jsonMode ? { response_format: { type: 'json_object' } } : {}),
+        ...(reasoningEffort ? { reasoning_effort: reasoningEffort } : {}),
         messages
       }),
       signal: controller.signal
     });
   } catch (e) {
-    throw new Error(`${provider}_timeout`);
+    // Only a real AbortController timeout gets tagged "_timeout" -- other
+    // fetch-level failures (DNS, connection reset, TLS) were previously
+    // mislabeled as timeouts too, which would have muddied this exact
+    // investigation if the real cause had been something else.
+    throw new Error(e?.name === 'AbortError' ? `${provider}_timeout` : `${provider}_network_error`);
   } finally {
     clearTimeout(timer);
   }
@@ -182,13 +195,24 @@ async function callModel(provider, url, apiKey, model, messages, { maxTokens = 4
 // catches is Sentry-only, never an email -- see callers for the email path).
 async function llm(messages, opts = {}) {
   const fn = opts.fnTag || 'llm';
+  // Gemini gets a shorter timeout than whatever the caller passed for the
+  // overall call, unless the caller explicitly asked for something else
+  // (invent() overrides this to INVENT_TIMEOUT_MS for both providers, since
+  // its 2000-token JSON generation genuinely needs more room) -- see the
+  // GEMINI_TIMEOUT_MS comment for why this matters for the Groq fallback.
+  const geminiOpts = { ...opts, timeoutMs: opts.timeoutMs || GEMINI_TIMEOUT_MS };
   try {
-    return await callModel('gemini', GEMINI_URL, process.env.GEMINI_API_KEY, GEMINI_MODEL, messages, opts);
+    return await callModel('gemini', GEMINI_URL, process.env.GEMINI_API_KEY, GEMINI_MODEL, messages, geminiOpts);
   } catch (geminiErr) {
+    console.error(`[llm:${fn}] gemini failed, falling back to groq:`, geminiErr?.message || geminiErr);
     captureError(geminiErr, { function: fn, provider: 'gemini' });
     try {
-      return await callModel('groq', GROQ_URL, process.env.GROQ_API_KEY, GROQ_MODEL, messages, opts);
+      // reasoning_effort:'low' keeps the fallback model fast -- the whole
+      // point of falling back is to still answer quickly, not trade a slow
+      // primary for a slow fallback.
+      return await callModel('groq', GROQ_URL, process.env.GROQ_API_KEY, GROQ_MODEL, messages, { ...opts, reasoningEffort: 'low' });
     } catch (groqErr) {
+      console.error(`[llm:${fn}] groq fallback ALSO failed:`, groqErr?.message || groqErr);
       captureError(groqErr, { function: fn, provider: 'groq' });
       const bothFailed = new Error(`both_providers_failed: gemini=${geminiErr?.message}, groq=${groqErr?.message}`);
       bothFailed.bothProvidersFailed = true;
