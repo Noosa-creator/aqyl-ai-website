@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AqylAI — AI автоматизация для бизнеса в Алматы</title>
-<meta name="description" content="WhatsApp и Telegram боты для бизнеса в Алматы. Бот отвечает, записывает и напоминает 24/7. Запуск за 48 часов.">
+<title>Anas Tolebay — AI Automation &amp; Backend Engineer</title>
+<meta name="description" content="AI automation engineer: WhatsApp/LLM chatbots, n8n workflows, and data pipelines. Live, working demos on this page — not screenshots.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="AqylAI — AI автоматизация для бизнеса в Алматы">
-<meta property="og:description" content="Бот отвечает, записывает и напоминает 24/7. Попробуйте живое демо — настройте бота под свой бизнес за 40 секунд.">
+<meta property="og:title" content="Anas Tolebay — AI Automation & Backend Engineer">
+<meta property="og:description" content="WhatsApp/LLM chatbots, n8n workflows, and data pipelines. Try the live demos — a chatbot builder, a natural-language SQL engine, and a real automation flow.">
 <meta property="og:url" content="https://www.aqyl-ai.kz">
 <meta property="og:image" content="https://www.aqyl-ai.kz/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:locale" content="ru_RU">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ru_RU">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="AqylAI — AI автоматизация для бизнеса в Алматы">
-<meta name="twitter:description" content="Бот отвечает, записывает и напоминает 24/7. Запуск за 48 часов.">
+<meta name="twitter:title" content="Anas Tolebay — AI Automation & Backend Engineer">
+<meta name="twitter:description" content="WhatsApp/LLM chatbots, n8n workflows, and data pipelines. Live, working demos — not screenshots.">
 <meta name="twitter:image" content="https://www.aqyl-ai.kz/og.png">
 <link rel="canonical" href="https://www.aqyl-ai.kz">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='18' fill='%2312161C'/%3E%3Cpath d='M47.23 8.82 A32 32 0 1 0 65.2 59.73 A27 27 0 0 1 47.23 8.82 Z' fill='%23E0A73A'/%3E%3C/svg%3E">
@@ -36,19 +37,18 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;max-width:100%;overflow-x:hidden}
+html.gate-open{overflow:hidden}
 body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6;max-width:100%;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 #bg3d{position:fixed;inset:0;z-index:0;pointer-events:none}
 #bg3d canvas{display:block}
 nav,section,footer,.wrap{position:relative;z-index:1}
-/* sections are opaque paper so the field reads as a subtle depth layer, not noise behind text */
-#hero,#how,#cta{background:transparent}
-#split,#services,#faq{background:var(--paper2)}
 section{background:var(--paper)}
-#how,#cta{background:rgba(246,243,236,.55);backdrop-filter:blur(.5px)}
-#hero{background:transparent}
+#hero,#chatdemo{background:transparent}
+#sqldemo,#flowdemo{background:var(--paper2)}
+#contact{background:transparent}
 #bg3dMobile{display:none}
 #bg3dMobile svg{position:fixed;inset:0;width:100%;height:100%;z-index:0}
-@media(max-width:900px){#how,#cta{background:rgba(246,243,236,.55);backdrop-filter:none}#bg3d{display:none}#bg3dMobile{display:block;position:fixed;inset:0;z-index:0;pointer-events:none}#hero{background:transparent}}
+@media(max-width:900px){#bg3d{display:none}#bg3dMobile{display:block;position:fixed;inset:0;z-index:0;pointer-events:none}#hero,#chatdemo{background:transparent}}
 img,svg{display:block;max-width:100%}
 .wrap{max-width:1060px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
 section{padding:104px 0}
@@ -75,6 +75,8 @@ nav{position:fixed;inset:0 0 auto;z-index:100;display:flex;align-items:center;ju
 .btn-wa:hover{background:var(--blue-deep)}
 .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
 .btn-ghost:hover{border-color:var(--ink);background:var(--card)}
+.btn-whatsapp{background:var(--wa);color:#fff}
+.btn-whatsapp:hover{filter:brightness(.92)}
 nav .btn{padding:9px 16px;font-size:13px}
 
 /* ---- oyu ornament divider ---- */
@@ -92,6 +94,22 @@ nav .btn{padding:9px 16px;font-size:13px}
   55% {opacity:.34}
   100%{opacity:0;  clip-path:circle(155% at var(--ox,50%) var(--oy,50%))}
 }
+
+/* ---- language gate splash ---- */
+#langGate{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;
+  background:var(--paper);padding:24px;transition:opacity .5s ease}
+#langGate.hide{opacity:0;pointer-events:none}
+.lg-inner{text-align:center;max-width:440px}
+.lg-logo{margin:0 auto 30px}
+.lg-h{font-size:clamp(20px,3.6vw,27px);font-weight:700;letter-spacing:-.02em;margin-bottom:8px;line-height:1.4}
+.lg-h .sl{color:var(--ink-faint);font-weight:400;margin:0 8px;font-size:.8em}
+.lg-btns{display:flex;gap:12px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+.lg-btn{font-family:var(--sans);font-weight:600;font-size:16px;padding:16px 32px;border-radius:var(--r);
+  cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);transition:.2s;min-width:160px}
+.lg-btn:hover,.lg-btn:focus-visible{border-color:var(--blue);color:var(--blue)}
+.lg-btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.lg-btn.primary:hover,.lg-btn.primary:focus-visible{background:var(--blue-deep);border-color:var(--blue-deep);color:#fff}
+
 #heroPhone{position:relative}
 #demoGlow{position:absolute;inset:-6% 0;pointer-events:none;z-index:0;color:transparent;opacity:.17;
   background:radial-gradient(ellipse 70% 55% at 50% 48%,currentColor 0%,transparent 68%);
@@ -125,53 +143,21 @@ nav .btn{padding:9px 16px;font-size:13px}
   padding:5px 12px;border-radius:100px;margin-bottom:24px;font-weight:500}
 .pill::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--wa);animation:pulse 2.4s ease infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
-h1 em{font-style:normal;color:var(--blue);position:relative;white-space:nowrap}
+h1 em{font-style:normal;color:var(--blue);position:relative}
 h1 em::after{content:'';position:absolute;left:0;right:0;bottom:.06em;height:.10em;background:var(--gold);opacity:.5;border-radius:2px}
-.hero-sub{font-size:19px;color:var(--ink-soft);max-width:540px;margin:20px 0 34px;line-height:1.65}
+.hero-copy{max-width:680px}
+.hero-sub{font-size:19px;color:var(--ink-soft);max-width:560px;margin:20px 0 34px;line-height:1.65}
 .hero-btns{display:flex;gap:12px;flex-wrap:wrap}
 .hero-note{margin-top:18px;font-size:13px;color:var(--ink-faint)}
 .stats{display:flex;gap:44px;flex-wrap:wrap;margin-top:60px;padding-top:34px;border-top:1px solid var(--line)}
 .stat-n{font-family:var(--mono);font-size:27px;font-weight:500;color:var(--ink);letter-spacing:-.02em}
 .stat-l{font-size:13px;color:var(--ink-faint);margin-top:2px}
 
-/* ---- hero split: copy left, live phone demo right ---- */
-.hero-split{display:grid;grid-template-columns:1fr;gap:48px;align-items:center}
-.hero-phone{position:relative}
-@media(min-width:901px) and (pointer:fine){
-  .hero-split{grid-template-columns:1.08fr .92fr;gap:52px}
-}
-
-/* ---- split threads ---- */
-#split{background:var(--paper2)}
-.threads{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.thread{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
-.thread.lose{border-color:rgba(200,60,60,.22)}
-.thread.win{border-color:rgba(37,211,102,.32)}
-.th-head{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600}
-.dot{width:8px;height:8px;border-radius:50%;flex:none}
-.lose .dot{background:#C0392B}.win .dot{background:var(--wa)}
-.th-body{padding:16px;display:flex;flex-direction:column;gap:9px;min-height:330px;background:var(--paper)}
-.b{max-width:88%;padding:8px 12px;border-radius:12px;font-size:13.5px;line-height:1.5;opacity:0;transform:translateY(8px);
-  transition:opacity .45s ease,transform .45s ease}
-.b.in{opacity:1;transform:none}
-.b.them{background:var(--card);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:3px}
-.b.me{background:#DCF8C6;align-self:flex-end;border-bottom-right-radius:3px;border:1px solid rgba(37,211,102,.25)}
-.b .t{font-size:10px;color:var(--ink-faint);margin-top:3px;font-family:var(--mono);display:flex;gap:4px;justify-content:flex-end;align-items:center}
-.tick{font-size:11px;letter-spacing:-2px}
-.tick.read{color:#34B7F1}
-.gap{align-self:center;font-size:11px;font-family:var(--mono);color:var(--ink-faint);padding:10px 0;letter-spacing:.05em;
-  opacity:0;transition:opacity .5s}
-.gap.in{opacity:1}
-.th-foot{padding:12px 16px;border-top:1px solid var(--line);font-size:13px;font-weight:600}
-.lose .th-foot{color:#C0392B;background:rgba(192,57,43,.05)}
-.win .th-foot{color:#1E9E52;background:rgba(37,211,102,.07)}
-
-/* ---- demo ---- */
+/* ---- demo (chatbot widget) ---- */
 .stage{position:relative;max-width:520px;margin:0 auto}
 .demo{position:relative;z-index:3;background:var(--card);border:1px solid var(--a30,var(--line));border-radius:16px;
   overflow:hidden;box-shadow:0 20px 50px -20px rgba(18,22,28,.14);transition:border-color .7s ease,box-shadow .9s ease}
 
-/* concentric echo rings radiating out of the widget */
 .echo{position:absolute;border:1px solid var(--accent,var(--ink));border-radius:24px;pointer-events:none;z-index:1;
   transition:border-color .8s ease;opacity:0}
 .echo.on{opacity:var(--o)}
@@ -187,7 +173,6 @@ h1 em::after{content:'';position:absolute;left:0;right:0;bottom:.06em;height:.10
 
 @media(max-width:640px){.echo:nth-of-type(3){display:none}}
 
-/* phone mockup chrome — desktop/fine-pointer only; mobile renders the widget bare, no bezel */
 .phone-frame{position:relative}
 .phone-notch,.phone-statusbar{display:none}
 @media(min-width:901px) and (pointer:fine){
@@ -196,6 +181,7 @@ h1 em::after{content:'';position:absolute;left:0;right:0;bottom:.06em;height:.10
     padding:12px 12px 22px;
     border-radius:46px;
     box-shadow:0 30px 80px -26px rgba(18,22,28,.38);
+    max-width:380px;margin:0 auto;
   }
   .phone-notch{
     display:block;width:96px;height:24px;margin:0 auto;
@@ -269,70 +255,63 @@ h1 em::after{content:'';position:absolute;left:0;right:0;bottom:.06em;height:.10
 .sw button:hover{transform:scale(1.1)}
 .sw button.on{border-color:var(--ink);transform:scale(1.12)}
 
-/* ---- services + configurator ---- */
-#services{background:var(--paper2)}
-.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px;margin-bottom:22px}
-.tier{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;transition:.22s;position:relative}
-.tier:hover{border-color:var(--blue);transform:translateY(-3px);box-shadow:0 12px 30px -14px rgba(18,22,28,.18)}
-.tier.on{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-tint)}
-.tier .bg{position:absolute;top:-9px;right:14px;font-family:var(--mono);font-size:10px;font-weight:500;background:var(--gold);
-  color:var(--ink);padding:3px 9px;border-radius:100px;letter-spacing:.05em}
-.tier h3{font-size:16px;margin-bottom:6px}
-.tier p{font-size:13px;color:var(--ink-soft);line-height:1.55;margin-bottom:16px;min-height:60px}
-.price{font-family:var(--mono);font-size:19px;font-weight:500;color:var(--ink);letter-spacing:-.02em}
-.per{font-size:12px;color:var(--ink-faint);margin-top:2px}
-.fine{font-size:12px;color:var(--ink-faint);line-height:1.6}
+/* ---- SQL demo ---- */
+.sql-panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;margin-top:8px}
+.sql-status{font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);margin-top:12px}
+.sql-out{margin-top:18px}
+.sql-out[hidden]{display:none}
+.sql-out-h{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);margin:18px 0 8px}
+.sql-out-h:first-child{margin-top:0}
+.sql-code{background:var(--ink);color:#E8E6DF;border-radius:10px;padding:16px 18px;font-family:var(--mono);
+  font-size:13px;line-height:1.7;overflow-x:auto;white-space:pre-wrap;word-break:break-word}
+.sql-kw{color:#7FC4E0;font-weight:600}
+.sql-str{color:#E0A73A}
+.sql-num{color:#8FD19E}
+.sql-table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+.sql-table{width:100%;border-collapse:collapse;font-size:13.5px;font-family:var(--mono);min-width:420px}
+.sql-table th{background:var(--paper2);text-align:left;padding:9px 14px;font-weight:600;border-bottom:1px solid var(--line);white-space:nowrap}
+.sql-table td{padding:8px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+.sql-table tr:last-child td{border-bottom:0}
+.sql-empty{padding:16px;color:var(--ink-faint);font-size:13.5px}
+.sql-note{font-size:12px;color:var(--ink-faint);margin-top:16px}
+.sql-err{color:#C0392B;font-size:13.5px;padding:12px;background:rgba(192,57,43,.06);border-radius:8px;margin-top:8px}
 
-.cfg{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px;margin-top:36px}
-.cfg h3{font-size:18px;margin-bottom:4px}
-.cfg .h{font-size:13px;color:var(--ink-faint);margin-bottom:22px}
-.cfg-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
-.ctrl{margin-bottom:18px}
-.ctrl label{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;font-weight:500;margin-bottom:8px}
-.ctrl label span{font-family:var(--mono);color:var(--blue);font-size:13px}
-input[type=range]{width:100%;height:4px;border-radius:3px;background:var(--line);appearance:none;outline:none;cursor:pointer}
-input[type=range]::-webkit-slider-thumb{appearance:none;width:18px;height:18px;border-radius:50%;background:var(--blue);cursor:pointer;border:3px solid var(--card);box-shadow:0 1px 4px rgba(0,0,0,.2)}
-input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--blue);cursor:pointer;border:3px solid var(--card)}
-.tog{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-top:1px solid var(--line);font-size:13.5px;font-weight:500}
-.tog input{appearance:none;width:40px;height:22px;border-radius:100px;background:var(--line);position:relative;cursor:pointer;transition:.2s;flex:none}
-.tog input::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.2s}
-.tog input:checked{background:var(--blue)}
-.tog input:checked::after{transform:translateX(18px)}
-.out{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;justify-content:center}
-.out .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:5px}
-.out .tname{font-size:20px;font-weight:700;color:var(--blue);margin-bottom:14px}
-.out .pr{font-family:var(--mono);font-size:22px;font-weight:500;letter-spacing:-.02em}
-.out .pm{font-size:13px;color:var(--ink-soft);margin-top:2px;margin-bottom:16px}
-.loss{border-top:1px solid var(--line);padding-top:14px;margin-bottom:16px}
-.loss .v{font-family:var(--mono);font-size:19px;color:#C0392B;font-weight:500}
-.loss .d{font-size:11px;color:var(--ink-faint);margin-top:3px;line-height:1.5}
-.out .btn{width:100%}
+/* ---- flow demo ---- */
+.flow-panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;margin-top:8px}
+.flow-graph{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:24px;padding:20px 4px}
+.fnode{flex:1;min-width:110px;display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 8px;
+  border:1px solid var(--line);border-radius:12px;background:var(--paper);transition:.3s;position:relative}
+.fnode .fn-dot{position:absolute;top:8px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--line);transition:.3s}
+.fnode .fn-ico{font-size:20px}
+.fnode .fn-label{font-family:var(--mono);font-size:11.5px;font-weight:500;color:var(--ink-soft);text-align:center}
+.fnode.active{border-color:var(--blue);background:var(--blue-tint)}
+.fnode.active .fn-dot{background:var(--blue);box-shadow:0 0 0 4px rgba(28,127,166,.18)}
+.fnode.done{border-color:rgba(37,211,102,.4)}
+.fnode.done .fn-dot{background:#1E9E52}
+.fn-arrow{font-family:var(--mono);color:var(--ink-faint);font-size:16px;flex:none}
+@media(max-width:640px){.flow-graph{flex-direction:column}.fn-arrow{transform:rotate(90deg)}.fnode{width:100%}}
+.flow-detail{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+.fd-card{border:1px solid var(--line);border-radius:10px;padding:12px 16px;background:var(--paper);opacity:0;transform:translateY(6px);transition:opacity .35s ease,transform .35s ease}
+.fd-card.in{opacity:1;transform:none}
+.fd-h{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:6px}
+.fd-row{display:flex;gap:8px;font-size:13.5px;padding:2px 0;flex-wrap:wrap}
+.fd-row .k{color:var(--ink-faint);min-width:110px;font-family:var(--mono);font-size:12px}
+.fd-row .v{color:var(--ink)}
 
-/* ---- steps / faq / cta ---- */
-.steps{max-width:660px}
-.step{display:flex;gap:22px;padding:26px 0;border-bottom:1px solid var(--line)}
-.step:last-child{border:0}
-.n{width:40px;height:40px;flex:none;border-radius:9px;background:var(--blue-tint);border:1px solid rgba(28,127,166,.2);
-  display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;color:var(--blue-deep);font-weight:500}
-.step h3{font-size:16px;margin-bottom:5px}
-.step p{font-size:14px;color:var(--ink-soft);line-height:1.65}
-.guar{margin-top:32px;background:var(--gold-tint);border:1px solid rgba(224,167,58,.35);border-radius:10px;padding:16px 20px;
-  display:flex;gap:12px;align-items:center;font-size:14px;font-weight:600}
-#faq{background:var(--paper2)}
-.faq{max-width:720px;display:flex;flex-direction:column;gap:8px}
-.q{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.q.open{border-color:var(--blue)}
-.q>button{width:100%;background:none;border:0;font-family:var(--sans);font-size:15px;font-weight:600;color:var(--ink);
-  padding:17px 20px;text-align:left;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center}
-.q>button:hover{color:var(--blue)}
-.q i{font-style:normal;font-size:19px;color:var(--gold);transition:transform .28s;flex:none}
-.q.open i{transform:rotate(45deg)}
-.a{max-height:0;overflow:hidden;transition:max-height .32s ease,padding .32s ease;font-size:14px;color:var(--ink-soft);
-  line-height:1.7;padding:0 20px}
-.q.open .a{max-height:260px;padding:0 20px 17px}
-#cta{text-align:center}
-#cta .sub{margin:0 auto 34px}
-#cta .tag{text-align:center}
+/* ---- capabilities ---- */
+.cap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.cap-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;transition:.22s}
+.cap-card:hover{border-color:var(--blue);transform:translateY(-3px);box-shadow:0 12px 30px -14px rgba(18,22,28,.18)}
+.cap-ico{font-size:22px;margin-bottom:12px}
+.cap-card h3{font-size:16px;margin-bottom:8px}
+.cap-card p{font-size:13.5px;color:var(--ink-soft);line-height:1.6;margin-bottom:14px}
+.cap-tools{font-family:var(--mono);font-size:11.5px;color:var(--blue-deep);background:var(--blue-tint);
+  padding:6px 10px;border-radius:8px;display:inline-block;line-height:1.5}
+
+/* ---- contact ---- */
+#contact{text-align:center}
+#contact .sub{margin:0 auto 34px}
+#contact .tag{text-align:center}
 .cta-b{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 footer{padding:30px 28px;text-align:center;border-top:1px solid var(--line);font-size:13px;color:var(--ink-faint);line-height:1.9}
 footer a{color:var(--blue);text-decoration:none}
@@ -341,10 +320,6 @@ footer a:hover{text-decoration:underline}
 .rv{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
 .rv.in{opacity:1;transform:none}
 
-@media(max-width:820px){
-  .cfg-grid{grid-template-columns:1fr;gap:20px}
-  .threads{grid-template-columns:1fr}
-}
 @media(max-width:640px){
   nav{padding:10px 16px}.wrap{padding:0 18px}section{padding:72px 0}
   #hero{padding:126px 0 64px}
@@ -355,7 +330,7 @@ footer a:hover{text-decoration:underline}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
-  .rv,.b,.gap{opacity:1;transform:none}
+  .rv,.fd-card{opacity:1;transform:none}
   .oyu path{stroke-dashoffset:0}
 }
 </style>
@@ -374,9 +349,23 @@ ym(108221709,'init',{ssr:true,webvisor:true,clickmap:true,accurateTrackBounce:tr
 <div id="bg3dMobile"><svg id="bgMobile" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 900" preserveAspectRatio="xMidYMid slice"><path d="M74.0,124.3 L71.6,128.5 L68.4,132.1 L64.5,135.1 L60.0,137.3 L55.1,138.8 L50.0,139.4 L44.8,139.3 L39.7,138.4 L34.9,136.7 L30.5,134.5 L26.6,131.7 L23.3,128.5 L20.8,125.0 L19.0,121.3 L18.0,117.5 L17.7,113.8 L18.3,110.3 L19.5,107.1 L21.5,104.2 L23.9,101.7 L26.9,99.8 L30.1,98.4 L33.6,97.6 L37.2,97.4 L40.7,97.7 L44.1,98.5 L47.3,99.8 L50.2,101.4 L52.6,103.4 L54.5,105.6 L56.0,108.0 L56.9,110.4 L57.3,112.8 L57.2,115.1 L56.6,117.3 L55.6,119.2 L54.2,120.8 L52.5,122.0 L50.7,123.0 L48.6,123.5 L46.6,123.8 L44.6,123.7 L42.7,123.3 L40.9,122.6 L39.4,121.7 L38.1,120.7 L37.1,119.5 L36.4,118.4 L36.0,117.2 L35.9,116.0 L36.1,115.0 L36.5,114.1 L37.0,113.4 L37.7,112.9 L38.5,112.5 L39.3,112.3 L40.1,112.4 L40.8,112.5 L41.4,112.8" fill="none" stroke="#E0A73A" stroke-width="1.3" stroke-linecap="round" opacity="0.1"/><path d="M46.0,115.7 L45.6,120.5 L46.2,125.3 L47.8,129.9 L50.2,134.3 L53.4,138.2 L57.3,141.7 L61.6,144.5 L66.3,146.6 L71.2,148.0 L76.2,148.6 L80.9,148.5 L85.4,147.7 L89.5,146.3 L93.1,144.3 L96.1,141.7 L98.4,138.8 L99.9,135.6 L100.7,132.2 L100.7,128.7 L100.1,125.3 L98.8,122.1 L96.8,119.1 L94.4,116.4 L91.6,114.2 L88.5,112.5 L85.2,111.2 L81.9,110.5 L78.6,110.2 L75.5,110.5 L72.6,111.2 L70.1,112.4 L68.0,113.9 L66.3,115.6 L65.1,117.6 L64.4,119.7 L64.1,121.8 L64.4,123.9 L65.0,125.9 L66.0,127.7 L67.4,129.3 L68.9,130.7 L70.7,131.7 L72.5,132.5 L74.3,132.9 L76.1,133.1 L77.7,132.9 L79.2,132.6 L80.4,132.0 L81.4,131.2 L82.1,130.3 L82.6,129.4 L82.7,128.4 L82.7,127.5 L82.4,126.7 L82.0,125.9 L81.4,125.4 L80.7,124.9 L80.1,124.7 L79.4,124.6" fill="none" stroke="#E0A73A" stroke-width="1.3" stroke-linecap="round" opacity="0.1"/><path d="M350.0,257.1 L345.2,252.7 L341.5,247.3 L338.8,241.2 L337.2,234.7 L336.8,227.8 L337.5,220.9 L339.3,214.1 L342.0,207.7 L345.6,201.8 L350.0,196.7 L354.8,192.4 L360.0,189.1 L365.5,186.8 L370.9,185.5 L376.2,185.4 L381.1,186.2 L385.6,188.0 L389.5,190.7 L392.7,194.1 L395.1,198.1 L396.8,202.5 L397.6,207.3 L397.6,212.1 L396.8,216.9 L395.3,221.5 L393.2,225.7 L390.5,229.5 L387.5,232.7 L384.1,235.3 L380.6,237.2 L377.0,238.4 L373.6,238.9 L370.3,238.6 L367.3,237.8 L364.7,236.3 L362.5,234.4 L360.8,232.1 L359.6,229.5 L359.0,226.8 L358.8,224.0 L359.2,221.2 L359.9,218.5 L361.0,216.1 L362.4,214.0 L364.1,212.3 L365.8,210.9 L367.6,210.0 L369.4,209.4 L371.1,209.3 L372.6,209.5 L373.9,210.0 L375.0,210.8 L375.8,211.8 L376.3,212.9 L376.5,214.0 L376.4,215.1 L376.2,216.1 L375.7,217.0 L375.2,217.7" fill="none" stroke="#1C7FA6" stroke-width="1.3" stroke-linecap="round" opacity="0.09"/><path d="M370.0,222.9 L363.8,220.9 L357.3,220.2 L350.7,220.9 L344.2,222.7 L338.0,225.8 L332.3,229.8 L327.3,234.7 L323.0,240.2 L319.7,246.2 L317.3,252.5 L316.0,258.8 L315.6,265.0 L316.3,270.8 L317.9,276.2 L320.3,280.9 L323.5,284.8 L327.2,287.8 L331.5,289.9 L336.0,291.0 L340.7,291.2 L345.4,290.4 L349.9,288.8 L354.1,286.4 L357.9,283.4 L361.2,279.9 L363.8,275.9 L365.8,271.8 L367.1,267.5 L367.7,263.3 L367.7,259.3 L367.0,255.6 L365.7,252.4 L363.9,249.6 L361.6,247.4 L359.1,245.8 L356.4,244.9 L353.5,244.6 L350.7,244.8 L348.0,245.6 L345.4,246.8 L343.2,248.5 L341.3,250.4 L339.7,252.6 L338.6,254.9 L337.8,257.1 L337.5,259.3 L337.6,261.4 L338.0,263.2 L338.7,264.7 L339.6,265.9 L340.7,266.8 L341.9,267.4 L343.1,267.6 L344.3,267.5 L345.4,267.1 L346.4,266.5 L347.1,265.8 L347.7,265.0 L348.0,264.2" fill="none" stroke="#1C7FA6" stroke-width="1.3" stroke-linecap="round" opacity="0.09"/><path d="M78.8,417.0 L83.7,414.3 L89.2,412.7 L94.9,412.2 L100.8,412.7 L106.6,414.3 L112.1,416.9 L117.1,420.2 L121.6,424.3 L125.5,428.9 L128.5,433.9 L130.6,439.1 L131.9,444.3 L132.3,449.5 L131.8,454.3 L130.4,458.7 L128.3,462.5 L125.6,465.7 L122.3,468.1 L118.6,469.8 L114.6,470.7 L110.5,470.8 L106.4,470.1 L102.4,468.8 L98.7,466.8 L95.3,464.3 L92.4,461.3 L90.0,458.1 L88.3,454.7 L87.1,451.2 L86.5,447.7 L86.5,444.5 L87.1,441.5 L88.2,438.8 L89.8,436.6 L91.7,434.9 L93.9,433.6 L96.3,432.9 L98.7,432.6 L101.2,432.9 L103.5,433.5 L105.7,434.6 L107.7,436.0 L109.3,437.6 L110.7,439.3 L111.7,441.1 L112.3,443.0 L112.6,444.7 L112.5,446.3 L112.2,447.8 L111.6,449.0 L110.8,449.9 L109.8,450.5 L108.8,450.9 L107.8,451.0 L106.8,450.9 L105.9,450.5 L105.1,450.0 L104.5,449.4 L104.1,448.8" fill="none" stroke="#1C7FA6" stroke-width="1.3" stroke-linecap="round" opacity="0.09"/><path d="M101.2,443.0 L104.6,438.5 L107.0,433.3 L108.4,427.7 L108.6,421.8 L107.9,415.9 L106.2,410.1 L103.6,404.6 L100.2,399.5 L96.2,395.1 L91.7,391.4 L86.9,388.5 L81.9,386.5 L76.9,385.4 L72.1,385.2 L67.5,385.8 L63.4,387.4 L59.9,389.6 L57.0,392.5 L54.8,395.9 L53.3,399.7 L52.6,403.8 L52.7,408.0 L53.4,412.1 L54.9,416.1 L56.9,419.8 L59.4,423.0 L62.2,425.9 L65.4,428.1 L68.6,429.8 L71.9,430.9 L75.2,431.3 L78.2,431.2 L81.0,430.5 L83.4,429.3 L85.4,427.6 L87.0,425.6 L88.1,423.4 L88.7,421.0 L88.8,418.5 L88.5,416.1 L87.7,413.8 L86.7,411.6 L85.3,409.8 L83.8,408.2 L82.1,406.9 L80.4,406.1 L78.7,405.5 L77.1,405.4 L75.6,405.5 L74.4,405.9 L73.3,406.6 L72.6,407.4 L72.1,408.4 L71.8,409.4 L71.8,410.4 L72.0,411.3 L72.4,412.1 L72.9,412.8 L73.5,413.3" fill="none" stroke="#1C7FA6" stroke-width="1.3" stroke-linecap="round" opacity="0.09"/><path d="M354.7,572.0 L350.5,572.7 L346.2,572.4 L342.0,571.4 L338.0,569.5 L334.4,566.9 L331.1,563.7 L328.4,560.1 L326.2,556.1 L324.7,551.9 L323.8,547.6 L323.6,543.4 L324.0,539.3 L325.0,535.6 L326.6,532.4 L328.6,529.6 L331.1,527.4 L333.8,525.8 L336.8,524.9 L339.8,524.7 L342.8,525.1 L345.8,526.0 L348.5,527.5 L351.0,529.5 L353.1,531.8 L354.9,534.4 L356.2,537.3 L357.0,540.1 L357.4,543.0 L357.4,545.8 L356.9,548.3 L356.1,550.6 L354.9,552.6 L353.5,554.2 L351.8,555.4 L350.0,556.1 L348.2,556.5 L346.3,556.4 L344.5,556.0 L342.8,555.2 L341.3,554.1 L340.0,552.8 L339.0,551.3 L338.2,549.8 L337.7,548.2 L337.5,546.7 L337.5,545.2 L337.8,543.9 L338.2,542.8 L338.8,541.9 L339.5,541.2 L340.3,540.7 L341.2,540.5 L342.0,540.5 L342.7,540.7 L343.4,541.0 L343.9,541.5 L344.4,542.1 L344.6,542.6 L344.8,543.2" fill="none" stroke="#E0A73A" stroke-width="1.3" stroke-linecap="round" opacity="0.1"/><path d="M345.3,548.0 L341.8,550.3 L338.8,553.4 L336.4,557.0 L334.8,561.1 L333.8,565.5 L333.5,570.0 L334.0,574.6 L335.1,579.0 L336.8,583.1 L339.1,586.9 L341.8,590.1 L344.8,592.8 L348.0,594.8 L351.4,596.2 L354.8,596.9 L358.1,596.8 L361.1,596.1 L363.9,594.8 L366.3,592.9 L368.3,590.6 L369.8,587.9 L370.8,585.0 L371.3,581.8 L371.3,578.7 L370.8,575.6 L369.9,572.6 L368.6,569.9 L367.0,567.5 L365.1,565.5 L363.0,563.9 L360.8,562.8 L358.6,562.1 L356.5,561.9 L354.5,562.2 L352.6,562.8 L351.0,563.8 L349.7,565.2 L348.7,566.7 L348.0,568.4 L347.6,570.2 L347.5,572.0 L347.7,573.8 L348.2,575.5 L348.9,577.0 L349.8,578.3 L350.8,579.3 L351.8,580.1 L352.9,580.7 L354.0,580.9 L355.0,580.9 L355.9,580.7 L356.6,580.3 L357.2,579.8 L357.7,579.1 L357.9,578.4 L358.0,577.7 L358.0,577.0 L357.8,576.4 L357.5,575.9" fill="none" stroke="#E0A73A" stroke-width="1.3" stroke-linecap="round" opacity="0.1"/><path d="M41.3,717.0 L43.6,711.2 L47.1,706.0 L51.5,701.5 L56.9,697.8 L62.8,695.1 L69.3,693.3 L75.9,692.6 L82.6,692.8 L89.1,694.0 L95.1,696.0 L100.6,698.9 L105.4,702.4 L109.3,706.4 L112.3,710.8 L114.3,715.5 L115.3,720.2 L115.2,724.8 L114.2,729.2 L112.3,733.2 L109.5,736.8 L106.2,739.8 L102.2,742.2 L97.9,743.8 L93.4,744.8 L88.8,745.1 L84.2,744.6 L79.9,743.6 L76.0,742.0 L72.5,739.9 L69.6,737.4 L67.3,734.6 L65.7,731.7 L64.8,728.7 L64.5,725.7 L64.9,722.9 L65.8,720.3 L67.3,718.0 L69.2,716.0 L71.4,714.5 L73.9,713.4 L76.5,712.7 L79.1,712.5 L81.6,712.6 L84.0,713.2 L86.1,714.0 L87.9,715.1 L89.4,716.4 L90.5,717.8 L91.2,719.2 L91.6,720.7 L91.5,722.0 L91.2,723.2 L90.6,724.3 L89.8,725.1 L88.9,725.7 L87.9,726.0 L86.9,726.2 L86.0,726.1 L85.2,725.8" fill="none" stroke="#1C7FA6" stroke-width="1.3" stroke-linecap="round" opacity="0.09"/><path d="M78.7,723.0 L78.3,716.8 L76.7,710.7 L73.8,705.1 L69.9,699.9 L65.1,695.4 L59.5,691.8 L53.4,689.0 L47.0,687.1 L40.5,686.2 L34.1,686.3 L28.0,687.3 L22.3,689.1 L17.3,691.7 L13.1,695.0 L9.8,698.8 L7.4,702.9 L6.0,707.4 L5.6,711.9 L6.2,716.3 L7.7,720.5 L10.0,724.4 L13.0,727.9 L16.5,730.8 L20.6,733.2 L24.9,734.9 L29.3,735.9 L33.7,736.2 L37.9,735.9 L41.9,735.0 L45.4,733.5 L48.5,731.6 L50.9,729.3 L52.8,726.8 L53.9,724.0 L54.5,721.2 L54.4,718.5 L53.7,715.8 L52.5,713.4 L50.8,711.2 L48.9,709.4 L46.6,707.9 L44.2,706.9 L41.7,706.3 L39.3,706.0 L37.0,706.2 L35.0,706.7 L33.2,707.4 L31.7,708.4 L30.6,709.6 L29.8,710.8 L29.4,712.1 L29.3,713.3 L29.6,714.5 L30.1,715.5 L30.8,716.4 L31.6,717.0 L32.5,717.5 L33.4,717.7 L34.3,717.7" fill="none" stroke="#1C7FA6" stroke-width="1.3" stroke-linecap="round" opacity="0.09"/><path d="M381.4,827.8 L378.1,830.9 L374.2,833.2 L369.8,834.8 L365.2,835.6 L360.4,835.5 L355.6,834.7 L351.0,833.1 L346.7,830.9 L342.8,828.1 L339.4,824.8 L336.7,821.3 L334.7,817.5 L333.3,813.6 L332.7,809.8 L332.9,806.1 L333.7,802.7 L335.2,799.7 L337.2,797.1 L339.7,795.0 L342.6,793.5 L345.8,792.6 L349.1,792.3 L352.5,792.5 L355.8,793.3 L358.9,794.6 L361.7,796.3 L364.2,798.3 L366.3,800.6 L367.9,803.0 L369.1,805.6 L369.7,808.1 L369.9,810.5 L369.6,812.8 L368.8,814.8 L367.7,816.6 L366.3,818.0 L364.6,819.1 L362.7,819.7 L360.8,820.1 L358.8,820.0 L356.9,819.7 L355.1,819.0 L353.5,818.1 L352.1,817.0 L351.0,815.8 L350.1,814.5 L349.5,813.2 L349.3,812.0 L349.2,810.8 L349.5,809.7 L349.9,808.9 L350.5,808.2 L351.2,807.7 L352.0,807.4 L352.8,807.3 L353.5,807.4 L354.2,807.6 L354.8,807.9 L355.3,808.4" fill="none" stroke="#1C7FA6" stroke-width="1.3" stroke-linecap="round" opacity="0.09"/><path d="M358.6,812.2 L356.9,816.4 L356.2,820.9 L356.3,825.5 L357.2,830.1 L359.0,834.6 L361.5,838.7 L364.7,842.5 L368.3,845.7 L372.3,848.3 L376.6,850.2 L380.9,851.5 L385.2,852.0 L389.3,851.9 L393.0,851.0 L396.4,849.6 L399.3,847.6 L401.6,845.1 L403.2,842.2 L404.2,839.2 L404.6,835.9 L404.3,832.6 L403.4,829.4 L401.9,826.4 L400.0,823.6 L397.7,821.2 L395.1,819.1 L392.3,817.5 L389.4,816.4 L386.6,815.8 L383.8,815.6 L381.2,815.9 L378.9,816.7 L376.9,817.8 L375.2,819.2 L374.0,820.9 L373.2,822.8 L372.8,824.7 L372.9,826.7 L373.3,828.6 L374.0,830.4 L375.1,832.1 L376.3,833.5 L377.7,834.7 L379.3,835.6 L380.8,836.2 L382.3,836.6 L383.7,836.6 L385.0,836.4 L386.1,836.0 L387.0,835.4 L387.7,834.7 L388.1,833.9 L388.3,833.1 L388.3,832.2 L388.1,831.5 L387.7,830.8 L387.3,830.2 L386.7,829.8 L386.2,829.5" fill="none" stroke="#1C7FA6" stroke-width="1.3" stroke-linecap="round" opacity="0.09"/><path d="M189.9,64.8 L189.1,61.2 L189.0,57.5 L189.7,53.8 L191.1,50.2 L193.1,46.9 L195.6,43.9 L198.6,41.3 L201.9,39.2 L205.5,37.6 L209.1,36.6 L212.8,36.1 L216.3,36.3 L219.5,36.9 L222.5,38.1 L225.0,39.7 L227.0,41.6 L228.5,43.9 L229.5,46.4 L229.9,49.0 L229.8,51.7 L229.1,54.3 L228.0,56.7 L226.4,59.0 L224.6,61.0 L222.4,62.6 L220.0,63.9 L217.6,64.9 L215.1,65.4 L212.7,65.5 L210.5,65.3 L208.5,64.7 L206.7,63.8 L205.2,62.6 L204.1,61.3 L203.3,59.8 L202.9,58.2 L202.9,56.6 L203.2,55.0 L203.7,53.5 L204.6,52.1 L205.6,50.9 L206.8,50.0 L208.1,49.2 L209.4,48.7 L210.7,48.4 L212.0,48.3 L213.1,48.4 L214.1,48.7 L215.0,49.2 L215.6,49.8 L216.1,50.5 L216.3,51.2 L216.4,51.9 L216.2,52.5 L216.0,53.1 L215.6,53.6 L215.2,54.0 L214.7,54.3 L214.2,54.4" fill="none" stroke="#E0A73A" stroke-width="1.3" stroke-linecap="round" opacity="0.1"/><path d="M210.1,55.2 L207.9,52.3 L205.0,49.9 L201.8,48.1 L198.1,46.9 L194.3,46.3 L190.3,46.4 L186.4,47.1 L182.7,48.3 L179.2,50.0 L176.1,52.2 L173.5,54.7 L171.3,57.5 L169.8,60.4 L168.8,63.4 L168.4,66.4 L168.7,69.2 L169.5,71.8 L170.8,74.2 L172.5,76.1 L174.7,77.7 L177.1,78.9 L179.7,79.5 L182.4,79.8 L185.2,79.6 L187.8,79.0 L190.3,78.0 L192.6,76.7 L194.6,75.1 L196.2,73.4 L197.4,71.5 L198.3,69.5 L198.7,67.6 L198.7,65.7 L198.4,64.0 L197.7,62.4 L196.7,61.1 L195.5,60.1 L194.1,59.3 L192.6,58.8 L191.0,58.5 L189.4,58.6 L187.9,58.9 L186.5,59.4 L185.3,60.1 L184.2,60.9 L183.3,61.8 L182.7,62.8 L182.3,63.8 L182.2,64.7 L182.2,65.6 L182.4,66.4 L182.8,67.0 L183.3,67.5 L183.9,67.8 L184.5,68.0 L185.2,68.0 L185.8,67.9 L186.3,67.7 L186.7,67.4" fill="none" stroke="#E0A73A" stroke-width="1.3" stroke-linecap="round" opacity="0.1"/><path d="M213.4,868.5 L216.9,870.4 L219.9,873.0 L222.4,876.2 L224.3,879.8 L225.5,883.8 L226.1,888.0 L226.0,892.3 L225.3,896.5 L224.0,900.5 L222.2,904.1 L220.0,907.4 L217.4,910.1 L214.5,912.3 L211.5,913.8 L208.4,914.6 L205.4,914.9 L202.4,914.5 L199.8,913.4 L197.4,911.9 L195.3,909.9 L193.7,907.5 L192.6,904.8 L191.8,902.0 L191.6,899.0 L191.8,896.1 L192.5,893.3 L193.5,890.6 L194.8,888.3 L196.4,886.3 L198.2,884.6 L200.2,883.4 L202.2,882.6 L204.1,882.3 L206.0,882.4 L207.8,882.8 L209.3,883.7 L210.7,884.8 L211.7,886.1 L212.5,887.7 L213.0,889.3 L213.2,891.0 L213.2,892.7 L212.9,894.3 L212.3,895.7 L211.6,897.0 L210.8,898.0 L209.9,898.9 L208.9,899.4 L207.9,899.8 L207.0,899.9 L206.1,899.7 L205.4,899.4 L204.8,899.0 L204.3,898.4 L204.0,897.8 L203.9,897.1 L203.9,896.5 L204.0,895.9 L204.3,895.4" fill="none" stroke="#1C7FA6" stroke-width="1.3" stroke-linecap="round" opacity="0.09"/><path d="M206.6,891.5 L210.5,891.8 L214.5,891.3 L218.3,889.9 L221.9,887.9 L225.1,885.2 L227.9,882.0 L230.1,878.4 L231.8,874.5 L232.9,870.5 L233.4,866.4 L233.3,862.5 L232.6,858.8 L231.3,855.4 L229.6,852.5 L227.5,850.1 L225.1,848.2 L222.4,847.0 L219.6,846.4 L216.7,846.4 L214.0,846.9 L211.3,848.1 L208.9,849.7 L206.7,851.7 L204.9,854.0 L203.5,856.6 L202.5,859.3 L201.9,862.1 L201.8,864.8 L202.0,867.3 L202.7,869.7 L203.6,871.8 L204.9,873.5 L206.3,874.9 L208.0,875.8 L209.7,876.4 L211.4,876.6 L213.2,876.4 L214.8,875.8 L216.3,874.9 L217.6,873.8 L218.7,872.5 L219.6,871.1 L220.2,869.6 L220.5,868.1 L220.6,866.6 L220.5,865.3 L220.1,864.1 L219.6,863.1 L219.0,862.3 L218.3,861.7 L217.5,861.3 L216.7,861.2 L216.0,861.2 L215.3,861.5 L214.7,861.9 L214.2,862.3 L213.9,862.9 L213.6,863.4 L213.6,864.0" fill="none" stroke="#1C7FA6" stroke-width="1.3" stroke-linecap="round" opacity="0.09"/></svg></div>
 <div id="reveal"></div>
 
+<div id="langGate">
+  <div class="lg-inner">
+    <svg class="lg-logo" width="56" height="56" viewBox="0 0 80 80" aria-label="Anas Tolebay">
+      <rect width="80" height="80" rx="18" fill="#12161C"/>
+      <path d="M47.23 8.82 A32 32 0 1 0 65.2 59.73 A27 27 0 0 1 47.23 8.82 Z" fill="#E0A73A"/>
+    </svg>
+    <h1 class="lg-h">Choose your language<span class="sl">/</span>Выберите язык</h1>
+    <div class="lg-btns">
+      <button class="lg-btn primary" id="gateEn" data-lang="en">English</button>
+      <button class="lg-btn" id="gateRu" data-lang="ru">Русский</button>
+    </div>
+  </div>
+</div>
+
 <nav>
   <a class="brand" href="#">
-    <svg width="30" height="30" viewBox="0 0 80 80" aria-label="AqylAI">
+    <svg width="30" height="30" viewBox="0 0 80 80" aria-label="Anas Tolebay">
       <rect width="80" height="80" rx="18" fill="#12161C"/>
       <path d="M47.23 8.82 A32 32 0 1 0 65.2 59.73 A27 27 0 0 1 47.23 8.82 Z" fill="#E0A73A"/>
     </svg>
@@ -384,37 +373,46 @@ ym(108221709,'init',{ssr:true,webvisor:true,clickmap:true,accurateTrackBounce:tr
   </a>
   <div class="nav-right">
     <div class="langs">
-      <button class="lang on" data-lang="ru">RU</button>
-      <button class="lang" data-lang="kz">KZ</button>
       <button class="lang" data-lang="en">EN</button>
+      <button class="lang" data-lang="ru">RU</button>
     </div>
-    <a class="btn btn-wa" id="navWa" href="#" target="_blank" rel="noopener">
-      <span data-i="nav.wa">WhatsApp</span> →
+    <a class="btn btn-ghost" href="#contact" data-i="nav.contact">Contact</a>
+    <a class="btn btn-wa" id="navUpwork" href="https://www.upwork.com/freelancers/~015b5a60559188d5ea" target="_blank" rel="noopener">
+      <span data-i="nav.upwork">Upwork</span> ↗
     </a>
   </div>
 </nav>
 
 <section id="hero">
-  <div class="wrap hero-split">
+  <div class="wrap">
     <div class="hero-copy">
-      <div class="pill" data-i="hero.pill">AI-автоматизация · Алматы</div>
-      <h1><span data-i="hero.h1a">Клиент написал в 22:47.</span><br><em data-i="hero.h1b">Никто не ответил.</em></h1>
-      <p class="hero-sub" data-i="hero.sub">К утру он записался к конкуренту. Бот AqylAI отвечает за 3 секунды — в любое время, на любой вопрос, и записывает клиента, пока вы спите.</p>
+      <div class="pill" data-i="hero.pill">AI Automation Engineer</div>
+      <h1><span data-i="hero.h1a">I connect LLMs, APIs, and workflows</span><br><em data-i="hero.h1b">into systems that run themselves.</em></h1>
+      <p class="hero-sub" data-i="hero.sub">I design and ship WhatsApp/LLM chatbots, n8n automations, and data pipelines for teams that want fewer manual steps and faster response times. Below are three live, working demos — not screenshots.</p>
       <div class="hero-btns">
-        <a class="btn btn-wa" id="heroWa" href="#" target="_blank" rel="noopener" data-i="hero.cta1">Написать в WhatsApp</a>
-        <button class="btn btn-ghost" onclick="document.getElementById('heroPhone').scrollIntoView()" data-i="hero.cta2">Собрать своего бота ↓</button>
+        <a class="btn btn-wa" id="heroUpwork" href="https://www.upwork.com/freelancers/~015b5a60559188d5ea" target="_blank" rel="noopener" data-i="hero.cta1">View my Upwork profile ↗</a>
+        <a class="btn btn-whatsapp" id="heroWa" href="#" target="_blank" rel="noopener" data-i="hero.wa">Message on WhatsApp</a>
       </div>
-      <p class="hero-note" data-i="hero.note">Первая консультация бесплатно. Без подписок и скрытых платежей.</p>
+      <p class="hero-note" data-i="hero.note">Every demo below runs on real, server-side API calls.</p>
       <div class="stats">
-        <div><div class="stat-n">3 сек</div><div class="stat-l" data-i="stat.1">скорость ответа бота</div></div>
-        <div><div class="stat-n">48 ч</div><div class="stat-l" data-i="stat.2">до запуска в вашем WhatsApp</div></div>
-        <div><div class="stat-n">24/7</div><div class="stat-l" data-i="stat.3">включая ночь и выходные</div></div>
+        <div><div class="stat-n">3</div><div class="stat-l" data-i="stat.1">live demos on this page</div></div>
+        <div><div class="stat-n">Node / Python</div><div class="stat-l" data-i="stat.2">primary stack</div></div>
+        <div><div class="stat-n">&lt;24h</div><div class="stat-l" data-i="stat.3">typical reply time</div></div>
       </div>
     </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="oyu" id="oyu1"></div></div>
+
+<section id="chatdemo">
+  <div class="wrap">
+    <span class="tag rv" data-i="demo.tag">Live demo 1</span>
+    <h2 class="rv" data-i="demo.h2">Watch it configure a chatbot in seconds</h2>
+    <p class="sub rv" data-i="demo.sub">Pick a business type — the bot invents a persona and starts answering as it, live. Then swap in real data and watch it re-skin instantly. This is the same engine behind WhatsApp bots I've shipped for real clients.</p>
 
     <div class="hero-phone" id="heroPhone">
       <div id="demoGlow"></div>
-      <span class="tag rv" data-i="demo.tag">Живое демо</span>
 
       <div class="phone-frame">
         <div class="phone-notch"></div>
@@ -433,56 +431,56 @@ ym(108221709,'init',{ssr:true,webvisor:true,clickmap:true,accurateTrackBounce:tr
             <div class="hdr-orn" id="hdrOrn"></div>
             <div class="d-av" id="dAv">🌙</div>
             <div>
-              <div class="d-name" id="dName" data-i="demo.name">Демо-бот AqylAI</div>
-              <div class="d-stat" id="dStat" data-i="demo.online">онлайн 24/7</div>
+              <div class="d-name" id="dName" data-i="demo.name">AqylAI demo bot</div>
+              <div class="d-stat" id="dStat" data-i="demo.online">online 24/7</div>
             </div>
           </div>
 
-          <div class="d-note" id="dNote" hidden data-i="demo.fake">Данные вымышленные — для примера. Ваш бот будет знать ваши реальные услуги и цены.</div>
+          <div class="d-note" id="dNote" hidden data-i="demo.fake">Example data, invented for the demo. Your bot will know your real services and prices.</div>
 
           <div class="d-msgs" id="dMsgs" hidden>
             <svg class="mark" viewBox="0 0 80 80"><path d="M47.23 8.82 A32 32 0 1 0 65.2 59.73 A27 27 0 0 1 47.23 8.82 Z" fill="currentColor"/></svg>
           </div>
 
           <div class="d-pick" id="dPick">
-            <p data-i="demo.ask">Какой у вас бизнес?</p>
+            <p data-i="demo.ask">What kind of business do you run?</p>
             <div class="chips" id="dChips"></div>
             <div class="row">
-              <input class="inp" id="dBiz" data-ph="demo.ph" placeholder="…или впишите свой">
+              <input class="inp" id="dBiz" data-ph="demo.ph" placeholder="…or type your own">
               <button class="send" id="dGo">→</button>
             </div>
           </div>
 
           <div class="d-in" id="dIn" hidden>
-            <input class="inp" id="dMsg" data-ph="demo.ph2" placeholder="Напишите сообщение…">
+            <input class="inp" id="dMsg" data-ph="demo.ph2" placeholder="Type a message…">
             <button class="send" id="dSend">➤</button>
           </div>
 
           <div class="upsell" id="dUp" hidden>
-            <button id="dOwnBtn" data-i="demo.own">⚙ Хотите увидеть бота со СВОИМИ данными?</button>
+            <button id="dOwnBtn" data-i="demo.own">⚙ Want to see the bot with YOUR data?</button>
           </div>
 
           <div class="own" id="dOwn" hidden>
-            <h4 data-i="own.h">Ваш бот, ваши данные</h4>
-            <p class="h" data-i="own.sub">40 секунд. Ничего не отправляется — всё остаётся в вашем браузере.</p>
+            <h4 data-i="own.h">Your bot, your data</h4>
+            <p class="h" data-i="own.sub">40 seconds. Nothing is sent anywhere — it stays in your browser.</p>
             <div class="f">
-              <label data-i="own.name">Название бизнеса</label>
-              <input class="inp" id="oName" placeholder="Стоматология «Аяла»">
+              <label data-i="own.name">Business name</label>
+              <input class="inp" id="oName" placeholder="Aigul Dental Studio">
             </div>
             <div class="f">
-              <label data-i="own.hours">Часы работы</label>
-              <input class="inp" id="oHours" placeholder="Пн–Сб 9:00–20:00">
+              <label data-i="own.hours">Opening hours</label>
+              <input class="inp" id="oHours" placeholder="Mon–Sat 9:00–20:00">
             </div>
             <div class="f">
-              <label data-i="own.svc">Услуги и цены — по одной в строке</label>
-              <textarea id="oSvc" placeholder="Чистка — от 10 000 ₸&#10;Лечение кариеса — от 18 000 ₸&#10;Имплантация — от 200 000 ₸"></textarea>
+              <label data-i="own.svc">Services and prices — one per line</label>
+              <textarea id="oSvc" placeholder="Cleaning — from $60&#10;Cavity treatment — from $110&#10;Implant — from $1,200"></textarea>
             </div>
             <div class="f">
-              <label data-i="own.color">Цвет бренда</label>
+              <label data-i="own.color">Brand colour</label>
               <div class="sw" id="oSw"></div>
               <input type="color" id="oCustom" value="#1C7FA6" style="margin-top:9px;width:100%;height:34px;border:1px solid var(--line);border-radius:8px;background:var(--card);cursor:pointer;padding:3px">
             </div>
-            <button class="btn btn-wa" id="oGo" style="width:100%" data-i="own.go">Запустить моего бота</button>
+            <button class="btn btn-wa" id="oGo" style="width:100%" data-i="own.go">Launch my bot</button>
           </div>
 
           <div class="foot-orn" id="footOrn"></div>
@@ -493,255 +491,117 @@ ym(108221709,'init',{ssr:true,webvisor:true,clickmap:true,accurateTrackBounce:tr
   </div>
 </section>
 
-<div class="wrap"><div class="oyu" id="oyu1"></div></div>
-
-<section id="split">
-  <div class="wrap">
-    <span class="tag rv" data-i="split.tag">Одна ночь</span>
-    <h2 class="rv" data-i="split.h2">Две клиники. Один клиент.</h2>
-    <p class="sub rv" data-i="split.sub">Одно и то же сообщение, отправленное в 22:47. Разница — в том, кто ответил.</p>
-    <div class="threads">
-      <div class="thread lose rv">
-        <div class="th-head"><span class="dot"></span><span data-i="split.a">Клиника без бота</span></div>
-        <div class="th-body" id="tA"></div>
-        <div class="th-foot" data-i="split.aFoot">✕ Клиент потерян</div>
-      </div>
-      <div class="thread win rv">
-        <div class="th-head"><span class="dot"></span><span data-i="split.b">Клиника с AqylAI</span></div>
-        <div class="th-body" id="tB"></div>
-        <div class="th-foot" data-i="split.bFoot">✓ Клиент записан за 71 секунду</div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <div class="wrap"><div class="oyu" id="oyu2"></div></div>
 
-<section id="services">
+<section id="sqldemo">
   <div class="wrap">
-    <span class="tag rv" data-i="svc.tag">Услуги</span>
-    <h2 class="rv" data-i="svc.h2">Что мы автоматизируем</h2>
-    <p class="sub rv" data-i="svc.sub">Начните с одного. Остальное добавим, когда первое окупится.</p>
+    <span class="tag rv" data-i="sql.tag">Live demo 2</span>
+    <h2 class="rv" data-i="sql.h2">Ask a database a plain-English question</h2>
+    <p class="sub rv" data-i="sql.sub">Type a question about a seeded, fictional sales dataset. An LLM writes the SQL — a hand-rolled, SELECT-only engine actually runs it, live, right here. No real database is ever touched.</p>
 
-    <div class="tiers">
-      <div class="tier rv" data-tier="1">
-        <span class="bg" data-i="svc.pop">Популярное</span>
-        <h3 data-i="svc.1n">Автоответ</h3>
-        <p data-i="svc.1d">Бот отвечает на вопросы клиентов в WhatsApp и Telegram круглосуточно: услуги, цены, часы работы, адрес.</p>
-        <div class="price">от ₸150 000</div><div class="per" data-i="svc.1p">+ от ₸40 000 / мес</div>
+    <div class="sql-panel rv">
+      <div class="chips" id="sqlChips"></div>
+      <div class="row">
+        <input class="inp" id="sqlQ" data-ph="sql.ph" placeholder="Ask about the sales data…" maxlength="300">
+        <button class="send" id="sqlGo">→</button>
       </div>
-      <div class="tier rv" data-tier="2">
-        <h3 data-i="svc.2n">Автозапись</h3>
-        <p data-i="svc.2d">Всё из «Автоответа» + бот записывает клиента в календарь и напоминает о визите за день и за 2 часа.</p>
-        <div class="price">от ₸200 000</div><div class="per" data-i="svc.2p">+ от ₸60 000 / мес</div>
+      <div class="sql-status" id="sqlStatus" hidden></div>
+      <div class="sql-out" id="sqlOut" hidden>
+        <div class="sql-out-h" data-i="sql.sqlLabel">Generated SQL</div>
+        <pre class="sql-code" id="sqlCode"></pre>
+        <div class="sql-out-h" data-i="sql.resultLabel">Result</div>
+        <div id="sqlResultBox"></div>
       </div>
-      <div class="tier rv" data-tier="3">
-        <h3 data-i="svc.3n">Автобизнес</h3>
-        <p data-i="svc.3d">Полный цикл: ответ, квалификация клиента, запись, напоминания, возврат тех, кто не дошёл. Отчёт раз в месяц.</p>
-        <div class="price">от ₸400 000</div><div class="per" data-i="svc.3p">+ от ₸120 000 / мес</div>
-      </div>
-      <div class="tier rv" data-tier="4">
-        <span class="bg" data-i="svc.max">Максимум</span>
-        <h3 data-i="svc.4n">Голосовой ресепшн</h3>
-        <p data-i="svc.4d">AI отвечает на звонки живым голосом, записывает и переводит сложные вопросы на администратора.</p>
-        <div class="price">₸400 000 – ₸600 000</div><div class="per" data-i="svc.4p">+ ₸150 000 – ₸200 000 / мес</div>
-      </div>
+      <p class="sql-note" data-i="sql.note">Read-only demo dataset (fictional customers/products/orders). Every generated query is validated SELECT-only before it runs, and any non-SELECT statement is rejected outright.</p>
     </div>
-
-    <p class="fine rv" data-i="svc.fine">Точная стоимость зависит от задач. Автодозвон по лидам — 150 звонков/мес включено, далее ₸200 за звонок. Напишите нам — подберём решение и покажем демо бесплатно.</p>
-
-    <div class="cfg rv">
-      <h3 data-i="cfg.h">Сколько это будет стоить вам</h3>
-      <p class="h" data-i="cfg.sub">Подвигайте ползунки — покажем тариф и то, сколько вы теряете сейчас.</p>
-      <div class="cfg-grid">
-        <div>
-          <div class="ctrl">
-            <label><span data-i="cfg.msgs">Сообщений от клиентов в день</span><span id="vMsgs">50</span></label>
-            <input type="range" id="rMsgs" min="10" max="150" step="5" value="50">
-          </div>
-          <div class="ctrl">
-            <label><span data-i="cfg.check">Средний чек, ₸</span><span id="vCheck">15 000</span></label>
-            <input type="range" id="rCheck" min="3000" max="150000" step="1000" value="15000">
-          </div>
-          <label class="tog"><span data-i="cfg.book">Запись в календарь и напоминания</span><input type="checkbox" id="cBook"></label>
-          <label class="tog"><span data-i="cfg.voice">Голосовой ресепшн (приём звонков)</span><input type="checkbox" id="cVoice"></label>
-        </div>
-        <div class="out">
-          <div class="k" data-i="cfg.rec">Ваш тариф</div>
-          <div class="tname" id="oTier">Автоответ</div>
-          <div class="pr" id="oSetup">от ₸150 000</div>
-          <div class="pm" id="oMonth" data-i="cfg.setup">настройка · + от ₸40 000 / мес</div>
-          <div class="loss">
-            <div class="k" data-i="cfg.loss">Вы теряете примерно</div>
-            <div class="v" id="oLoss">₸0 / мес</div>
-            <div class="d" data-i="cfg.lossNote">Оценка: часть сообщений остаётся без ответа вне рабочих часов, часть этих людей уходит к конкурентам. Реальные цифры зависят от вашего бизнеса.</div>
-          </div>
-          <a class="btn btn-wa" id="cfgWa" href="#" target="_blank" rel="noopener" data-i="cfg.cta">Обсудить в WhatsApp</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="how">
-  <div class="wrap">
-    <span class="tag rv" data-i="how.tag">Процесс</span>
-    <h2 class="rv" data-i="how.h2">Бот работает через 48 часов</h2>
-    <p class="sub rv" data-i="how.sub">Без долгих согласований и технических заданий на 20 страниц.</p>
-    <div class="steps">
-      <div class="step rv"><div class="n">01</div><div>
-        <h3 data-i="how.1n">Разбор — день 1</h3>
-        <p data-i="how.1d">Вы рассказываете про бизнес. Мы изучаем ваши услуги, цены и частые вопросы клиентов.</p></div></div>
-      <div class="step rv"><div class="n">02</div><div>
-        <h3 data-i="how.2n">Настройка и тест — день 1–2</h3>
-        <p data-i="how.2d">Собираем бота, прогоняем на реальных сценариях вашего бизнеса. Вы всё видите и утверждаете.</p></div></div>
-      <div class="step rv"><div class="n">03</div><div>
-        <h3 data-i="how.3n">Запуск — день 2</h3>
-        <p data-i="how.3d">Бот идёт в работу в вашем WhatsApp. Вы получаете доступ и инструкцию. Мы остаёмся на связи.</p></div></div>
-    </div>
-    <div class="guar rv"><span>✓</span><span data-i="how.guar">Бот не работает через 48 часов — возвращаем деньги за настройку.</span></div>
   </div>
 </section>
 
 <div class="wrap"><div class="oyu" id="oyu3"></div></div>
 
-<section id="faq">
+<section id="flowdemo">
   <div class="wrap">
-    <span class="tag rv" data-i="faq.tag">Вопросы</span>
-    <h2 class="rv" style="margin-bottom:40px" data-i="faq.h2">Частые вопросы</h2>
-    <div class="faq" id="faqList"></div>
+    <span class="tag rv" data-i="flow.tag">Live demo 3</span>
+    <h2 class="rv" data-i="flow.h2">Trigger a real automation</h2>
+    <p class="sub rv" data-i="flow.sub">Type a message like an inbound lead would send. It runs through an actual 4-step server-side flow — webhook, transform, AI classification, notify — the same shape as the n8n workflows I build for clients, without exposing a real instance.</p>
+
+    <div class="flow-panel rv">
+      <div class="chips" id="flowChips"></div>
+      <div class="row">
+        <input class="inp" id="flowInp" data-ph="flow.ph" placeholder="…" maxlength="400">
+        <button class="btn btn-wa" id="flowGo" data-i="flow.run">Run this flow</button>
+      </div>
+
+      <div class="flow-graph" id="flowGraph">
+        <div class="fnode" data-key="webhook"><div class="fn-dot"></div><div class="fn-ico">⚡</div><div class="fn-label" data-i="flow.n1">Webhook</div></div>
+        <div class="fn-arrow">→</div>
+        <div class="fnode" data-key="transform"><div class="fn-dot"></div><div class="fn-ico">⚙</div><div class="fn-label" data-i="flow.n2">Transform</div></div>
+        <div class="fn-arrow">→</div>
+        <div class="fnode" data-key="ai"><div class="fn-dot"></div><div class="fn-ico">✦</div><div class="fn-label" data-i="flow.n3">AI Step</div></div>
+        <div class="fn-arrow">→</div>
+        <div class="fnode" data-key="notify"><div class="fn-dot"></div><div class="fn-ico">🔔</div><div class="fn-label" data-i="flow.n4">Notify</div></div>
+      </div>
+
+      <div class="flow-detail" id="flowDetail"></div>
+      <p class="sql-note" data-i="flow.note">Simulated Notify step — nothing is actually posted anywhere. No real n8n instance is exposed by this demo.</p>
+    </div>
   </div>
 </section>
 
-<section id="cta">
+<div class="wrap"><div class="oyu" id="oyu4"></div></div>
+
+<section id="work">
   <div class="wrap">
-    <span class="tag rv" data-i="cta.tag">Начать</span>
-    <h2 class="rv" data-i="cta.h2">Перестаньте терять клиентов ночью</h2>
-    <p class="sub rv" data-i="cta.sub">Первая консультация бесплатно. Покажем демо под ваш бизнес и назовём точную цену.</p>
+    <span class="tag rv" data-i="work.tag">Capabilities</span>
+    <h2 class="rv" data-i="work.h2">What I build</h2>
+    <p class="sub rv" data-i="work.sub">Outcome-first. Tools named because they matter, not because they impress.</p>
+    <div class="cap-grid rv" id="capGrid"></div>
+  </div>
+</section>
+
+<div class="wrap"><div class="oyu" id="oyu5"></div></div>
+
+<section id="contact">
+  <div class="wrap">
+    <span class="tag rv" data-i="contact.tag">Get in touch</span>
+    <h2 class="rv" data-i="contact.h2">Let's automate something</h2>
+    <p class="sub rv" data-i="contact.sub">Available for freelance and contract work. USD, hourly or fixed-price.</p>
     <div class="cta-b rv">
-      <a class="btn btn-wa" id="ctaWa" href="#" target="_blank" rel="noopener" data-i="cta.wa">Написать в WhatsApp</a>
-      <a class="btn btn-ghost" href="https://t.me/AnasTolebay" target="_blank" rel="noopener" data-i="cta.tg">Написать в Telegram</a>
+      <a class="btn btn-wa" href="https://www.upwork.com/freelancers/~015b5a60559188d5ea" target="_blank" rel="noopener" data-i="contact.upwork">Upwork profile ↗</a>
+      <a class="btn btn-whatsapp" id="contactWa" href="#" target="_blank" rel="noopener" data-i="contact.wa">WhatsApp</a>
+      <a class="btn btn-ghost" href="mailto:anastolebay7@gmail.com" data-i="contact.email">Email</a>
     </div>
   </div>
 </section>
 
 <footer>
-  <span data-i="ft.loc">Алматы, Казахстан</span> ·
+  <span data-i="ft.loc">Almaty, Kazakhstan</span> ·
   <a href="mailto:anastolebay7@gmail.com">anastolebay7@gmail.com</a> ·
   <a href="https://t.me/AnasTolebay" target="_blank" rel="noopener">Telegram</a> ·
   <a href="https://instagram.com/anas.tolebay" target="_blank" rel="noopener">Instagram</a> ·
-  <a href="/oferta">Публичная оферта</a> ·
-  <a href="/privacy">Политика конфиденциальности</a> ·
-  <a href="/terms">Пользовательское соглашение</a>
-  <br>© 2026 <span data-i="ft.who">Анас Толебай · AqylAI</span>
+  <a href="/oferta" data-i="ft.oferta">Public Offer</a> ·
+  <a href="/privacy" data-i="ft.privacy">Privacy Policy</a> ·
+  <a href="/terms" data-i="ft.terms">Terms of Use</a>
+  <br>© 2026 <span data-i="ft.who">Anas Tolebay · AqylAI</span>
 </footer>
 
 <script>
 /* ============ i18n ============ */
+// kz is intentionally left as an empty stub: the language gate/nav toggle only
+// ever offer EN/RU, but a KZ session from an old shared link (?lang=kz) must not
+// break — t() below falls back kz -> ru -> '' for any key, same as before.
 const T = {
-ru:{
- 'nav.wa':'WhatsApp','hero.pill':'AI-автоматизация · Алматы',
- 'hero.h1a':'Клиент написал в 22:47.','hero.h1b':'Никто не ответил.',
- 'hero.sub':'К утру он записался к конкуренту. Бот AqylAI отвечает за 3 секунды — в любое время, на любой вопрос, и записывает клиента, пока вы спите.',
- 'hero.cta1':'Написать в WhatsApp','hero.cta2':'Собрать своего бота ↓',
- 'hero.note':'Первая консультация бесплатно. Без подписок и скрытых платежей.',
- 'stat.1':'скорость ответа бота','stat.2':'до запуска в вашем WhatsApp','stat.3':'включая ночь и выходные',
- 'split.tag':'Одна ночь','split.h2':'Две клиники. Один клиент.',
- 'split.sub':'Одно и то же сообщение, отправленное в 22:47. Разница — в том, кто ответил.',
- 'split.a':'Клиника без бота','split.b':'Клиника с AqylAI',
- 'split.aFoot':'✕ Клиент потерян','split.bFoot':'✓ Клиент записан за 71 секунду',
- 'demo.tag':'Живое демо','demo.h2':'Соберите бота для своего бизнеса',
- 'demo.sub':'Назовите тип бизнеса — бот настроится за пару секунд. Потом добавьте свои реальные услуги и цены, и посмотрите, как он будет говорить с вашими клиентами.',
- 'demo.name':'Демо-бот AqylAI','demo.online':'онлайн 24/7',
- 'demo.fake':'Данные вымышленные — для примера. Ваш бот будет знать ваши реальные услуги и цены.',
- 'demo.real':'Ваши данные. Так бот будет говорить с вашими клиентами.',
- 'demo.ask':'Какой у вас бизнес?','demo.ph':'…или впишите свой','demo.ph2':'Напишите сообщение…',
- 'demo.own':'⚙ Хотите увидеть бота со СВОИМИ данными?',
- 'demo.building':'собираю бота…','demo.err':'Не получилось. Попробуйте ещё раз.',
- 'own.h':'Ваш бот, ваши данные','own.sub':'40 секунд. Ничего не отправляется — всё остаётся в вашем браузере.',
- 'own.name':'Название бизнеса','own.hours':'Часы работы','own.svc':'Услуги и цены — по одной в строке',
- 'own.color':'Цвет бренда','own.go':'Запустить моего бота',
- 'svc.tag':'Услуги','svc.h2':'Что мы автоматизируем','svc.sub':'Начните с одного. Остальное добавим, когда первое окупится.',
- 'svc.pop':'Популярное','svc.max':'Максимум',
- 'svc.1n':'Автоответ','svc.1d':'Бот отвечает на вопросы клиентов в WhatsApp и Telegram круглосуточно: услуги, цены, часы работы, адрес.','svc.1p':'+ от ₸40 000 / мес',
- 'svc.2n':'Автозапись','svc.2d':'Всё из «Автоответа» + бот записывает клиента в календарь и напоминает о визите за день и за 2 часа.','svc.2p':'+ от ₸60 000 / мес',
- 'svc.3n':'Автобизнес','svc.3d':'Полный цикл: ответ, квалификация клиента, запись, напоминания, возврат тех, кто не дошёл. Отчёт раз в месяц.','svc.3p':'+ от ₸120 000 / мес',
- 'svc.4n':'Голосовой ресепшн','svc.4d':'AI отвечает на звонки живым голосом, записывает и переводит сложные вопросы на администратора.','svc.4p':'+ ₸150 000 – ₸200 000 / мес',
- 'svc.fine':'Точная стоимость зависит от задач. Автодозвон по лидам — 150 звонков/мес включено, далее ₸200 за звонок. Напишите нам — подберём решение и покажем демо бесплатно.',
- 'cfg.h':'Сколько это будет стоить вам','cfg.sub':'Подвигайте ползунки — покажем тариф и то, сколько вы теряете сейчас.',
- 'cfg.msgs':'Сообщений от клиентов в день','cfg.check':'Средний чек, ₸',
- 'cfg.book':'Запись в календарь и напоминания','cfg.voice':'Голосовой ресепшн (приём звонков)',
- 'cfg.rec':'Ваш тариф','cfg.loss':'Вы теряете примерно','cfg.cta':'Обсудить в WhatsApp',
- 'cfg.lossNote':'Оценка: часть сообщений остаётся без ответа вне рабочих часов, часть этих людей уходит к конкурентам. Реальные цифры зависят от вашего бизнеса.',
- 'how.tag':'Процесс','how.h2':'Бот работает через 48 часов','how.sub':'Без долгих согласований и технических заданий на 20 страниц.',
- 'how.1n':'Разбор — день 1','how.1d':'Вы рассказываете про бизнес. Мы изучаем ваши услуги, цены и частые вопросы клиентов.',
- 'how.2n':'Настройка и тест — день 1–2','how.2d':'Собираем бота, прогоняем на реальных сценариях вашего бизнеса. Вы всё видите и утверждаете.',
- 'how.3n':'Запуск — день 2','how.3d':'Бот идёт в работу в вашем WhatsApp. Вы получаете доступ и инструкцию. Мы остаёмся на связи.',
- 'how.guar':'Бот не работает через 48 часов — возвращаем деньги за настройку.',
- 'faq.tag':'Вопросы','faq.h2':'Частые вопросы',
- 'cta.tag':'Начать','cta.h2':'Перестаньте терять клиентов ночью',
- 'cta.sub':'Первая консультация бесплатно. Покажем демо под ваш бизнес и назовём точную цену.',
- 'cta.wa':'Написать в WhatsApp','cta.tg':'Написать в Telegram',
- 'ft.loc':'Алматы, Казахстан','ft.who':'Анас Толебай · AqylAI'
-},
-kz:{
- 'nav.wa':'WhatsApp','hero.pill':'AI-автоматтандыру · Алматы',
- 'hero.h1a':'Клиент 22:47-де жазды.','hero.h1b':'Ешкім жауап бермеді.',
- 'hero.sub':'Таңға дейін ол бәсекелеске жазылып қойды. AqylAI боты 3 секундта жауап береді — кез келген уақытта, кез келген сұраққа. Сіз ұйықтап жатқанда клиентті жазып алады.',
- 'hero.cta1':'WhatsApp-қа жазу','hero.cta2':'Өз ботыңызды құрастыру ↓',
- 'hero.note':'Алғашқы кеңес тегін. Жазылымсыз, жасырын төлемдерсіз.',
- 'stat.1':'бот жауабының жылдамдығы','stat.2':'WhatsApp-та іске қосуға дейін','stat.3':'түн мен демалысты қоса',
- 'split.tag':'Бір түн','split.h2':'Екі клиника. Бір клиент.',
- 'split.sub':'22:47-де жіберілген бірдей хабарлама. Айырмашылық — кім жауап бергенінде.',
- 'split.a':'Ботсыз клиника','split.b':'AqylAI-мен клиника',
- 'split.aFoot':'✕ Клиент жоғалды','split.bFoot':'✓ Клиент 71 секундта жазылды',
- 'demo.tag':'Тірі демо','demo.h2':'Бизнесіңізге бот құрастырыңыз',
- 'demo.sub':'Бизнес түрін атаңыз — бот бірнеше секундта бапталады. Содан кейін өз қызметтеріңіз бен бағаларыңызды қосыңыз.',
- 'demo.name':'AqylAI демо-боты','demo.online':'24/7 онлайн',
- 'demo.fake':'Деректер ойдан шығарылған — мысал үшін. Сіздің ботыңыз нақты қызметтеріңізді біледі.',
- 'demo.real':'Сіздің деректеріңіз. Бот клиенттеріңізбен осылай сөйлеседі.',
- 'demo.ask':'Бизнесіңіз қандай?','demo.ph':'…немесе өзіңіздікін жазыңыз','demo.ph2':'Хабарлама жазыңыз…',
- 'demo.own':'⚙ Ботты ӨЗ деректеріңізбен көргіңіз келе ме?',
- 'demo.building':'бот құрастырылуда…','demo.err':'Болмады. Қайта көріңіз.',
- 'own.h':'Сіздің ботыңыз, сіздің деректеріңіз','own.sub':'40 секунд. Ештеңе жіберілмейді — бәрі браузеріңізде қалады.',
- 'own.name':'Бизнес атауы','own.hours':'Жұмыс уақыты','own.svc':'Қызметтер мен бағалар — әрқайсысы жаңа жолда',
- 'own.color':'Бренд түсі','own.go':'Ботымды іске қосу',
- 'svc.tag':'Қызметтер','svc.h2':'Біз нені автоматтандырамыз','svc.sub':'Біреуінен бастаңыз. Қалғанын бірінші өтелгенде қосамыз.',
- 'svc.pop':'Танымал','svc.max':'Максимум',
- 'svc.1n':'Автожауап','svc.1d':'Бот WhatsApp пен Telegram-да клиенттердің сұрақтарына тәулік бойы жауап береді: қызметтер, бағалар, жұмыс уақыты, мекенжай.','svc.1p':'+ ₸40 000-нан / ай',
- 'svc.2n':'Автожазылу','svc.2d':'«Автожауаптағының» бәрі + бот клиентті күнтізбеге жазады және визит туралы еске салады.','svc.2p':'+ ₸60 000-нан / ай',
- 'svc.3n':'Автобизнес','svc.3d':'Толық цикл: жауап, клиентті сұрыптау, жазылу, еске салу, келмегендерді қайтару. Айына бір рет есеп.','svc.3p':'+ ₸120 000-нан / ай',
- 'svc.4n':'Дауыстық ресепшн','svc.4d':'AI қоңырауларға тірі дауыспен жауап береді, жазады және күрделі сұрақтарды әкімшіге аударады.','svc.4p':'+ ₸150 000 – ₸200 000 / ай',
- 'svc.fine':'Нақты құны тапсырмаларға байланысты. Лидтерге автоқоңырау — айына 150 қоңырау кіреді, одан әрі қоңырауы ₸200. Бізге жазыңыз — шешім таңдап, тегін демо көрсетеміз.',
- 'cfg.h':'Бұл сізге қанша тұрады','cfg.sub':'Жүгірткілерді жылжытыңыз — тарифті және қазір қанша жоғалтып жатқаныңызды көрсетеміз.',
- 'cfg.msgs':'Клиенттерден күніне хабарлама','cfg.check':'Орташа чек, ₸',
- 'cfg.book':'Күнтізбеге жазылу және еске салу','cfg.voice':'Дауыстық ресепшн (қоңырау қабылдау)',
- 'cfg.rec':'Сіздің тарифіңіз','cfg.loss':'Сіз шамамен жоғалтасыз','cfg.cta':'WhatsApp-та талқылау',
- 'cfg.lossNote':'Бағалау: хабарламалардың бір бөлігі жұмыс уақытынан тыс жауапсыз қалады, бұл адамдардың бір бөлігі бәсекелестерге кетеді.',
- 'how.tag':'Процесс','how.h2':'Бот 48 сағаттан кейін жұмыс істейді','how.sub':'Ұзақ келісімдерсіз және 20 беттік техникалық тапсырмаларсыз.',
- 'how.1n':'Талдау — 1-күн','how.1d':'Сіз бизнес туралы айтасыз. Біз қызметтеріңізді, бағаларыңызды және клиенттердің жиі сұрақтарын зерттейміз.',
- 'how.2n':'Баптау және тест — 1–2-күн','how.2d':'Ботты құрастырамыз, бизнесіңіздің нақты сценарийлерінде тексереміз. Сіз бәрін көріп, бекітесіз.',
- 'how.3n':'Іске қосу — 2-күн','how.3d':'Бот сіздің WhatsApp-та жұмысқа кіріседі. Сіз қолжетімділік пен нұсқаулық аласыз.',
- 'how.guar':'Бот 48 сағатта жұмыс істемесе — баптау ақшасын қайтарамыз.',
- 'faq.tag':'Сұрақтар','faq.h2':'Жиі қойылатын сұрақтар',
- 'cta.tag':'Бастау','cta.h2':'Түнде клиенттерді жоғалтуды тоқтатыңыз',
- 'cta.sub':'Алғашқы кеңес тегін. Бизнесіңізге демо көрсетіп, нақты бағаны айтамыз.',
- 'cta.wa':'WhatsApp-қа жазу','cta.tg':'Telegram-ға жазу',
- 'ft.loc':'Алматы, Қазақстан','ft.who':'Анас Төлебай · AqylAI'
-},
 en:{
- 'nav.wa':'WhatsApp','hero.pill':'AI automation · Almaty',
- 'hero.h1a':'A customer wrote at 22:47.','hero.h1b':'Nobody answered.',
- 'hero.sub':'By morning they had booked with your competitor. The AqylAI bot replies in 3 seconds — any hour, any question — and books the client while you sleep.',
- 'hero.cta1':'Message on WhatsApp','hero.cta2':'Build your own bot ↓',
- 'hero.note':'First consultation is free. No subscriptions, no hidden fees.',
- 'stat.1':'bot reply time','stat.2':'to launch in your WhatsApp','stat.3':'nights and weekends included',
- 'split.tag':'One night','split.h2':'Two clinics. One customer.',
- 'split.sub':'The same message, sent at 22:47. The only difference is who replied.',
- 'split.a':'Clinic without a bot','split.b':'Clinic with AqylAI',
- 'split.aFoot':'✕ Customer lost','split.bFoot':'✓ Booked in 71 seconds',
- 'demo.tag':'Live demo','demo.h2':'Build a bot for your business',
- 'demo.sub':'Name your business type — the bot configures itself in seconds. Then add your real services and prices and see how it will talk to your customers.',
+ 'nav.contact':'Contact','nav.upwork':'Upwork',
+ 'hero.pill':'AI Automation Engineer',
+ 'hero.h1a':'I connect LLMs, APIs, and workflows','hero.h1b':'into systems that run themselves.',
+ 'hero.sub':'I design and ship WhatsApp/LLM chatbots, n8n automations, and data pipelines for teams that want fewer manual steps and faster response times. Below are three live, working demos — not screenshots.',
+ 'hero.cta1':'View my Upwork profile ↗','hero.wa':'Message on WhatsApp',
+ 'hero.note':'Every demo below runs on real, server-side API calls.',
+ 'stat.1':'live demos on this page','stat.2':'primary stack','stat.3':'typical reply time',
+
+ 'demo.tag':'Live demo 1','demo.h2':'Watch it configure a chatbot in seconds',
+ 'demo.sub':"Pick a business type — the bot invents a persona and starts answering as it, live. Then swap in real data and watch it re-skin instantly. This is the same engine behind WhatsApp bots I've shipped for real clients.",
  'demo.name':'AqylAI demo bot','demo.online':'online 24/7',
  'demo.fake':'Example data, invented for the demo. Your bot will know your real services and prices.',
  'demo.real':'Your data. This is how the bot will talk to your customers.',
@@ -751,104 +611,181 @@ en:{
  'own.h':'Your bot, your data','own.sub':'40 seconds. Nothing is sent anywhere — it stays in your browser.',
  'own.name':'Business name','own.hours':'Opening hours','own.svc':'Services and prices — one per line',
  'own.color':'Brand colour','own.go':'Launch my bot',
- 'svc.tag':'Services','svc.h2':'What we automate','svc.sub':'Start with one. We add the rest once the first one pays for itself.',
- 'svc.pop':'Most popular','svc.max':'Maximum',
- 'svc.1n':'Auto-Reply','svc.1d':'The bot answers customer questions on WhatsApp and Telegram around the clock: services, prices, hours, address.','svc.1p':'+ from ₸40,000 / mo',
- 'svc.2n':'Auto-Booking','svc.2d':'Everything in Auto-Reply, plus the bot books the customer into your calendar and sends reminders.','svc.2p':'+ from ₸60,000 / mo',
- 'svc.3n':'Auto-Business','svc.3d':'The full cycle: reply, qualify, book, remind, and win back no-shows. Monthly report included.','svc.3p':'+ from ₸120,000 / mo',
- 'svc.4n':'Voice Reception','svc.4d':'AI answers your phone in a natural voice, books appointments and escalates hard questions to a human.','svc.4p':'+ ₸150,000 – ₸200,000 / mo',
- 'svc.fine':'Final pricing depends on scope. Outbound calling includes 150 calls/month, then ₸200 per call. Message us — we will scope it and show you a free demo.',
- 'cfg.h':'What this would cost you','cfg.sub':'Move the sliders — we will show your tier and what you are losing right now.',
- 'cfg.msgs':'Customer messages per day','cfg.check':'Average ticket, ₸',
- 'cfg.book':'Calendar booking and reminders','cfg.voice':'Voice reception (answering calls)',
- 'cfg.rec':'Your tier','cfg.loss':'You are losing roughly','cfg.cta':'Discuss on WhatsApp',
- 'cfg.lossNote':'An estimate: some messages go unanswered outside working hours, and some of those people go to a competitor. Real numbers depend on your business.',
- 'how.tag':'Process','how.h2':'Your bot is live in 48 hours','how.sub':'No long approvals, no 20-page specification documents.',
- 'how.1n':'Discovery — day 1','how.1d':'You tell us about the business. We study your services, prices and the questions customers ask most.',
- 'how.2n':'Build and test — day 1–2','how.2d':'We build the bot and run it against real scenarios from your business. You see everything and approve it.',
- 'how.3n':'Launch — day 2','how.3d':'The bot goes live in your WhatsApp. You get access and a short guide. We stay reachable.',
- 'how.guar':'If the bot is not working in 48 hours, we refund the setup fee.',
- 'faq.tag':'Questions','faq.h2':'Frequently asked',
- 'cta.tag':'Start','cta.h2':'Stop losing customers at night',
- 'cta.sub':'First consultation is free. We will show a demo for your business and quote an exact price.',
- 'cta.wa':'Message on WhatsApp','cta.tg':'Message on Telegram',
- 'ft.loc':'Almaty, Kazakhstan','ft.who':'Anas Tolebay · AqylAI'
-}};
 
-const FAQ = {
-ru:[
- ['Это сложно для моего бизнеса?','Нет. Мы делаем всё сами — от настройки до запуска. От вас нужны только ответы на вопросы про бизнес. Технических знаний не требуется.'],
- ['На каком языке отвечает бот?','По умолчанию — на русском: качество ответов там самое высокое. Казахский подключаем по запросу, с отдельной настройкой под ваш бизнес. Обсудим на первом звонке.'],
- ['Что если бот не знает ответа?','Он честно скажет, что уточнит, и пришлёт вам уведомление в Telegram с вопросом и номером клиента. Ни один лид не теряется.'],
- ['Мне нужен сайт или Instagram?','Нет. Бот работает в WhatsApp или Telegram — там, где ваши клиенты уже есть.'],
- ['Сколько реально выходит в месяц?','От ₸40 000/мес обслуживание + примерно ₸2 000–₸4 000 расходов на AI для спокойной клиники. Больше сообщений — больше расход, но он всегда прозрачен.'],
- ['Почему цена такая, а не дешевле?','Потому что бот не шаблонный. Мы пишем его под ваши услуги, цены и манеру общения, тестируем на реальных сценариях и остаёмся на связи после запуска.'],
- ['Вы уже с кем-то работаете?','Мы в самом начале — и говорим об этом честно. Поэтому первые клиенты получают специальную цену и максимум внимания к своему проекту.']
-],
-kz:[
- ['Бұл бизнесім үшін күрделі ме?','Жоқ. Біз бәрін өзіміз жасаймыз — баптаудан іске қосуға дейін. Сізден тек бизнес туралы сұрақтарға жауап керек.'],
- ['Бот қай тілде жауап береді?','Әдепкіде — орысша: жауап сапасы сонда ең жоғары. Қазақ тілін сұрау бойынша, бизнесіңізге бөлек баптаумен қосамыз.'],
- ['Бот жауапты білмесе ше?','Ол шынын айтады — нақтылаймын дейді және сізге Telegram-ға клиенттің сұрағы мен нөмірін жібереді. Бірде-бір лид жоғалмайды.'],
- ['Маған сайт немесе Instagram керек пе?','Жоқ. Бот WhatsApp немесе Telegram-да жұмыс істейді — клиенттеріңіз әлдеқашан сонда.'],
- ['Айына нақты қанша шығады?','Айына ₸40 000-нан қызмет көрсету + тыныш клиника үшін AI-ға шамамен ₸2 000–₸4 000 шығын.'],
- ['Неге бағасы дәл осындай?','Себебі бот шаблон емес. Оны сіздің қызметтеріңізге, бағаларыңызға және сөйлеу мәнеріңізге жазамыз.'],
- ['Сіздер қазір біреумен жұмыс істейсіздер ме?','Біз енді бастап жатырмыз — және мұны ашық айтамыз. Сондықтан алғашқы клиенттер арнайы баға мен барынша назар алады.']
-],
-en:[
- ['Is this complicated for my business?','No. We handle everything from setup to launch. All we need from you is answers about your business. No technical knowledge required.'],
- ['What language does the bot reply in?','Russian by default — that is where reply quality is highest. Kazakh is available on request, with dedicated tuning for your business. We will discuss it on the first call.'],
- ["What if the bot doesn't know the answer?",'It says honestly that it will check, and sends you a Telegram notification with the question and the customer\'s number. No lead is lost.'],
- ['Do I need a website or Instagram?','No. The bot works in WhatsApp or Telegram — where your customers already are.'],
- ['What does it actually cost per month?','From ₸40,000/mo for maintenance plus roughly ₸2,000–₸4,000 of AI usage for a quiet clinic. More messages means more usage, but it is always transparent.'],
- ['Why this price and not cheaper?','Because the bot is not a template. We write it around your services, prices and tone of voice, test it on real scenarios, and stay reachable after launch.'],
- ['Do you already have clients?','We are right at the start, and we say so openly. That is why the first clients get special pricing and our full attention.']
-]};
+ 'sql.tag':'Live demo 2','sql.h2':'Ask a database a plain-English question',
+ 'sql.sub':'Type a question about a seeded, fictional sales dataset. An LLM writes the SQL — a hand-rolled, SELECT-only engine actually runs it, live, right here. No real database is ever touched.',
+ 'sql.ph':'Ask about the sales data…','sql.sqlLabel':'Generated SQL','sql.resultLabel':'Result',
+ 'sql.note':'Read-only demo dataset (fictional customers/products/orders). Every generated query is validated SELECT-only before it runs, and any non-SELECT statement is rejected outright.',
+ 'sql.thinking':'Writing SQL…','sql.empty':'No rows returned.','sql.error':"Couldn't run that — see the generated SQL above.",
+ 'sql.fail':'Something went wrong. Try again.',
+ 'sql.c1':'Top 5 products by revenue','sql.c2':'Sales by month','sql.c3':'Customers who ordered twice','sql.c4':'Average order value by category',
 
-const CHIPS = {
- ru:['Стоматология','Салон красоты','Ресторан','Недвижимость','Автошкола','Фитнес','Цветы','Турагентство'],
- kz:['Стоматология','Сұлулық салоны','Мейрамхана','Жылжымайтын мүлік','Автомектеп','Фитнес','Гүлдер','Турагенттік'],
- en:['Dental clinic','Beauty salon','Restaurant','Real estate','Driving school','Gym','Florist','Tour agency']
+ 'flow.tag':'Live demo 3','flow.h2':'Trigger a real automation',
+ 'flow.sub':'Type a message like an inbound lead would send. It runs through an actual 4-step server-side flow — webhook, transform, AI classification, notify — the same shape as the n8n workflows I build for clients, without exposing a real instance.',
+ 'flow.ph':'Type a message, e.g. "Hi, do you have pricing for 50 seats?"','flow.run':'Run this flow','flow.running':'Running…',
+ 'flow.n1':'Webhook','flow.n2':'Transform','flow.n3':'AI Step','flow.n4':'Notify',
+ 'flow.note':'Simulated Notify step — nothing is actually posted anywhere. No real n8n instance is exposed by this demo.',
+ 'flow.fail':'Something went wrong. Try again.',
+ 'flow.c1':'Hi, do you have pricing for 50 seats?','flow.c2':'Urgent — our integration broke, need help ASAP',
+ 'flow.k.received':'Received','flow.k.lang':'Detected language','flow.k.words':'Word count','flow.k.email':'Email found','flow.k.phone':'Phone found',
+ 'flow.k.intent':'Intent','flow.k.urgency':'Urgency','flow.k.reply':'Draft reply',
+ 'flow.k.channel':'Channel','flow.k.message':'Message','flow.k.deliver':'Would deliver to',
+
+ 'work.tag':'Capabilities','work.h2':'What I build','work.sub':'Outcome-first. Tools named because they matter, not because they impress.',
+ 'cap.1.h':'Chatbots','cap.1.p':'WhatsApp, Telegram, and web chat bots that qualify, answer, and book — not just deflect.','cap.1.t':'Groq · Gemini · OpenAI APIs · WhatsApp Business API',
+ 'cap.2.h':'Workflow automation','cap.2.p':'n8n flows connecting your tools so leads, orders, and tickets move themselves.','cap.2.t':'n8n · Webhooks · Zapier/Make',
+ 'cap.3.h':'Data sync & pipelines','cap.3.p':'Scheduled and event-driven pipelines that keep two systems telling the same story.','cap.3.t':'Node.js · Python · Postgres/Supabase · Cron',
+ 'cap.4.h':'LLM integrations','cap.4.p':'Prompt design, fallback chains, and guardrails so an LLM feature survives production traffic.','cap.4.t':'Gemini · Groq · OpenAI · Prompt engineering',
+ 'cap.5.h':'API integrations','cap.5.p':'REST/GraphQL integrations between CRMs, calendars, payment providers, and internal tools.','cap.5.t':'REST · GraphQL · OAuth · Vercel Edge Functions',
+
+ 'contact.tag':'Get in touch','contact.h2':"Let's automate something",
+ 'contact.sub':'Available for freelance and contract work. USD, hourly or fixed-price.',
+ 'contact.upwork':'Upwork profile ↗','contact.wa':'WhatsApp','contact.email':'Email',
+
+ 'ft.loc':'Almaty, Kazakhstan','ft.who':'Anas Tolebay · AqylAI',
+ 'ft.oferta':'Public Offer','ft.privacy':'Privacy Policy','ft.terms':'Terms of Use'
+},
+ru:{
+ 'nav.contact':'Контакты','nav.upwork':'Upwork',
+ 'hero.pill':'AI-инженер: автоматизация и бэкенд',
+ 'hero.h1a':'Соединяю LLM, API и воркфлоу','hero.h1b':'в системы, которые работают сами.',
+ 'hero.sub':'Проектирую и внедряю WhatsApp/LLM-ботов, автоматизации на n8n и пайплайны данных — чтобы команды делали меньше рутины и отвечали клиентам быстрее. Ниже — три живых демо, которые действительно работают, а не скриншоты.',
+ 'hero.cta1':'Профиль на Upwork ↗','hero.wa':'Написать в WhatsApp',
+ 'hero.note':'Каждое демо ниже использует реальные серверные вызовы API.',
+ 'stat.1':'живых демо на странице','stat.2':'основной стек','stat.3':'обычное время ответа',
+
+ 'demo.tag':'Живое демо 1','demo.h2':'Смотрите, как бот настраивается за секунды',
+ 'demo.sub':'Выберите тип бизнеса — бот придумает персону и сразу начнёт отвечать от её имени. Затем подставьте реальные данные и посмотрите, как он мгновенно переоденется. Это тот же движок, что стоит за WhatsApp-ботами, которые я уже запускал клиентам.',
+ 'demo.name':'Демо-бот AqylAI','demo.online':'онлайн 24/7',
+ 'demo.fake':'Данные вымышленные — для примера. Ваш бот будет знать ваши реальные услуги и цены.',
+ 'demo.real':'Ваши данные. Так бот будет говорить с вашими клиентами.',
+ 'demo.ask':'Какой у вас бизнес?','demo.ph':'…или впишите свой','demo.ph2':'Напишите сообщение…',
+ 'demo.own':'⚙ Хотите увидеть бота со СВОИМИ данными?',
+ 'demo.building':'собираю бота…','demo.err':'Не получилось. Попробуйте ещё раз.',
+ 'own.h':'Ваш бот, ваши данные','own.sub':'40 секунд. Ничего не отправляется — всё остаётся в вашем браузере.',
+ 'own.name':'Название бизнеса','own.hours':'Часы работы','own.svc':'Услуги и цены — по одной в строке',
+ 'own.color':'Цвет бренда','own.go':'Запустить моего бота',
+
+ 'sql.tag':'Живое демо 2','sql.h2':'Спросите у базы данных на обычном языке',
+ 'sql.sub':'Задайте вопрос о вымышленном, заранее заполненном наборе данных о продажах. LLM пишет SQL — а собственный движок с проверкой «только SELECT» реально выполняет его прямо здесь. Реальная база данных не используется никогда.',
+ 'sql.ph':'Спросите о данных продаж…','sql.sqlLabel':'Сгенерированный SQL','sql.resultLabel':'Результат',
+ 'sql.note':'Демо-данные только для чтения (вымышленные клиенты/товары/заказы). Каждый сгенерированный запрос проверяется на «только SELECT» перед выполнением, любой другой оператор отклоняется.',
+ 'sql.thinking':'Пишу SQL…','sql.empty':'Строк не найдено.','sql.error':'Не удалось выполнить — SQL показан выше.',
+ 'sql.fail':'Что-то пошло не так. Попробуйте ещё раз.',
+ 'sql.c1':'Топ-5 товаров по выручке','sql.c2':'Продажи по месяцам','sql.c3':'Клиенты с двумя и более заказами','sql.c4':'Средний чек по категориям',
+
+ 'flow.tag':'Живое демо 3','flow.h2':'Запустите настоящую автоматизацию',
+ 'flow.sub':'Впишите сообщение, как от входящего лида. Оно пройдёт через настоящий 4-шаговый серверный процесс — webhook, трансформация, AI-классификация, уведомление — по той же схеме, что я строю на n8n для клиентов, без раскрытия реального инстанса.',
+ 'flow.ph':'Например: «Здравствуйте, есть цены на 50 мест?»','flow.run':'Запустить процесс','flow.running':'Выполняется…',
+ 'flow.n1':'Webhook','flow.n2':'Трансформация','flow.n3':'AI-шаг','flow.n4':'Уведомление',
+ 'flow.note':'Шаг «Уведомление» симулирован — никуда ничего реально не отправляется. Реальный инстанс n8n в демо не используется.',
+ 'flow.fail':'Что-то пошло не так. Попробуйте ещё раз.',
+ 'flow.c1':'Здравствуйте, есть цены на 50 мест?','flow.c2':'Срочно — сломалась интеграция, нужна помощь',
+ 'flow.k.received':'Получено','flow.k.lang':'Определён язык','flow.k.words':'Слов','flow.k.email':'Найден email','flow.k.phone':'Найден телефон',
+ 'flow.k.intent':'Намерение','flow.k.urgency':'Срочность','flow.k.reply':'Черновик ответа',
+ 'flow.k.channel':'Канал','flow.k.message':'Сообщение','flow.k.deliver':'Доставка в',
+
+ 'work.tag':'Возможности','work.h2':'Что я делаю','work.sub':'Сначала результат. Инструменты называю потому что они важны, а не для эффекта.',
+ 'cap.1.h':'Чат-боты','cap.1.p':'Боты для WhatsApp, Telegram и веб-чата, которые квалифицируют, отвечают и записывают — а не просто отписываются.','cap.1.t':'Groq · Gemini · OpenAI API · WhatsApp Business API',
+ 'cap.2.h':'Автоматизация процессов','cap.2.p':'Процессы на n8n, которые соединяют ваши инструменты так, что лиды, заказы и тикеты двигаются сами.','cap.2.t':'n8n · Webhooks · Zapier/Make',
+ 'cap.3.h':'Синхронизация данных','cap.3.p':'Пайплайны по расписанию и по событиям, которые держат две системы в согласии.','cap.3.t':'Node.js · Python · Postgres/Supabase · Cron',
+ 'cap.4.h':'Интеграции LLM','cap.4.p':'Проектирование промптов, цепочки фолбэков и защитные механизмы — чтобы LLM-функция пережила боевую нагрузку.','cap.4.t':'Gemini · Groq · OpenAI · Prompt engineering',
+ 'cap.5.h':'Интеграции API','cap.5.p':'REST/GraphQL интеграции между CRM, календарями, платёжными провайдерами и внутренними системами.','cap.5.t':'REST · GraphQL · OAuth · Vercel Edge Functions',
+
+ 'contact.tag':'Связаться','contact.h2':'Давайте что-нибудь автоматизируем',
+ 'contact.sub':'Открыт для фриланса и контрактной работы. USD, почасово или фикс.',
+ 'contact.upwork':'Профиль на Upwork ↗','contact.wa':'WhatsApp','contact.email':'Email',
+
+ 'ft.loc':'Алматы, Казахстан','ft.who':'Анас Толебай · AqylAI',
+ 'ft.oferta':'Публичная оферта','ft.privacy':'Политика конфиденциальности','ft.terms':'Пользовательское соглашение'
+},
+kz:{}
 };
 
-let lang = 'ru';
-const t = k => (T[lang][k] ?? T.ru[k] ?? '');
+const CHIPS = {
+ en:['Dental clinic','Beauty salon','Restaurant','Real estate','Driving school','Gym','Florist','Tour agency'],
+ ru:['Стоматология','Салон красоты','Ресторан','Недвижимость','Автошкола','Фитнес','Цветы','Турагентство']
+};
+
+const CAPS_KEYS = [1,2,3,4,5];
+const CAP_ICONS = { 1:'💬', 2:'⚙', 3:'🔄', 4:'✦', 5:'🔌' };
+
+let lang = 'en';
+const t = k => (T[lang][k] ?? T.ru[k] ?? T.en[k] ?? '');
 
 const WA = '77074043006';
 const waLink = txt => `https://wa.me/${WA}?text=${encodeURIComponent(txt)}`;
 const WATXT = {
- ru:{nav:'Здравствуйте! Пишу с сайта — хочу узнать про AI-автоматизацию.',
-     hero:'Здравствуйте! Пишу с сайта. Теряю клиентов из-за медленных ответов — расскажите про бота.',
-     cta:'Здравствуйте! Хочу бесплатную консультацию и демо под мой бизнес.'},
- kz:{nav:'Сәлеметсіз бе! Сайттан жазып отырмын — AI-автоматтандыру туралы білгім келеді.',
-     hero:'Сәлеметсіз бе! Сайттан жазып отырмын. Баяу жауаптардан клиент жоғалтамын — бот туралы айтыңызшы.',
-     cta:'Сәлеметсіз бе! Тегін кеңес пен бизнеске демо алғым келеді.'},
- en:{nav:'Hello! Writing from the website — I would like to know more about AI automation.',
-     hero:'Hello! Writing from your website. I am losing customers to slow replies — tell me about the bot.',
-     cta:'Hello! I would like the free consultation and a demo for my business.'}
+ en:{contact:"Hi! I'd like to talk about AI automation / a chatbot / workflow project."},
+ ru:{contact:'Здравствуйте! Хочу обсудить AI-автоматизацию, чат-бота или процесс на n8n.'}
 };
+const wt = k => (WATXT[lang] || WATXT.ru)[k];
+
+/* ============ language gate ============ */
+const LANG_KEY = 'lang';
+const SUPPORTED_LANGS = ['en','ru','kz'];
+function getStoredLang(){ try { return localStorage.getItem(LANG_KEY); } catch(e){ return null; } }
+function setStoredLang(l){ try { localStorage.setItem(LANG_KEY, l); } catch(e){} }
+
+function openGate(){
+  document.documentElement.classList.add('gate-open');
+  const gate = document.getElementById('langGate');
+  gate.classList.remove('hide');
+  gate.style.display = 'flex';
+  setTimeout(()=> document.getElementById('gateEn')?.focus(), 50);
+}
+function closeGate(animate){
+  const gate = document.getElementById('langGate');
+  document.documentElement.classList.remove('gate-open');
+  if(!animate){ gate.style.display = 'none'; return; }
+  gate.classList.add('hide');
+  setTimeout(()=>{ gate.style.display = 'none'; }, 520);
+}
+
+function initLang(){
+  const urlLang = new URLSearchParams(location.search).get('lang');
+  const stored = getStoredLang();
+  if(urlLang && SUPPORTED_LANGS.includes(urlLang)){
+    lang = urlLang; setStoredLang(urlLang); closeGate(false);
+  } else if(stored && SUPPORTED_LANGS.includes(stored)){
+    lang = stored; closeGate(false);
+  } else {
+    lang = 'en'; openGate();
+  }
+}
+
+document.querySelectorAll('.lg-btn').forEach(b=>{
+  b.onclick = ()=>{
+    lang = b.dataset.lang;
+    setStoredLang(lang);
+    applyLang();
+    closeGate(true);
+  };
+});
 
 function applyLang(){
-  document.documentElement.lang = lang === 'kz' ? 'kk' : lang;
+  document.documentElement.lang = lang === 'kz' ? 'kk' : (lang || 'en');
   document.querySelectorAll('[data-i]').forEach(el=>{
     const v = t(el.dataset.i); if(v) el.textContent = v;
   });
   document.querySelectorAll('[data-ph]').forEach(el=>{
     const v = t(el.dataset.ph); if(v) el.placeholder = v;
   });
-  document.getElementById('navWa').href  = waLink(WATXT[lang].nav);
-  document.getElementById('heroWa').href = waLink(WATXT[lang].hero);
-  document.getElementById('ctaWa').href  = waLink(WATXT[lang].cta);
-  buildChips(); buildFaq(); calc();
+  document.querySelectorAll('.lang').forEach(x=>x.classList.toggle('on', x.dataset.lang === lang));
+  const cWa = document.getElementById('contactWa');
+  if(cWa) cWa.href = waLink(wt('contact'));
+  const hWa = document.getElementById('heroWa');
+  if(hWa) hWa.href = waLink(wt('contact'));
+  buildChips(); buildCaps(); buildSqlChips(); buildFlowChips();
 }
 
-document.querySelectorAll('.lang').forEach(b=>b.onclick=()=>{
+document.querySelectorAll('.langs .lang').forEach(b=>b.onclick=()=>{
   lang = b.dataset.lang;
-  document.querySelectorAll('.lang').forEach(x=>x.classList.toggle('on', x===b));
+  setStoredLang(lang);
   applyLang();
 });
 
 /* ============ oyu ornament dividers ============ */
-/* koshkar-muyiz: paired mirrored spirals, tiled across the band */
 function oyu(id){
   const el = document.getElementById(id); if(!el) return;
   const unit = 'M0 26 C0 12, 14 6, 22 14 C29 21, 24 32, 16 30 C10 28.5, 9 21, 15 20';
@@ -864,9 +801,9 @@ function oyu(id){
     pt.style.setProperty('--len', L);
   });
 }
-['oyu1','oyu2','oyu3'].forEach(oyu);
+['oyu1','oyu2','oyu3','oyu4','oyu5'].forEach(oyu);
 
-/* ============ reveal + oyu draw-in ============ */
+/* ============ reveal-on-scroll ============ */
 const io = new IntersectionObserver(es=>es.forEach(e=>{
   if(e.isIntersecting){ e.target.classList.add('in','drawn'); io.unobserve(e.target); }
 }),{threshold:.12});
@@ -875,138 +812,23 @@ document.querySelectorAll('.rv,.oyu').forEach((el,i)=>{
   io.observe(el);
 });
 
-/* ============ split threads ============ */
-const SCRIPT = {
- ru:{A:[['them','Здравствуйте! Можно записаться на завтра?','22:47','read'],
-        ['gap','— тишина —'],
-        ['them','Уже не надо, записалась в другую клинику','09:14','']],
-     B:[['them','Здравствуйте! Можно записаться на завтра?','22:47',''],
-        ['me','Здравствуйте! 👋 Конечно. Завтра свободно в 11:00 и 15:30. Какое время удобнее?','22:47','read'],
-        ['them','11:00','22:48',''],
-        ['me','Записал вас на 11:00. Как вас зовут?','22:48','read'],
-        ['them','Айгуль','22:48',''],
-        ['me','Готово, Айгуль ✅ Ждём завтра в 11:00. Напомню за 2 часа до визита.','22:48','read']]},
- kz:{A:[['them','Сәлеметсіз бе! Ертеңге жазылуға бола ма?','22:47','read'],
-        ['gap','— тыныштық —'],
-        ['them','Керегі жоқ енді, басқа клиникаға жазылдым','09:14','']],
-     B:[['them','Сәлеметсіз бе! Ертеңге жазылуға бола ма?','22:47',''],
-        ['me','Сәлеметсіз бе! 👋 Әрине. Ертең 11:00 және 15:30 бос. Қай уақыт ыңғайлы?','22:47','read'],
-        ['them','11:00','22:48',''],
-        ['me','11:00-ге жаздым. Атыңыз кім?','22:48','read'],
-        ['them','Айгүл','22:48',''],
-        ['me','Дайын, Айгүл ✅ Ертең 11:00-де күтеміз. 2 сағат бұрын еске саламын.','22:48','read']]},
- en:{A:[['them','Hi! Can I book an appointment for tomorrow?','22:47','read'],
-        ['gap','— silence —'],
-        ['them','Never mind, I booked with another clinic','09:14','']],
-     B:[['them','Hi! Can I book an appointment for tomorrow?','22:47',''],
-        ['me','Hello! 👋 Of course. Tomorrow 11:00 and 15:30 are free. Which suits you?','22:47','read'],
-        ['them','11:00','22:48',''],
-        ['me','Booked you for 11:00. What is your name?','22:48','read'],
-        ['them','Aigul','22:48',''],
-        ['me','All set, Aigul ✅ See you tomorrow at 11:00. I will remind you 2 hours before.','22:48','read']]}
-};
-
-let played = false;
-function playThreads(){
-  if(played) return; played = true;
-  const S = SCRIPT[lang] || SCRIPT.ru;
-  ['A','B'].forEach(k=>{
-    const box = document.getElementById('t'+k);
-    box.innerHTML = '';
-    let d = 300;
-    S[k].forEach(row=>{
-      if(row[0]==='gap'){
-        const g = document.createElement('div');
-        g.className='gap'; g.textContent=row[1];
-        box.appendChild(g);
-        setTimeout(()=>g.classList.add('in'), d);
-        d += 1400;
-        return;
-      }
-      const [who,txt,time,tick] = row;
-      const b = document.createElement('div');
-      b.className = 'b '+who;
-      const tk = tick==='read' ? '<span class="tick read">✓✓</span>' : (who==='me'?'<span class="tick">✓✓</span>':'');
-      b.innerHTML = `${txt}<div class="t">${time}${tk}</div>`;
-      box.appendChild(b);
-      setTimeout(()=>b.classList.add('in'), d);
-      d += 750;
-    });
-  });
-}
-new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) playThreads(); }),{threshold:.3})
-  .observe(document.getElementById('split'));
-
-/* ============ FAQ ============ */
-function buildFaq(){
-  const list = document.getElementById('faqList');
-  list.innerHTML = '';
-  (FAQ[lang]||FAQ.ru).forEach(([q,a])=>{
+/* ============ capabilities grid ============ */
+function buildCaps(){
+  const box = document.getElementById('capGrid'); if(!box) return;
+  box.innerHTML = '';
+  CAPS_KEYS.forEach(n=>{
     const d = document.createElement('div');
-    d.className = 'q rv in';
-    d.innerHTML = `<button>${q}<i>+</i></button><div class="a">${a}</div>`;
-    d.querySelector('button').onclick = ()=>{
-      const open = d.classList.contains('open');
-      list.querySelectorAll('.q').forEach(x=>x.classList.remove('open'));
-      if(!open) d.classList.add('open');
-    };
-    list.appendChild(d);
+    d.className = 'cap-card';
+    d.innerHTML = `<div class="cap-ico">${CAP_ICONS[n]}</div><h3>${t('cap.'+n+'.h')}</h3><p>${t('cap.'+n+'.p')}</p><span class="cap-tools">${t('cap.'+n+'.t')}</span>`;
+    box.appendChild(d);
   });
 }
 
-/* ============ pricing configurator ============ */
-const TIERS = {
- 1:{key:'svc.1n', setup:'от ₸150 000', mo:'от ₸40 000'},
- 2:{key:'svc.2n', setup:'от ₸200 000', mo:'от ₸60 000'},
- 3:{key:'svc.3n', setup:'от ₸400 000', mo:'от ₸120 000'},
- 4:{key:'svc.4n', setup:'₸400 000 – ₸600 000', mo:'₸150 000 – ₸200 000'}
-};
-const fmt = n => Math.round(n).toLocaleString('ru-RU').replace(/,/g,' ');
-
-function calc(){
-  const msgs  = +document.getElementById('rMsgs').value;
-  const check = +document.getElementById('rCheck').value;
-  const book  = document.getElementById('cBook').checked;
-  const voice = document.getElementById('cVoice').checked;
-
-  document.getElementById('vMsgs').textContent  = msgs;
-  document.getElementById('vCheck').textContent = fmt(check);
-
-  let n = 1;
-  if(voice) n = 4;
-  else if(book && msgs >= 60) n = 3;
-  else if(book) n = 2;
-  const T2 = TIERS[n];
-
-  document.getElementById('oTier').textContent  = t(T2.key);
-  document.getElementById('oSetup').textContent = T2.setup;
-  const word = {ru:'настройка · + ',kz:'баптау · + ',en:'setup · + '}[lang];
-  const per  = {ru:' / мес',kz:' / ай',en:' / mo'}[lang];
-  document.getElementById('oMonth').textContent = word + T2.mo + per;
-
-  // conservative: 25% of messages go unanswered after hours, 8% of those would have bought
-  const lost = msgs * 30 * 0.25 * 0.08 * check;
-  document.getElementById('oLoss').textContent = '₸' + fmt(lost) + per;
-
-  document.querySelectorAll('.tier').forEach(el=>el.classList.toggle('on', +el.dataset.tier === n));
-
-  const msg = {
-    ru:`Здравствуйте! Собрал на сайте: тариф «${t(T2.key)}», ~${msgs} сообщений в день${book?', нужна запись в календарь':''}${voice?', нужен голосовой ресепшн':''}. Хочу обсудить.`,
-    kz:`Сәлеметсіз бе! Сайтта жинадым: «${t(T2.key)}» тарифі, күніне ~${msgs} хабарлама${book?', күнтізбеге жазылу керек':''}${voice?', дауыстық ресепшн керек':''}. Талқылағым келеді.`,
-    en:`Hello! I configured this on your site: "${t(T2.key)}" tier, ~${msgs} messages a day${book?', need calendar booking':''}${voice?', need voice reception':''}. I would like to discuss it.`
-  }[lang];
-  document.getElementById('cfgWa').href = waLink(msg);
-}
-['rMsgs','rCheck','cBook','cVoice'].forEach(id=>{
-  document.getElementById(id).addEventListener('input', calc);
-});
-
-/* ============ demo bot ============ */
+/* ============ demo bot (chat widget — unchanged logic, re-housed markup) ============ */
 const D = { persona:null, history:[], accent:'#1C7FA6' };
 const $  = id => document.getElementById(id);
 const $$ = s  => document.querySelectorAll(s);
 
-/* ornament bands that live ON the widget: header + footer strip */
 function band(el, w, h2){
   const unit = 'M0 26 C0 12, 14 6, 22 14 C29 21, 24 32, 16 30 C10 28.5, 9 21, 15 20';
   let p = '';
@@ -1021,7 +843,8 @@ band($('hdrOrn'),  520, 34);
 band($('footOrn'), 520, 26);
 
 function buildChips(){
-  const box = $('dChips'); box.innerHTML = '';
+  const box = $('dChips'); if(!box) return;
+  box.innerHTML = '';
   (CHIPS[lang]||CHIPS.ru).forEach(c=>{
     const b = document.createElement('button');
     b.className = 'chip'; b.textContent = c;
@@ -1114,7 +937,6 @@ $('dMsg').onkeydown = e =>{ if(e.key==='Enter') send(); };
 /* ---- Tier 2: their own data ---- */
 const SWATCH = ['#12161C','#1C7FA6','#E0A73A','#7B4B94','#C0392B','#1E9E52'];
 
-/* relative luminance -> pick black or white text so no combo is ever unreadable */
 function lum(hex){
   const c = hex.replace('#','');
   const v = i => {
@@ -1126,14 +948,12 @@ function lum(hex){
 
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* the reveal: colour blooms out of the swatch, sweeps the page, floods the widget */
 function applyAccent(hex, origin){
   D.accent = hex;
   const root = document.documentElement.style;
   const rgb = [1,3,5].map((_,i)=>parseInt(hex.replace('#','').substr(i*2,2),16));
   const a = o => `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${o})`;
 
-  // 1. radial wash from the exact point they clicked
   if(origin && !reduce){
     const r = origin.getBoundingClientRect();
     const rv = $('reveal');
@@ -1143,7 +963,6 @@ function applyAccent(hex, origin){
     rv.classList.remove('go'); void rv.offsetWidth; rv.classList.add('go');
   }
 
-  // 2. the whole widget takes the colour — borders, chat bg, bubbles, inputs, panel
   const box = $('demoBox'), stage = $('stage');
   [box, stage].forEach(el=>{
     el.style.setProperty('--accent', hex);
@@ -1154,7 +973,6 @@ function applyAccent(hex, origin){
   });
   box.style.boxShadow = `0 22px 60px -20px ${a(.42)}`;
 
-  // 3. rings ripple outward, wings and page ornament follow
   $$('.echo').forEach(e=>e.classList.add('on'));
   if(!reduce){
     stage.classList.remove('ripple'); void stage.offsetWidth; stage.classList.add('ripple');
@@ -1166,9 +984,7 @@ function applyAccent(hex, origin){
 }
 
 /* ---- shareable demo link (?demo=) ---- */
-const MAX_DEMO_PARAM_LEN = 4000; // hard cap on the encoded query value; anything longer is rejected unread
-
-// Same truncation rule as the server's s(v,max) in api/chat.js — keep both sides in lockstep.
+const MAX_DEMO_PARAM_LEN = 4000;
 const sTrunc = (v, max) => (typeof v === 'string' ? v.slice(0, max).trim() : '');
 
 function b64urlEncode(str){
@@ -1186,10 +1002,6 @@ function b64urlDecode(str){
   return new TextDecoder().decode(bytes);
 }
 
-// Mirrors api/chat.js's clean(): never trust decoded fields, rebuild from scratch with the same caps.
-// business/emoji/address/booking aren't part of the share link — only what the Tier-2 form actually collects.
-// Accepts both new short-key {n,h,s,c} payloads and legacy long-key {name,hours,services,color}
-// payloads so links already sent out under the old format still resolve.
 function cleanDemoConfig(p){
   if(!p || typeof p !== 'object') return null;
   const rawName     = p.n !== undefined ? p.n : p.name;
@@ -1205,7 +1017,6 @@ function cleanDemoConfig(p){
   return out.name && out.services.length ? out : null;
 }
 
-// Short top-level keys (n/h/s/c) keep the encoded link meaningfully shorter than {name,hours,services,color}.
 function shareUrlFor(name, hours, services, color){
   const cfg = {
     n: sTrunc(name,60),
@@ -1258,7 +1069,6 @@ async function launchOwnBot(){
   const raw   = $('oSvc').value.trim();
   if(!name || !raw){ $('oName').focus(); return; }
 
-  // Normalize visibility so this also works as a cold auto-launch (no prior Tier-1 interaction).
   $('dPick').hidden = true;
   $('dMsgs').hidden = false;
   $('dIn').hidden = false;
@@ -1276,8 +1086,7 @@ async function launchOwnBot(){
     name, emoji: D.persona?.emoji || '💬',
     address: '', hours, services,
     booking: {ru:'Заявка принята, свяжемся с вами в течение 30 минут.',
-              kz:'Өтінім қабылданды, 30 минут ішінде хабарласамыз.',
-              en:'Request received, we will contact you within 30 minutes.'}[lang],
+              en:'Request received, we will contact you within 30 minutes.'}[lang] || 'Request received, we will contact you within 30 minutes.',
     real: true
   };
   D.history = [];
@@ -1289,34 +1098,32 @@ async function launchOwnBot(){
   applyAccent(D.accent, $('demoBox'));
   $('demoBox').scrollIntoView({block:'center'});
 
-  const hi = {
+  const hi = ({
     ru:`Здравствуйте! 👋 Я AI-помощник «${name}». Спросите про услуги, цены или запишитесь.`,
-    kz:`Сәлеметсіз бе! 👋 Мен «${name}» AI-көмекшісімін. Қызметтер мен бағаларды сұраңыз.`,
     en:`Hello! 👋 I'm the AI assistant for "${name}". Ask about services and prices, or book a slot.`
-  }[lang];
+  })[lang] || `Hello! 👋 I'm the AI assistant for "${name}". Ask about services and prices, or book a slot.`;
   bubble(hi, 'bot');
   D.history.push({ role:'assistant', content: hi });
   $('dMsg').focus();
 
-  const cta = {
+  const cta = ({
     ru:`Здравствуйте! Настроил демо-бота на сайте под «${name}». Хочу такого же в свой WhatsApp.`,
-    kz:`Сәлеметсіз бе! Сайтта «${name}» үшін демо-бот баптадым. Дәл сондайды WhatsApp-қа алғым келеді.`,
     en:`Hello! I configured a demo bot on your site for "${name}". I want one in my own WhatsApp.`
-  }[lang];
+  })[lang] || `Hello! I configured a demo bot on your site for "${name}". I want one in my own WhatsApp.`;
   const w = document.createElement('div');
   w.className = 'upsell';
   w.innerHTML = `<a class="btn btn-wa" style="width:100%" href="${waLink(cta)}" target="_blank" rel="noopener">
-    ${ {ru:'Хочу такого бота в свой WhatsApp →',kz:'Осындай ботты WhatsApp-қа алғым келеді →',en:'I want this bot in my WhatsApp →'}[lang] }</a>`;
+    ${ ({ru:'Хочу такого бота в свой WhatsApp →',en:'I want this bot in my WhatsApp →'}[lang]) || 'I want this bot in my WhatsApp →' }</a>`;
   $('dOwn').after(w);
 
   document.getElementById('demoShareBtn')?.remove();
   document.getElementById('demoShareNote')?.remove();
   const shareUrl = shareUrlFor(name, hours, services, D.accent);
   if(shareUrl){
-    const label = {ru:'📋 Скопировать ссылку на демо',kz:'📋 Демо сілтемесін көшіру',en:'📋 Copy demo link'}[lang];
-    const copied = {ru:'✓ Скопировано',kz:'✓ Көшірілді',en:'✓ Copied'}[lang];
-    const failed = {ru:'Не удалось скопировать',kz:'Көшіру сәтсіз аяқталды',en:'Copy failed'}[lang];
-    const notShortened = {ru:'ссылка не сокращена',kz:'сілтеме қысқартылмады',en:'link not shortened'}[lang];
+    const label = ({ru:'📋 Скопировать ссылку на демо',en:'📋 Copy demo link'}[lang]) || '📋 Copy demo link';
+    const copied = ({ru:'✓ Скопировано',en:'✓ Copied'}[lang]) || '✓ Copied';
+    const failed = ({ru:'Не удалось скопировать',en:'Copy failed'}[lang]) || 'Copy failed';
+    const notShortened = ({ru:'ссылка не сокращена',en:'link not shortened'}[lang]) || 'link not shortened';
 
     const sBtn = document.createElement('button');
     sBtn.id = 'demoShareBtn';
@@ -1335,8 +1142,6 @@ async function launchOwnBot(){
       let urlToCopy = shareUrl;
       let shortened = false;
 
-      // is.gd has no CORS support for direct browser calls, so this goes through our own
-      // /api/shorten proxy (server-side call, no CORS issue there). 2s budget, then fall back.
       try{
         const controller = new AbortController();
         const timer = setTimeout(()=> controller.abort(), 2000);
@@ -1372,7 +1177,6 @@ async function launchOwnBot(){
 }
 $('oGo').onclick = launchOwnBot;
 
-/* ============ shared demo link: auto-launch on load ============ */
 function launchFromDemoParam(cfg){
   $('oName').value = cfg.name;
   $('oHours').value = cfg.hours;
@@ -1386,16 +1190,220 @@ function launchFromDemoParam(cfg){
 function initFromDemoParam(){
   try{
     const raw = new URLSearchParams(location.search).get('demo');
-    if(!raw || raw.length > MAX_DEMO_PARAM_LEN) return; // absent or oversized -> normal Tier-1 default
+    if(!raw || raw.length > MAX_DEMO_PARAM_LEN) return;
     const cfg = cleanDemoConfig(JSON.parse(b64urlDecode(raw)));
-    if(!cfg) return; // missing/invalid fields -> normal Tier-1 default
+    if(!cfg) return;
     launchFromDemoParam(cfg);
   }catch(e){
-    // decode/parse failure -> fall back silently, page already loaded in its normal default state
+    // decode/parse failure -> fall back silently
   }
 }
 
+/* ============ SQL demo ============ */
+const SQL_EXAMPLE_KEYS = ['sql.c1','sql.c2','sql.c3','sql.c4'];
+function buildSqlChips(){
+  const box = $('sqlChips'); if(!box) return;
+  box.innerHTML = '';
+  SQL_EXAMPLE_KEYS.forEach(k=>{
+    const b = document.createElement('button');
+    b.className = 'chip'; b.textContent = t(k);
+    b.onclick = ()=>{ $('sqlQ').value = t(k); runSqlQuery(t(k)); };
+    box.appendChild(b);
+  });
+}
+
+function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+const SQL_KEYWORDS = 'SELECT|FROM|WHERE|JOIN|INNER|LEFT|ON|GROUP|BY|HAVING|ORDER|LIMIT|OFFSET|AS|AND|OR|NOT|DESC|ASC|DISTINCT|IN|LIKE|IS|NULL';
+const SQL_TOKEN_RE = new RegExp(`('([^']|'')*')|(\\b\\d+(\\.\\d+)?\\b)|(\\b(?:${SQL_KEYWORDS})\\b)`, 'gi');
+function highlightSql(sql){
+  return escHtml(sql).replace(SQL_TOKEN_RE, m=>{
+    if(m[0] === "'") return `<span class="sql-str">${m}</span>`;
+    if(/^\d/.test(m)) return `<span class="sql-num">${m}</span>`;
+    return `<span class="sql-kw">${m}</span>`;
+  });
+}
+
+function renderSqlTable(columns, rows){
+  const wrap = document.createElement('div');
+  if(!rows.length){
+    wrap.innerHTML = `<div class="sql-empty">${escHtml(t('sql.empty'))}</div>`;
+    return wrap;
+  }
+  wrap.className = 'sql-table-wrap';
+  const table = document.createElement('table');
+  table.className = 'sql-table';
+  const thead = document.createElement('thead');
+  const trh = document.createElement('tr');
+  columns.forEach(c=>{ const th = document.createElement('th'); th.textContent = c; trh.appendChild(th); });
+  thead.appendChild(trh);
+  const tbody = document.createElement('tbody');
+  rows.forEach(row=>{
+    const tr = document.createElement('tr');
+    row.forEach(cell=>{
+      const td = document.createElement('td');
+      td.textContent = cell === null || cell === undefined ? '—' : (typeof cell === 'number' ? (Number.isInteger(cell) ? cell : cell.toFixed(2)) : cell);
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  table.appendChild(thead); table.appendChild(tbody);
+  wrap.appendChild(table);
+  return wrap;
+}
+
+let sqlBusy = false;
+async function runSqlQuery(question){
+  question = (question || '').trim();
+  if(!question || sqlBusy) return;
+  sqlBusy = true;
+  $('sqlGo').disabled = true;
+  $('sqlStatus').hidden = false;
+  $('sqlStatus').textContent = t('sql.thinking');
+  $('sqlOut').hidden = true;
+
+  try{
+    const r = await fetch('/api/query', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ question, lang: lang === 'kz' ? 'ru' : lang })
+    });
+    const data = await r.json();
+    $('sqlStatus').hidden = true;
+    if(!r.ok || (!data.sql && !data.error)){
+      $('sqlOut').hidden = false;
+      $('sqlCode').innerHTML = '';
+      $('sqlResultBox').innerHTML = `<div class="sql-err">${escHtml(t('sql.fail'))}</div>`;
+      return;
+    }
+    $('sqlOut').hidden = false;
+    $('sqlCode').innerHTML = highlightSql(data.sql || '');
+    $('sqlResultBox').innerHTML = '';
+    if(data.error){
+      $('sqlResultBox').innerHTML = `<div class="sql-err">${escHtml(t('sql.error'))}</div>`;
+    } else {
+      $('sqlResultBox').appendChild(renderSqlTable(data.columns || [], data.rows || []));
+    }
+  }catch(e){
+    $('sqlStatus').hidden = true;
+    $('sqlOut').hidden = false;
+    $('sqlCode').innerHTML = '';
+    $('sqlResultBox').innerHTML = `<div class="sql-err">${escHtml(t('sql.fail'))}</div>`;
+  }
+  sqlBusy = false;
+  $('sqlGo').disabled = false;
+}
+
+$('sqlGo').onclick = ()=> runSqlQuery($('sqlQ').value);
+$('sqlQ').onkeydown = e => { if(e.key === 'Enter') runSqlQuery($('sqlQ').value); };
+
+/* ============ flow demo ============ */
+const FLOW_EXAMPLE_KEYS = ['flow.c1','flow.c2'];
+function buildFlowChips(){
+  const box = $('flowChips'); if(!box) return;
+  box.innerHTML = '';
+  FLOW_EXAMPLE_KEYS.forEach(k=>{
+    const b = document.createElement('button');
+    b.className = 'chip'; b.textContent = t(k);
+    b.onclick = ()=>{ $('flowInp').value = t(k); };
+    box.appendChild(b);
+  });
+}
+
+function fdRow(k, v){
+  return `<div class="fd-row"><span class="k">${escHtml(k)}</span><span class="v">${escHtml(v === null || v === undefined || v === '' ? '—' : v)}</span></div>`;
+}
+
+function stepCardHtml(step){
+  const o = step.output || {};
+  if(step.key === 'webhook'){
+    return `<div class="fd-h">${t('flow.n1')}</div>${fdRow(t('flow.k.received'), o.received)}`;
+  }
+  if(step.key === 'transform'){
+    return `<div class="fd-h">${t('flow.n2')}</div>`
+      + fdRow(t('flow.k.lang'), o.detected_language)
+      + fdRow(t('flow.k.words'), o.word_count)
+      + fdRow(t('flow.k.email'), o.contains_email)
+      + fdRow(t('flow.k.phone'), o.contains_phone);
+  }
+  if(step.key === 'ai'){
+    return `<div class="fd-h">${t('flow.n3')}</div>`
+      + fdRow(t('flow.k.intent'), o.intent)
+      + fdRow(t('flow.k.urgency'), o.urgency)
+      + fdRow(t('flow.k.reply'), o.one_line_reply);
+  }
+  if(step.key === 'notify'){
+    return `<div class="fd-h">${t('flow.n4')}</div>`
+      + fdRow(t('flow.k.channel'), o.channel)
+      + fdRow(t('flow.k.message'), o.message)
+      + fdRow(t('flow.k.deliver'), Array.isArray(o.would_deliver_to) ? o.would_deliver_to.join(', ') : o.would_deliver_to);
+  }
+  return '';
+}
+
+function resetFlowGraph(){
+  $$('.fnode').forEach(n => n.classList.remove('active','done'));
+  $('flowDetail').innerHTML = '';
+}
+
+function animateFlowSteps(steps){
+  resetFlowGraph();
+  steps.forEach((step, i)=>{
+    setTimeout(()=>{
+      const prevNode = document.querySelector(`.fnode[data-key="${steps[i-1]?.key}"]`);
+      if(prevNode) prevNode.classList.remove('active');
+      if(prevNode) prevNode.classList.add('done');
+      const node = document.querySelector(`.fnode[data-key="${step.key}"]`);
+      if(node) node.classList.add('active');
+
+      const card = document.createElement('div');
+      card.className = 'fd-card';
+      card.innerHTML = stepCardHtml(step);
+      $('flowDetail').appendChild(card);
+      requestAnimationFrame(()=> card.classList.add('in'));
+
+      if(i === steps.length - 1){
+        setTimeout(()=>{ if(node) { node.classList.remove('active'); node.classList.add('done'); } }, 700);
+      }
+    }, i * 850);
+  });
+}
+
+let flowBusy = false;
+async function runFlow(input){
+  input = (input || '').trim();
+  if(!input || flowBusy) return;
+  flowBusy = true;
+  $('flowGo').disabled = true;
+  const originalLabel = $('flowGo').textContent;
+  $('flowGo').textContent = t('flow.running');
+  resetFlowGraph();
+
+  try{
+    const r = await fetch('/api/run-flow', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ input, lang: lang === 'kz' ? 'ru' : lang })
+    });
+    const data = await r.json();
+    if(!r.ok || !Array.isArray(data.steps)) throw new Error('bad_response');
+    animateFlowSteps(data.steps);
+  }catch(e){
+    const card = document.createElement('div');
+    card.className = 'fd-card in';
+    card.innerHTML = `<div class="sql-err">${escHtml(t('flow.fail'))}</div>`;
+    $('flowDetail').appendChild(card);
+  }
+  flowBusy = false;
+  $('flowGo').disabled = false;
+  $('flowGo').textContent = originalLabel;
+}
+
+$('flowGo').onclick = ()=> runFlow($('flowInp').value);
+$('flowInp').onkeydown = e => { if(e.key === 'Enter') runFlow($('flowInp').value); };
+
 /* ============ go ============ */
+initLang();
 applyLang();
 applyAccent(D.accent, null);
 initFromDemoParam();
