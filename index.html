@@ -27,7 +27,7 @@
 :root{
   /* soft dark slate-indigo + amber/aqua — see commit message for the reskin rationale */
   --bg:#161A24; --bg2:#1C2130; --surface:#232838;
-  --ink:#E8EAF0; --soft:#9BA0B2; --faint:#5A6076;
+  --ink:#E8EAF0; --soft:#9BA0B2; --faint:#888EA4;
   --aqua:#6FD9C4; --aqua-deep:#5BB2A1; --aqua-tint:rgba(111,217,196,.12);
   --amber:#E0A85C; --amber-deep:#B88A4B; --amber-tint:rgba(224,168,92,.14); --amber-line:rgba(224,168,92,.22);
   --border:#2E3446;
@@ -279,7 +279,7 @@ h1 em::after{content:'';position:absolute;left:0;right:0;bottom:.06em;height:.08
 @keyframes cascadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .sql-empty{padding:16px;color:var(--faint);font-size:13.5px}
 .sql-note{font-size:12px;color:var(--faint);margin-top:16px}
-.sql-err{color:#C0392B;font-size:13.5px;padding:12px;background:rgba(192,57,43,.06);border-radius:8px;margin-top:8px}
+.sql-err{color:#E8685C;font-size:13.5px;padding:12px;background:rgba(192,57,43,.1);border-radius:8px;margin-top:8px}
 
 /* ---- flow demo ---- */
 .flow-panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:24px;margin-top:8px}
@@ -749,7 +749,7 @@ ru:{
  'flow.k.intent':'Намерение','flow.k.urgency':'Срочность','flow.k.reply':'Черновик ответа',
  'flow.k.channel':'Канал','flow.k.message':'Сообщение','flow.k.deliver':'Доставка в',
 
- 'work.tag':'Возможности','work.h2':'Что я делаю','work.sub':'Сначала результат. Инструменты называю потому что они важны, а не для эффекта.',
+ 'work.tag':'Возможности','work.h2':'Что я делаю','work.sub':'Сначала результат. Инструменты называю, потому что они важны, а не для эффекта.',
  'cap.1.h':'Чат-боты','cap.1.p':'Боты для WhatsApp, Telegram и веб-чата, которые квалифицируют, отвечают и записывают — а не просто отписываются.','cap.1.t':'Groq · Gemini · OpenAI API · WhatsApp Business API',
  'cap.2.h':'Автоматизация процессов','cap.2.p':'Процессы на n8n, которые соединяют ваши инструменты так, что лиды, заказы и тикеты двигаются сами.','cap.2.t':'n8n · Webhooks · Zapier/Make',
  'cap.3.h':'Синхронизация данных','cap.3.p':'Пайплайны по расписанию и по событиям, которые держат две системы в согласии.','cap.3.t':'Node.js · Python · Postgres/Supabase · Cron',

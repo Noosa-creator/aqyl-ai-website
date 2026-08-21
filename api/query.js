@@ -21,18 +21,20 @@ function systemPrompt(lang) {
   const rules = lang === 'ru'
     ? `Правила:
 - Верни ТОЛЬКО одну SQL-инструкцию SELECT. Без markdown, без пояснений, без точки с запятой в конце.
-- Разрешено: SELECT, FROM, JOIN...ON (один или несколько), WHERE, GROUP BY, HAVING, ORDER BY, LIMIT.
-- Разрешённые функции: COUNT, SUM, AVG, MIN, MAX, SUBSTR, STRFTIME, ROUND, UPPER, LOWER, ABS, LENGTH.
-- ЗАПРЕЩЕНО: любые не-SELECT операторы, подзапросы, WITH/CTE, UNION, оконные функции, "SELECT *" (перечисляй колонки явно), несколько инструкций через ";".
+- Разрешено: SELECT, FROM, явный JOIN...ON (один или несколько), WHERE, GROUP BY, HAVING, ORDER BY, LIMIT.
+- Разрешённые функции: COUNT, SUM, AVG, MIN, MAX (можно с DISTINCT, например COUNT(DISTINCT x)), SUBSTR, STRFTIME, ROUND, UPPER, LOWER, ABS, LENGTH.
+- ЗАПРЕЩЕНО: любые не-SELECT операторы, подзапросы, WITH/CTE, UNION, оконные функции, "SELECT *" (перечисляй колонки явно), несколько инструкций через ";", соединение таблиц через запятую в FROM (всегда используй явный JOIN...ON).
 - Всегда указывай алиасы (AS) для агрегатных выражений.
-- Используй только таблицы и колонки из схемы ниже — ничего не выдумывай.`
+- Используй только таблицы и колонки из схемы ниже — ничего не выдумывай.
+- Для вопросов вида "N и более / повторные / минимум дважды" используй GROUP BY + HAVING COUNT(...) >= N — не оконные функции и не подзапросы.`
     : `Rules:
 - Return ONLY a single SELECT statement. No markdown, no explanation, no trailing semicolon.
-- Allowed: SELECT, FROM, JOIN...ON (one or more), WHERE, GROUP BY, HAVING, ORDER BY, LIMIT.
-- Allowed functions: COUNT, SUM, AVG, MIN, MAX, SUBSTR, STRFTIME, ROUND, UPPER, LOWER, ABS, LENGTH.
-- FORBIDDEN: any non-SELECT statement, subqueries, WITH/CTEs, UNION, window functions, "SELECT *" (list columns explicitly), multiple statements separated by ";".
+- Allowed: SELECT, FROM, explicit JOIN...ON (one or more), WHERE, GROUP BY, HAVING, ORDER BY, LIMIT.
+- Allowed functions: COUNT, SUM, AVG, MIN, MAX (optionally with DISTINCT, e.g. COUNT(DISTINCT x)), SUBSTR, STRFTIME, ROUND, UPPER, LOWER, ABS, LENGTH.
+- FORBIDDEN: any non-SELECT statement, subqueries, WITH/CTEs, UNION, window functions, "SELECT *" (list columns explicitly), multiple statements separated by ";", comma-separated tables in FROM (always use explicit JOIN...ON instead).
 - Always alias (AS) aggregate expressions.
-- Use only the tables/columns in the schema below — never invent one.`;
+- Use only the tables/columns in the schema below — never invent one.
+- For "N or more / repeat / at least twice" style questions, use GROUP BY + HAVING COUNT(...) >= N — not window functions or subqueries.`;
 
   return `You translate a natural-language question into a single SQLite SELECT statement over this fictional demo dataset.
 

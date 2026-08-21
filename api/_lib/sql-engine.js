@@ -251,6 +251,13 @@ class Parser {
     this.expectKeyword('FROM');
     const from = this.parseTableRef();
     const joins = [];
+    // comma-separated table list ("FROM a, b") — implicit cross join, WHERE does the filtering.
+    // The system prompt asks the model to always use explicit JOIN...ON, but this is cheap
+    // insurance against a model reverting to old-style implicit joins anyway.
+    while (this.matchType(',')) {
+      const table = this.parseTableRef();
+      joins.push({ table: table.table, alias: table.alias, on: { type: 'literal', value: true }, kind: 'CROSS' });
+    }
     for (;;) {
       let joinKind = null;
       if (this.matchKeyword('INNER')) joinKind = 'INNER';
@@ -403,10 +410,14 @@ class Parser {
         this.next();
         let args = [];
         let star = false;
+        // COUNT(DISTINCT x) / SUM(DISTINCT x) / AVG(DISTINCT x) — a common, legitimate aggregate
+        // qualifier models reach for naturally; DISTINCT is otherwise a reserved keyword so it
+        // must be special-cased here rather than falling through to parseExprList().
+        const distinct = this.matchKeyword('DISTINCT');
         if (this.peek().type === '*') { this.next(); star = true; }
         else if (this.peek().type !== ')') args = this.parseExprList();
         this.expectType(')');
-        return { type: 'call', name: name.toUpperCase(), args, star };
+        return { type: 'call', name: name.toUpperCase(), args, star, distinct };
       }
       if (this.matchType('.')) {
         const col = this.expectType('IDENT').value;
@@ -520,9 +531,15 @@ function ev(node, env) {
         const rows = env.group || (env.ctx ? [env.ctx] : []);
         if (name === 'COUNT') {
           if (node.star) return rows.length;
-          return rows.filter(r => { const v = ev(node.args[0], { ctx: r }); return v !== null && v !== undefined; }).length;
+          let vals = rows.map(r => ev(node.args[0], { ctx: r })).filter(v => v !== null && v !== undefined);
+          if (node.distinct) vals = dedupe(vals);
+          return vals.length;
         }
-        const nums = rows.map(r => toNum(ev(node.args[0], { ctx: r }))).filter(v => v !== null && !Number.isNaN(v));
+        let nums = rows.map(r => toNum(ev(node.args[0], { ctx: r }))).filter(v => v !== null && !Number.isNaN(v));
+        // DISTINCT is a no-op for MIN/MAX (the extremum of a set equals the extremum of its
+        // distinct values) but still valid SQL to write, so it's accepted for all four rather
+        // than only where it changes the result.
+        if (node.distinct) nums = dedupe(nums);
         if (name === 'SUM') return nums.reduce((a, b) => a + b, 0);
         if (name === 'AVG') return nums.length ? nums.reduce((a, b) => a + b, 0) / nums.length : null;
         if (name === 'MIN') return nums.length ? Math.min(...nums) : null;
@@ -551,6 +568,7 @@ function ev(node, env) {
 
 function truthy(v) { return v !== null && v !== undefined && v !== false && v !== 0; }
 function toNum(v) { if (v === null || v === undefined) return null; const n = Number(v); return Number.isNaN(n) ? null : n; }
+function dedupe(vals) { const seen = new Set(); return vals.filter(v => { const k = JSON.stringify(v); if (seen.has(k)) return false; seen.add(k); return true; }); }
 
 function defaultLabel(node) {
   if (node.type === 'column') return node.name;

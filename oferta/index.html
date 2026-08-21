@@ -9,37 +9,37 @@
 <link rel="canonical" href="https://www.aqyl-ai.kz/oferta">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap&subset=cyrillic,cyrillic-ext,latin" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap&subset=cyrillic,cyrillic-ext,latin" rel="stylesheet">
 <style>
 :root{
-  --paper:#F6F3EC; --paper2:#EFEBE1; --card:#FFFFFF;
-  --ink:#12161C; --ink-soft:#5A6270; --ink-faint:#8B93A1;
-  --blue:#1C7FA6; --blue-deep:#155F7D; --gold:#E0A73A;
-  --rule:rgba(18,22,28,.10);
+  --bg:#161A24; --bg2:#1C2130; --surface:#232838;
+  --ink:#E8EAF0; --soft:#9BA0B2; --faint:#888EA4;
+  --aqua:#6FD9C4; --aqua-deep:#5BB2A1; --amber:#E0A85C;
+  --border:#2E3446;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{
-  margin:0; background:var(--paper); color:var(--ink);
-  font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Space Grotesk",system-ui,-apple-system,sans-serif;
   font-size:16px; line-height:1.65; font-weight:400;
   -webkit-font-smoothing:antialiased;
 }
 .wrap{max-width:760px;margin:0 auto;padding:0 24px}
 
 /* header */
-.top{border-bottom:1px solid var(--rule);background:var(--paper)}
+.top{border-bottom:1px solid var(--border);background:var(--bg)}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:18px;padding-bottom:18px}
 .brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
 .brand svg{display:block;border-radius:8px}
 .brand b{font-weight:700;letter-spacing:-.02em;font-size:17px}
-.brand b span{color:var(--gold)}
+.brand b span{color:var(--amber)}
 .back{
-  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
-  color:var(--ink-soft);text-decoration:none;border-bottom:1px solid transparent;
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;
+  color:var(--soft);text-decoration:none;border-bottom:1px solid transparent;
   transition:color .15s ease,border-color .15s ease;
 }
-.back:hover{color:var(--blue);border-bottom-color:var(--blue)}
+.back:hover{color:var(--aqua);border-bottom-color:var(--aqua)}
 
 /* ornament divider */
 .oyu{display:block;width:100%;height:22px;opacity:.55;margin:0}
@@ -51,16 +51,16 @@ h1{
   font-weight:700;margin:0 0 18px;
 }
 .meta{
-  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
-  color:var(--ink-faint);line-height:1.9;
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;
+  color:var(--faint);line-height:1.9;
 }
-.meta strong{color:var(--ink-soft);font-weight:500}
+.meta strong{color:var(--soft);font-weight:500}
 
 /* body */
 main{padding:20px 0 72px}
 .lede{
-  background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--gold);
-  padding:20px 22px;margin:28px 0 40px;font-size:15.5px;color:var(--ink-soft);
+  background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--amber);
+  padding:20px 22px;margin:28px 0 40px;font-size:15.5px;color:var(--soft);
 }
 .lede p{margin:0 0 10px}
 .lede p:last-child{margin:0}
@@ -68,47 +68,47 @@ main{padding:20px 0 72px}
 
 h2{
   font-size:15px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;
-  margin:44px 0 14px;padding-top:18px;border-top:1px solid var(--rule);
+  margin:44px 0 14px;padding-top:18px;border-top:1px solid var(--border);
   display:flex;gap:12px;align-items:baseline;
 }
 h2 i{
-  font-family:"IBM Plex Mono",ui-monospace,monospace;font-style:normal;
-  color:var(--gold);font-size:14px;font-weight:500;flex:none;
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-style:normal;
+  color:var(--amber);font-size:14px;font-weight:500;flex:none;
 }
 p{margin:0 0 13px}
 .c{margin:0 0 13px;padding-left:52px;text-indent:-52px}
 .c b.n{
-  font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;
-  color:var(--ink-soft);font-size:14px;
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:500;
+  color:var(--soft);font-size:14px;
 }
 .c.sub{padding-left:72px;text-indent:-52px;margin-left:0}
 strong{font-weight:600}
-.hi{background:linear-gradient(transparent 62%,rgba(224,167,58,.28) 0)}
+.hi{background:linear-gradient(transparent 62%,rgba(224,168,92,.28) 0)}
 ul{margin:0 0 15px;padding-left:20px}
 li{margin:0 0 7px}
-li::marker{color:var(--gold)}
+li::marker{color:var(--amber)}
 
 /* requisites */
 .req{
-  background:var(--card);border:1px solid var(--rule);padding:24px 26px;margin-top:36px;
-  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:14px;line-height:2;
+  background:var(--surface);border:1px solid var(--border);padding:24px 26px;margin-top:36px;
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:14px;line-height:2;
 }
-.req .lbl{font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15px;
+.req .lbl{font-family:"Space Grotesk",sans-serif;font-weight:600;font-size:15px;
   letter-spacing:.02em;text-transform:uppercase;margin-bottom:12px;display:block}
-.req span{color:var(--ink-faint)}
-.req a{color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(28,127,166,.3)}
-.req a:hover{border-bottom-color:var(--blue)}
-mark{background:rgba(224,167,58,.3);color:var(--ink);padding:1px 4px;border-radius:2px}
+.req span{color:var(--faint)}
+.req a{color:var(--aqua);text-decoration:none;border-bottom:1px solid rgba(111,217,196,.3)}
+.req a:hover{border-bottom-color:var(--aqua)}
+mark{background:rgba(224,168,92,.3);color:var(--ink);padding:1px 4px;border-radius:2px}
 
 /* footer */
-footer{border-top:1px solid var(--rule);padding:26px 0 40px;background:var(--paper2)}
+footer{border-top:1px solid var(--border);padding:26px 0 40px;background:var(--bg2)}
 footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;align-items:center}
-footer a{color:var(--ink-soft);text-decoration:none;font-size:14px}
-footer a:hover{color:var(--blue)}
-footer .n{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--ink-faint)}
+footer a{color:var(--soft);text-decoration:none;font-size:14px}
+footer a:hover{color:var(--aqua)}
+footer .n{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--faint)}
 nav.docs{display:flex;gap:18px;flex-wrap:wrap}
 
-a:focus-visible,.brand:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:2px}
+a:focus-visible,.brand:focus-visible{outline:2px solid var(--aqua);outline-offset:3px;border-radius:2px}
 
 @media(max-width:560px){
   body{font-size:15.5px}
@@ -133,7 +133,7 @@ a:focus-visible,.brand:focus-visible{outline:2px solid var(--blue);outline-offse
     <a class="brand" href="/">
       <svg width="30" height="30" viewBox="0 0 80 80" aria-hidden="true">
         <rect width="80" height="80" rx="18" fill="#12161C"/>
-        <path d="M47.23 8.82 A32 32 0 1 0 65.2 59.73 A27 27 0 0 1 47.23 8.82 Z" fill="#E0A73A"/>
+        <path d="M47.23 8.82 A32 32 0 1 0 65.2 59.73 A27 27 0 0 1 47.23 8.82 Z" fill="#E0A85C"/>
       </svg>
       <b>Aqyl<span>AI</span></b>
     </a>
@@ -142,7 +142,7 @@ a:focus-visible,.brand:focus-visible{outline:2px solid var(--blue);outline-offse
 </div>
 
 <svg class="oyu" viewBox="0 0 1200 22" preserveAspectRatio="none" aria-hidden="true">
-  <g fill="none" stroke="#E0A73A" stroke-width="1.4" stroke-linecap="round">
+  <g fill="none" stroke="#E0A85C" stroke-width="1.4" stroke-linecap="round">
     <g transform="translate(600,11)">
       <path d="M0,8 C-14,8 -24,0 -24,-8 C-24,-14 -18,-16 -14,-13 C-11,-11 -11,-6 -15,-6"/>
       <path d="M0,8 C14,8 24,0 24,-8 C24,-14 18,-16 14,-13 C11,-11 11,-6 15,-6"/>
