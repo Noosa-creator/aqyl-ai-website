@@ -85,7 +85,13 @@ async function handleRequest(req) {
         { role: 'system', content: systemPrompt(lang) },
         { role: 'user', content: question }
       ],
-      { maxTokens: 250, temp: 0.1, fnTag: 'query' }
+      // 250 was too tight in production: real Gemini/Groq responses for some questions
+      // were hitting finish_reason:'length' and getting thrown away as "truncated" before
+      // ever reaching the SQL engine (see api/_lib/llm.js's truncation logging) -- this
+      // was the actual cause of a live "Customers who ordered twice" failure, unrelated
+      // to the engine's SQL support. 600 mirrors the headroom api/chat.js already uses
+      // for ordinary turns, for the same invisible-reasoning-tokens reason noted there.
+      { maxTokens: 600, temp: 0.1, fnTag: 'query' }
     );
   } catch (e) {
     console.error('[query] llm() failed:', String(e?.message || e));

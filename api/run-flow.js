@@ -92,7 +92,11 @@ async function handleRequest(req) {
         { role: 'system', content: aiSystemPrompt(lang) },
         { role: 'user', content: transformed.normalized_text }
       ],
-      { maxTokens: 200, temp: 0.4, jsonMode: true, fnTag: 'run-flow' }
+      // Bumped from 200: api/query.js hit real production truncation failures at a
+      // similarly tight budget (see its comment + api/_lib/llm.js's truncation logging).
+      // This call degrades to a canned fallback reply on failure rather than erroring
+      // outright, so it was lower-severity, but the same risk applied here too.
+      { maxTokens: 350, temp: 0.4, jsonMode: true, fnTag: 'run-flow' }
     );
     const match = raw.match(/\{[\s\S]*\}/);
     aiOut = match ? JSON.parse(match[0]) : null;

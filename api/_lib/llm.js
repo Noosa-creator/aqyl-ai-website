@@ -38,8 +38,21 @@ async function callModel(provider, url, apiKey, model, messages, { maxTokens = 4
   const data = await res.json();
   const choice = data?.choices?.[0];
   const text = choice?.message?.content?.trim();
-  if (!text) throw new Error(`${provider}_empty`);
-  if (choice?.finish_reason === 'length') throw new Error(`${provider}_truncated`);
+  if (!text) {
+    // Log enough of the raw response to diagnose *why* it was empty (content filter,
+    // unexpected shape, etc.) without ever logging the request (which may contain
+    // user-typed input) or the API key.
+    console.error(`[llm] ${provider}_empty — finish_reason=${choice?.finish_reason}, raw choice: ${JSON.stringify(choice).slice(0, 400)}`);
+    throw new Error(`${provider}_empty`);
+  }
+  if (choice?.finish_reason === 'length') {
+    // Log what was actually generated before the token budget ran out — this is the
+    // one piece of evidence that tells us whether maxTokens is genuinely too small for
+    // this call site, or the model is burning its budget on something else entirely
+    // (e.g. invisible reasoning tokens ahead of the visible content — see api/chat.js).
+    console.error(`[llm] ${provider}_truncated — maxTokens=${maxTokens}, partial output (${text.length} chars): ${text.slice(0, 500)}`);
+    throw new Error(`${provider}_truncated`);
+  }
   return text;
 }
 
