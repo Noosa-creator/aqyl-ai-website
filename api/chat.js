@@ -5,6 +5,16 @@
 
 export const config = { runtime: 'edge' };
 
+import { rateLimited, clientIp } from './_lib/ratelimit.js';
+
+// Chat has no per-request rate limit today -- unlike api/query.js and
+// api/run-flow.js, which were built with one from the start. A visitor having
+// a real back-and-forth conversation (init + several turns) can easily hit
+// 10-15 calls/minute legitimately, so this is set higher than the one-shot
+// SQL/flow demos rather than reusing their threshold.
+const RATE_LIMIT = 20; // requests
+const RATE_WINDOW_MS = 60_000; // per minute, per IP, per warm instance -- see _lib/ratelimit.js
+
 const ALLOWED = [
   'https://aqyl-ai.kz',
   'https://www.aqyl-ai.kz',
@@ -430,6 +440,10 @@ async function handleRequest(req) {
 
   if (origin && !ALLOWED.includes(origin) && !origin.endsWith('.vercel.app')) {
     return json({ error: 'forbidden' }, 403, headers);
+  }
+
+  if (rateLimited(`chat:${clientIp(req)}`, RATE_LIMIT, RATE_WINDOW_MS)) {
+    return json({ error: 'rate_limited' }, 429, headers);
   }
 
   let body;
