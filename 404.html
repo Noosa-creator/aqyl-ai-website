@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page not found — Anas Tolebay</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='18' fill='%2312161C'/%3E%3Cpath d='M47.23 8.82 A32 32 0 1 0 65.2 59.73 A27 27 0 0 1 47.23 8.82 Z' fill='%23E0A85C'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap&subset=cyrillic,cyrillic-ext,latin" rel="stylesheet">
+<style>
+:root{
+  --bg:#161A24; --bg2:#1C2130; --surface:#232838;
+  --ink:#E8EAF0; --soft:#9BA0B2; --faint:#888EA4;
+  --amber:#E0A85C; --amber-deep:#B88A4B;
+  --aqua:#6FD9C4;
+  --border:#2E3446;
+  --sans:'Space Grotesk',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:var(--sans);background:var(--bg);color:var(--ink);
+  display:flex;align-items:center;justify-content:center;padding:24px;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{text-align:center;max-width:460px}
+.logo{margin:0 auto 28px;filter:drop-shadow(0 0 26px rgba(224,168,92,.35))}
+.code{font-family:var(--mono);font-size:13px;letter-spacing:.16em;color:var(--faint);text-transform:uppercase;margin-bottom:18px}
+h1{font-size:clamp(30px,6vw,44px);font-weight:700;letter-spacing:-.03em;line-height:1.15;margin-bottom:14px;text-wrap:balance}
+p{font-size:16px;color:var(--soft);line-height:1.65;margin-bottom:8px}
+p.ru{font-size:14px;color:var(--faint);margin-bottom:32px}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--sans);font-weight:600;
+  font-size:15px;padding:13px 24px;border-radius:8px;text-decoration:none;cursor:pointer;border:1px solid transparent;transition:.2s;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn-primary{background:var(--amber);color:var(--bg)}
+.btn-primary:hover{background:var(--amber-deep)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--border)}
+.btn-ghost:hover{border-color:var(--ink);background:var(--surface)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--aqua);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <svg class="logo" width="56" height="56" viewBox="0 0 80 80" aria-label="Anas Tolebay">
+    <rect width="80" height="80" rx="18" fill="#12161C"/>
+    <path d="M47.23 8.82 A32 32 0 1 0 65.2 59.73 A27 27 0 0 1 47.23 8.82 Z" fill="#E0A85C"/>
+  </svg>
+  <div class="code">404</div>
+  <h1>This page doesn't exist.</h1>
+  <p>The link may be broken, or the page has moved.</p>
+  <p class="ru">Страница не найдена — возможно, ссылка устарела.</p>
+  <div class="btns">
+    <a class="btn btn-primary" href="/">Back to home</a>
+    <a class="btn btn-ghost" href="/#contact">Contact</a>
+  </div>
+</div>
+</body>
+</html>

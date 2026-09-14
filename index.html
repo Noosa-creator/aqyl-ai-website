@@ -49,7 +49,7 @@ section{background:var(--bg)}
 img,svg{display:block;max-width:100%}
 .wrap{max-width:1060px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
 section{padding:104px 0}
-h1,h2,h3{letter-spacing:-.02em;line-height:1.12;font-weight:700}
+h1,h2,h3{letter-spacing:-.02em;line-height:1.12;font-weight:700;text-wrap:balance}
 h1{font-size:clamp(34px,5.6vw,60px);letter-spacing:-.035em}
 h2{font-size:clamp(26px,3.6vw,40px);margin-bottom:12px}
 .tag{font-family:var(--mono);font-size:11px;color:var(--aqua);letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:12px;font-weight:500}
@@ -65,7 +65,8 @@ nav{position:fixed;inset:0 0 auto;z-index:100;display:flex;align-items:center;ju
 .langs{display:flex;gap:2px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:2px}
 .lang{border:0;background:none;font-family:var(--mono);font-size:11px;font-weight:500;color:var(--faint);
   padding:5px 9px;border-radius:6px;cursor:pointer;transition:.2s}
-.lang.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.lang.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(10,12,20,.15)}
+.lang:active{transform:scale(.94)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--sans);font-weight:600;
   font-size:15px;padding:13px 24px;border-radius:var(--r);text-decoration:none;cursor:pointer;border:1px solid transparent;transition:background .2s,border-color .2s,color .2s,transform .15s ease}
 .btn-wa{background:var(--amber);color:var(--bg)}
@@ -159,7 +160,7 @@ h1 em::after{content:'';position:absolute;left:0;right:0;bottom:.06em;height:.08
 /* ---- demo (chatbot widget) ---- */
 .stage{position:relative;max-width:520px;margin:0 auto}
 .demo{position:relative;z-index:3;background:var(--surface);border:1px solid var(--a30,var(--border));border-radius:10px;
-  overflow:hidden;box-shadow:0 20px 50px -20px rgba(18,22,28,.14);transition:border-color .7s ease,box-shadow .9s ease}
+  overflow:hidden;box-shadow:0 20px 50px -20px rgba(10,12,20,.35);transition:border-color .7s ease,box-shadow .9s ease}
 
 .echo{position:absolute;border:1px solid var(--accent,var(--ink));border-radius:24px;pointer-events:none;z-index:1;
   transition:border-color .8s ease;opacity:0}
@@ -183,7 +184,7 @@ h1 em::after{content:'';position:absolute;left:0;right:0;bottom:.06em;height:.08
     background:var(--code-bg);
     padding:12px 12px 22px;
     border-radius:46px;
-    box-shadow:0 30px 80px -26px rgba(0,0,0,.5);
+    box-shadow:0 30px 80px -26px rgba(10,12,20,.6);
     max-width:380px;margin:0 auto;
   }
   .phone-notch{
@@ -227,10 +228,11 @@ h1 em::after{content:'';position:absolute;left:0;right:0;bottom:.06em;height:.08
 .chip{background:var(--bg);border:1px solid var(--border);color:var(--ink);font-family:var(--sans);font-size:12.5px;
   padding:6px 12px;border-radius:100px;cursor:pointer;transition:.18s}
 .chip:hover{border-color:var(--accent,var(--aqua));color:var(--accent,var(--aqua));background:var(--a12,var(--aqua-tint))}
+.chip:active{transform:scale(.95)}
 .row{display:flex;gap:8px}
 .inp{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:10px 13px;font-size:14px;
   color:var(--ink);font-family:var(--sans);outline:none;transition:.18s;min-width:0}
-.inp:focus{border-color:var(--accent,var(--aqua));background:var(--surface)}
+.inp:focus-visible{border-color:var(--accent,var(--aqua));background:var(--surface)}
 .send{width:42px;height:42px;flex:none;border-radius:9px;border:0;cursor:pointer;background:var(--accent,var(--ink));color:var(--onacc,#fff);transition:background .6s ease;
   font-size:15px;display:flex;align-items:center;justify-content:center;transition:.18s}
 .send:hover{opacity:.85}.send:disabled{opacity:.35;cursor:not-allowed}
@@ -238,9 +240,11 @@ h1 em::after{content:'';position:absolute;left:0;right:0;bottom:.06em;height:.08
 .d-in[hidden]{display:none}
 .upsell{padding:0 18px 16px}
 .upsell[hidden]{display:none}
-.upsell button{width:100%;background:var(--a12,var(--amber-tint));border:1px dashed var(--accent,var(--amber));color:var(--ink);font-weight:600;
+.upsell button{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--a12,var(--amber-tint));border:1px dashed var(--accent,var(--amber));color:var(--ink);font-weight:600;
   font-size:13.5px;padding:11px;border-radius:9px;cursor:pointer;font-family:var(--sans);transition:.18s}
 .upsell button:hover{background:var(--accent,var(--amber));color:var(--onacc,#fff);border-style:solid}
+.btn-ico{display:block;flex:none;width:15px;height:15px}
+.btn-ico svg{width:100%;height:100%;display:block}
 
 /* own-data panel */
 .own{padding:18px;border-top:1px solid var(--a30,var(--border));background:var(--a06,var(--bg2));transition:background .8s ease}
@@ -289,7 +293,10 @@ h1 em::after{content:'';position:absolute;left:0;right:0;bottom:.06em;height:.08
   transition:border-color .45s cubic-bezier(.16,.8,.3,1),background .45s cubic-bezier(.16,.8,.3,1);position:relative}
 .fnode .fn-dot{position:absolute;top:8px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--border);
   transition:background .45s cubic-bezier(.16,.8,.3,1),box-shadow .45s cubic-bezier(.16,.8,.3,1)}
-.fnode .fn-ico{font-size:20px}
+.fnode .fn-ico{color:var(--soft);transition:color .3s ease}
+.fnode .fn-ico svg{width:20px;height:20px;display:block}
+.fnode.active .fn-ico{color:var(--amber)}
+.fnode.done .fn-ico{color:var(--online)}
 .fnode .fn-label{font-family:var(--mono);font-size:11.5px;font-weight:500;color:var(--soft);text-align:center}
 .fnode.active{border-color:var(--amber);background:var(--amber-tint)}
 .fnode.active .fn-dot{background:var(--amber);box-shadow:0 0 0 4px rgba(224,168,92,.18)}
@@ -305,15 +312,31 @@ h1 em::after{content:'';position:absolute;left:0;right:0;bottom:.06em;height:.08
 .fd-row .k{color:var(--faint);min-width:110px;font-family:var(--mono);font-size:12px}
 .fd-row .v{color:var(--ink)}
 
-/* ---- capabilities ---- */
-.cap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-.cap-card{background:var(--surface);border:1px solid var(--amber-line);border-radius:10px;padding:24px;transition:.22s}
-.cap-card:hover{border-color:var(--amber);transform:translateY(-3px);box-shadow:0 0 0 1px var(--amber-tint),0 16px 34px -16px rgba(0,0,0,.5)}
-.cap-ico{font-size:22px;margin-bottom:12px}
+/* ---- capabilities ----
+   Deliberately asymmetric: the first card leads at 2x2 so this doesn't read as
+   a stamped-out grid of five identical tiles. */
+.cap-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:1fr;gap:16px}
+.cap-card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--amber-line);border-radius:10px;padding:24px;transition:.22s}
+.cap-card:hover,.cap-card:focus-within{border-color:var(--amber);transform:translateY(-3px);box-shadow:0 0 0 1px var(--amber-tint),0 16px 34px -16px rgba(10,12,20,.55)}
+.cap-card:first-child{grid-column:span 2;grid-row:span 2;justify-content:center}
+.cap-card:first-child .cap-ico svg{width:30px;height:30px}
+.cap-card:first-child h3{font-size:20px}
+.cap-card:first-child p{font-size:14.5px;max-width:36ch}
+.cap-ico{color:var(--amber);margin-bottom:12px}
+.cap-ico svg{width:24px;height:24px;display:block}
 .cap-card h3{font-size:16px;margin-bottom:8px}
 .cap-card p{font-size:13.5px;color:var(--soft);line-height:1.6;margin-bottom:14px}
 .cap-tools{font-family:var(--mono);font-size:11.5px;color:var(--aqua-deep);background:var(--aqua-tint);
-  padding:6px 10px;border-radius:8px;display:inline-block;line-height:1.5}
+  padding:6px 10px;border-radius:8px;display:inline-block;line-height:1.5;
+  align-self:flex-start;margin-top:auto}
+@media(max-width:900px){
+  .cap-grid{grid-template-columns:repeat(2,1fr)}
+  .cap-card:first-child{grid-column:span 2;grid-row:span 1}
+}
+@media(max-width:560px){
+  .cap-grid{grid-template-columns:1fr}
+  .cap-card:first-child{grid-column:span 1;grid-row:span 1}
+}
 
 /* ---- about ---- */
 #about{background:var(--bg2)}
@@ -345,6 +368,12 @@ footer a:hover{text-decoration:underline}
 .rv{opacity:0;transform:translateY(18px);transition:opacity .5s cubic-bezier(.16,.8,.3,1),transform .5s cubic-bezier(.16,.8,.3,1)}
 .rv.in{opacity:1;transform:none}
 
+/* ---- skip-to-content link (first focusable element, hidden until focused) ---- */
+.skip-link{position:absolute;left:-9999px;top:0;z-index:1000;background:var(--amber);color:var(--bg);
+  padding:10px 18px;border-radius:8px;font-family:var(--sans);font-weight:600;font-size:14px;text-decoration:none}
+.skip-link:focus-visible{left:16px;top:16px}
+main:focus-visible{outline:none}
+
 /* ---- focus states: aqua rings everywhere interactive ---- */
 .btn:focus-visible,.inp:focus-visible,.chip:focus-visible,.lang:focus-visible,
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
@@ -374,6 +403,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to content</a>
 <div id="reveal"></div>
 
 <div id="langGate">
@@ -410,6 +440,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   </div>
 </nav>
 
+<main id="main" tabindex="-1">
 <section id="hero">
   <canvas id="heroCanvas" aria-hidden="true"></canvas>
   <div class="hero-scrim" aria-hidden="true"></div>
@@ -495,7 +526,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
           </div>
 
           <div class="upsell" id="dUp" hidden>
-            <button id="dOwnBtn" data-i="demo.own">⚙ Want to see the bot with YOUR data?</button>
+            <button id="dOwnBtn"><span class="btn-ico" id="dOwnIco" aria-hidden="true"></span><span data-i="demo.own">Want to see the bot with YOUR data?</span></button>
           </div>
 
           <div class="own" id="dOwn" hidden>
@@ -633,6 +664,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   </div>
 </section>
 
+</main>
+
 <footer>
   <span data-i="ft.loc">Almaty, Kazakhstan</span> ·
   <a href="mailto:anastolebay7@gmail.com">anastolebay7@gmail.com</a> ·
@@ -664,7 +697,7 @@ en:{
  'demo.fake':'Example data, invented for the demo. Your bot will know your real services and prices.',
  'demo.real':'Your data. This is how the bot will talk to your customers.',
  'demo.ask':'What kind of business do you run?','demo.ph':'…or type your own','demo.ph2':'Type a message…',
- 'demo.own':'⚙ Want to see the bot with YOUR data?',
+ 'demo.own':'Want to see the bot with YOUR data?',
  'demo.building':'building your bot…','demo.err':"That didn't work. Try again.",
  'own.h':'Your bot, your data','own.sub':'40 seconds. Nothing is sent anywhere — it stays in your browser.',
  'own.name':'Business name','own.hours':'Opening hours','own.svc':'Services and prices — one per line',
@@ -721,7 +754,7 @@ ru:{
  'demo.fake':'Данные вымышленные — для примера. Ваш бот будет знать ваши реальные услуги и цены.',
  'demo.real':'Ваши данные. Так бот будет говорить с вашими клиентами.',
  'demo.ask':'Какой у вас бизнес?','demo.ph':'…или впишите свой','demo.ph2':'Напишите сообщение…',
- 'demo.own':'⚙ Хотите увидеть бота со СВОИМИ данными?',
+ 'demo.own':'Хотите увидеть бота со СВОИМИ данными?',
  'demo.building':'собираю бота…','demo.err':'Не получилось. Попробуйте ещё раз.',
  'own.h':'Ваш бот, ваши данные','own.sub':'40 секунд. Ничего не отправляется — всё остаётся в вашем браузере.',
  'own.name':'Название бизнеса','own.hours':'Часы работы','own.svc':'Услуги и цены — по одной в строке',
@@ -773,7 +806,27 @@ const CHIPS = {
 };
 
 const CAPS_KEYS = [1,2,3,4,5];
-const CAP_ICONS = { 1:'💬', 2:'⚙', 3:'🔄', 4:'✦', 5:'🔌' };
+
+/* ============ icon set — inline SVG, one consistent stroke, no icon library ============ */
+const ICON_ATTRS = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"';
+const ICONS = {
+  chat:  `<svg ${ICON_ATTRS}><rect x="3" y="4" width="18" height="13" rx="3"/><path d="M8 17v4l5-4"/></svg>`,
+  gear:  `<svg ${ICON_ATTRS}><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>`,
+  sync:  `<svg ${ICON_ATTRS}><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>`,
+  spark: `<svg ${ICON_ATTRS}><path d="M12 3l1.8 6.2L20 11l-6.2 1.8L12 19l-1.8-6.2L4 11l6.2-1.8L12 3Z"/></svg>`,
+  plug:  `<svg ${ICON_ATTRS}><path d="M9 2v4M15 2v4M7 8h10l-1 5a4 4 0 0 1-4 3h0a4 4 0 0 1-4-3L7 8Z"/><path d="M12 16v4M9 22h6"/></svg>`,
+  bolt:  `<svg ${ICON_ATTRS}><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg>`,
+  bell:  `<svg ${ICON_ATTRS}><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>`
+};
+const CAP_ICONS = { 1: ICONS.chat, 2: ICONS.gear, 3: ICONS.sync, 4: ICONS.spark, 5: ICONS.plug };
+const FLOW_NODE_ICONS = { webhook: 'bolt', transform: 'gear', ai: 'spark', notify: 'bell' };
+document.querySelectorAll('.fnode').forEach(node => {
+  const ico = node.querySelector('.fn-ico');
+  const name = FLOW_NODE_ICONS[node.dataset.key];
+  if (ico && name) ico.innerHTML = ICONS[name];
+});
+const dOwnIco = document.getElementById('dOwnIco');
+if (dOwnIco) dOwnIco.innerHTML = ICONS.gear;
 
 let lang = 'en';
 const t = k => (T[lang][k] ?? T.ru[k] ?? T.en[k] ?? '');
